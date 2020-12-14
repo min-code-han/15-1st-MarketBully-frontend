@@ -1,0 +1,10 @@
+@import "../../Styles/common.scss";
+
+.ItemDetail {
+  display: flex;
+  justify-content: center;
+  .main-width {
+    margin-top: 100px;
+    width: $main-width;
+  }
+}

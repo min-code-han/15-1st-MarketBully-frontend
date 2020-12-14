@@ -1,0 +1,24 @@
+@import "../../../Styles/common.scss";
+
+.InfoAndCartPut {
+  display: flex;
+  justify-content: space-between;
+
+  height: 876px;
+  background-color: white;
+
+  .item-image {
+    width: 430px;
+    margin-right: 60px;
+
+    img {
+      width: 100%;
+      height: 552px;
+      object-fit: cover;
+    }
+  }
+  .item-detail {
+    width: 560px;
+    background-color: gold;
+  }
+}

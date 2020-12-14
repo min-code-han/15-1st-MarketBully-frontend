@@ -18,22 +18,20 @@ class Routes extends Component {
   }
   render() {
     return (
-      <>
+      <Router>
         <Header />
         <AsideMenu />
-        <Router>
-          <Switch>
-            <Route exact path="" component={Home}></Route>
-            <Route exact path="" component={Signup}></Route>
-            <Route exact path="" component={Login}></Route>
-            <Route exact path="" component={ItemList}></Route>
-            <Route exact path="" component={ItemDetail}></Route>
-            <Route exact path="" component={ItemCart}></Route>
-            <Route exact path="" component={Payment}></Route>
-          </Switch>
-        </Router>
+        <Switch>
+          <Route exact path="/Home" component={Home}></Route>
+          <Route exact path="/Signup" component={Signup}></Route>
+          <Route exact path="/Login" component={Login}></Route>
+          <Route exact path="/ItemList" component={ItemList}></Route>
+          <Route exact path="/ItemDetail" component={ItemDetail}></Route>
+          <Route exact path="/ItemCart" component={ItemCart}></Route>
+          <Route exact path="/Payment" component={Payment}></Route>
+        </Switch>
         <Footer />
-      </>
+      </Router>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ItemCard from "../ItemCard/ItemCard";
 
 class Header extends Component {
   constructor(props) {
@@ -6,7 +7,11 @@ class Header extends Component {
     this.state = {};
   }
   render() {
-    return <></>;
+    return (
+      <>
+        <ItemCard />
+      </>
+    );
   }
 }
 

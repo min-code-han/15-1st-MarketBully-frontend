@@ -1,6 +1,107 @@
+@import "../../../Styles/common.scss";
+
 .DetailInfo {
   display: flex;
-  justify-content: space-between;
-  height: 876px;
-  background-color: yellow;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
+
+  table {
+    width: 100%;
+    margin-bottom: 30px;
+    text-align: left;
+    th {
+      padding: 6px 6px;
+      background-color: $light-gray;
+    }
+    td {
+      padding: 6px 6px;
+    }
+  }
+  h1 {
+    font-size: 28px;
+    color: $dark-gray;
+    font-weight: 600;
+  }
+  hr {
+    width: 100%;
+    height: 1px;
+    margin: 28px;
+  }
+  .why-bully {
+    width: 100%;
+    padding-bottom: 30px;
+    border-bottom: 1px solid $dark-gray;
+    h1 {
+      text-align: center;
+    }
+  }
+  .custumer-center-guide {
+    margin-top: 30px;
+    color: $dark-gray;
+    h2 {
+      display: block;
+      margin: 30px 0 10px 0;
+    }
+    h3 {
+      font-weight: 200;
+    }
+    .contact {
+      display: flex;
+      justify-content: space-between;
+      margin: 40px 0 80px;
+      .call,
+      .kakaotalk,
+      .homepage {
+        width: $main-width/3;
+        height: 100px;
+        padding-right: 120px;
+        h3 {
+          position: relative;
+          display: block;
+          margin-bottom: 18px;
+          color: $purple-text-color;
+          font-size: 18px;
+          font-weight: 600;
+        }
+        p {
+          font-size: 17px;
+          font-weight: 400;
+          &.small {
+            margin-top: 14px;
+            font-weight: 200;
+          }
+        }
+      }
+    }
+    .cancel-order-guide,
+    .refund-guide {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid $light-gray;
+      h3 {
+        margin: 20px;
+        font-weight: 600;
+      }
+      div {
+        width: 800px;
+        p {
+          margin: 20px;
+          span {
+            display: inline-block;
+            padding-right: 10px;
+            font-weight: 600;
+          }
+        }
+      }
+      button {
+        border: none;
+        background-color: transparent;
+        color: $purple-text-color;
+        font-weight: 600;
+        font-size: 16px;
+        outline: none;
+      }
+    }
+  }
 }

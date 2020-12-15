@@ -12,7 +12,6 @@ class ItemCard extends Component {
       <>
         <div className="ItemCard">
           <img src={imgUrl} alt="삼겹살 먹고 싶띠" />
-
           <div className="header">{name}</div>
           <div className="price">{price}</div>
         </div>

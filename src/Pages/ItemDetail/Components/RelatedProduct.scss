@@ -2,8 +2,33 @@
 
 .RelatedProduct {
   display: flex;
-  justify-content: space-between;
-
+  flex-direction: column;
+  justify-content: flex-start;
   height: 876px;
-  background-color: greenyellow;
+  .design-block {
+    height: 5px;
+    width: 20px;
+    background-color: black;
+  }
+  h1 {
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .related-items {
+    display: flex;
+    overflow: auto;
+    margin: 0 30px;
+    .card {
+      min-width: 178px;
+      height: 320px;
+      margin-right: 10px;
+      border: 1px solid $theme-color;
+      img {
+        width: 178px;
+        height: 230px;
+        object-fit: cover;
+      }
+    }
+  }
 }

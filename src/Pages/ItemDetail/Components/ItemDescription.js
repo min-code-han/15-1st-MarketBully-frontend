@@ -10,7 +10,7 @@ class ItemDescription extends Component {
   render() {
     return (
       <div className="ItemDescription">
-        <ItemDetailMenu />
+        <ItemDetailMenu menuTabId={1} />
       </div>
     );
   }

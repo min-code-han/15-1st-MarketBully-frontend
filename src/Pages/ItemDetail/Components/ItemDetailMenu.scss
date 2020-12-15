@@ -1,5 +1,25 @@
+@import "../../../Styles/common.scss";
 .ItemDetailMenu {
+  display: flex;
+  width: 100%;
+  height: 46px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid $dark-gray;
   li {
-    display: inline;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 168px;
+    height: 46px;
+    border: 1px solid $dark-gray;
+    border-right: none;
+    background-color: $light-gray;
+    &:last-child {
+      border-right: 1px solid $dark-gray;
+    }
+    &.select {
+      background-color: white;
+      border-bottom: 1px solid white;
+    }
   }
 }

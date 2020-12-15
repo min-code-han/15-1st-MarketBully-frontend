@@ -4,8 +4,7 @@ import RelatedProduct from "./Components/RelatedProduct";
 import ItemDescription from "./Components/ItemDescription";
 import ItemImage from "./Components/ItemImage";
 import DetailInfo from "./Components/DetailInfo";
-import CustomerReview from "./Components/CustomerReview";
-import ItemInquire from "./Components/ItemInquire";
+import Board from "../../Components/Board/Board";
 import "./ItemDetail.scss";
 
 class ItemDetail extends Component {
@@ -22,8 +21,8 @@ class ItemDetail extends Component {
           <ItemDescription />
           <ItemImage />
           <DetailInfo />
-          <CustomerReview />
-          <ItemInquire />
+          <Board menuTabId={4} />
+          <Board menuTabId={5} />
         </div>
       </div>
     );

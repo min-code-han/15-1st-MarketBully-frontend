@@ -10,7 +10,7 @@ class CustomerReview extends Component {
   render() {
     return (
       <div className="CustomerReview">
-        <ItemDetailMenu />
+        <ItemDetailMenu menuTabId={4} />
       </div>
     );
   }

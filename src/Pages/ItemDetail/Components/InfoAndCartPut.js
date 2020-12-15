@@ -32,7 +32,9 @@ class InfoAndCartPut extends Component {
           <div className="item-info">
             <div className="item-name">
               <h1>무농약 토마토</h1>
-              <span>공유버튼</span>
+              <span>
+                <i className="fas fa-share-alt" />
+              </span>
             </div>
             <h3>친환경으로 재배한 무농약 토마토</h3>
             <div className="price">

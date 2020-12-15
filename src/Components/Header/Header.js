@@ -7,11 +7,7 @@ class Header extends Component {
     this.state = {};
   }
   render() {
-    return (
-      <>
-        <ItemCard />
-      </>
-    );
+    return <></>;
   }
 }
 

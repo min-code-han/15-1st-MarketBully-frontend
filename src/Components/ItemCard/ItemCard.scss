@@ -1,12 +1,10 @@
 @import "../../Styles/common.scss";
-// font-family : noto sans , font-size  적용함
 
 .ItemCard {
   width: 306px;
   height: 561px;
   //   border: 1px solid black;
-
-  a:link {
+  a: link {
     text-decoration: none;
   }
   a:visited {

@@ -1,11 +1,20 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./ItemList.scss";
 
 class ItemList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      optionBoxOnAndOff: false,
+    };
   }
+
+  showOptionBox = e => {
+    this.setState({
+      optionBoxOnAndOff: !this.state.optionBoxOnAndOff,
+    });
+  };
 
   render() {
     return (
@@ -18,32 +27,53 @@ class ItemList extends Component {
             <span className="category">정육 · 계란</span>
           </div>
           <div className="filteringHeader">
-            <ul>
-              <a href="">
-                <li>전체보기 </li>
-              </a>
-              <a href="">
-                <li>소고기 </li>
-              </a>
-              <a href="">
-                <li>돼지·고기 </li>
-              </a>
-              <a href="">
-                <li>계란류 </li>
-              </a>
-              <a href="">
-                <li>닭·오리고기 </li>
-              </a>
-              <a href="">
-                <li>양념육·돈까스 </li>
-              </a>
-              <a href="">
-                <li>양고기 </li>
-              </a>
+            <ul className="typeOfCategories">
+              <li>
+                <Link className="meat" to="#">
+                  전체보기
+                </Link>
+              </li>
+              <li>
+                <Link className="meat" to="#">
+                  소고기
+                </Link>
+              </li>
+              <li>
+                <Link className="meat" to="#">
+                  돼지·고기{" "}
+                </Link>
+              </li>
+              <li>
+                <Link className="meat" to="#">
+                  계란류{" "}
+                </Link>
+              </li>
+              <li>
+                <Link className="meat" to="#">
+                  닭·오리고기
+                </Link>
+              </li>
+              <li>
+                <Link className="meat" to="#">
+                  양념육·돈까스
+                </Link>
+              </li>
+              <li>
+                <Link className="meat" to="#">
+                  양고기{" "}
+                </Link>
+              </li>
             </ul>
-            <div className="selectOptions">
-              <span className="option">추천 순</span>
+            <div className="selectOptions" onClick={this.showOptionBox}>
+              <span className={this.state.optionBoxOnAndOff ? "selectedOption" : ""}>추천 순</span>
               <i class="fas fa-chevron-down" />
+              <ul className={this.state.optionBoxOnAndOff ? "optionList" : "optionListNone"}>
+                <li className="option">추천순</li>
+                <li className="option">신상품순</li>
+                <li className="option">인기상품순</li>
+                <li className="option">낮은 가격순</li>
+                <li className="option">높은 가격순</li>
+              </ul>
             </div>
           </div>
         </header>

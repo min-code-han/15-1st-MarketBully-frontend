@@ -1,12 +1,10 @@
 @import "../../Styles/common.scss";
-@import "../../Styles/reset.scss";
 
 * {
   font-family: noto sans;
 }
 
 .ItemList {
-  //   border: 1px solid black;
   width: $main-width;
   margin: 0 auto;
 
@@ -34,7 +32,7 @@
       display: flex;
       justify-content: space-between;
 
-      ul {
+      .typeOfCategories {
         list-style: none;
         margin: 0;
         padding: 0;
@@ -46,9 +44,19 @@
           line-height: 20px;
           font-size: 12px;
           font-weight: 600;
-          color: #333333;
           border-bottom: 1px solid #ddd;
+
+          .meat {
+            color: #333333;
+          }
+          .meat:link {
+            text-decoration: none;
+          }
+          .meat:active {
+            color: $theme-color;
+          }
         }
+
         li:hover {
           color: $theme-color;
           border-bottom: 1px solid $theme-color;
@@ -56,13 +64,38 @@
       }
 
       .selectOptions {
+        position: relative;
         margin-right: 30px;
-        .option {
-          font-size: 12px;
+        font-size: 12px;
+
+        .selectedOption {
+          color: purple;
         }
-        .fa-chevron-down:before {
-          content: "\f078";
-          size: 12px;
+
+        .optionList {
+          position: absolute;
+          top: 28px;
+          left: -28px;
+          display: flex;
+          flex-direction: column;
+          z-index: 30000000;
+          text-align: right;
+
+          .option {
+            width: 98px;
+            height: 44px;
+            padding: 13px 18px 11px 0;
+            font-size: 12px;
+            font-weight: 700;
+            background-color: #ffffff;
+
+            &:hover {
+              color: $theme-color;
+            }
+          }
+        }
+        .optionListNone {
+          display: none;
         }
       }
     }
@@ -71,7 +104,7 @@
   .cardContainer {
     .card {
       display: inline-block;
-      width: 349px;
+      width: 336px;
       height: 611px;
       padding: 25px 28px 0 0;
       img {

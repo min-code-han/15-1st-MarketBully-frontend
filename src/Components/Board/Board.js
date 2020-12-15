@@ -2,19 +2,25 @@ import React, { Component } from "react";
 import ItemDetailMenu from "../../Pages/ItemDetail/Components/ItemDetailMenu";
 import "./Board.scss";
 
+const BOARD_TITLE = {
+  4: "PRODUCT REVIEW",
+  5: "PRODUCT Q&A",
+};
+const boardContent = [1, 2, 3, 4, 5, 6, 7, 8];
+const paging = ["<", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ">"];
 class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
   render() {
-    const boardContent = [1, 2, 3, 4, 5, 6, 7, 8];
-    const paging = ["<", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ">"];
+    const { menuTabId } = this.props;
+    console.log(menuTabId);
     return (
       <div className="Board">
-        <ItemDetailMenu menuTabId={this.props.menuTabId} />
+        <ItemDetailMenu menuTabId={menuTabId} />
         <div className="menu-header">
-          <h1>PRODUCT Q&A</h1>
+          <h1>{BOARD_TITLE[menuTabId]}</h1>
         </div>
         <table className="board-table">
           <thead>

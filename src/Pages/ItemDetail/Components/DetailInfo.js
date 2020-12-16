@@ -12,34 +12,40 @@ class DetailInfo extends Component {
       <div className="DetailInfo">
         <table>
           <tr>
-            <th>항목1</th>
-            <td>내용1</td>
-            <th>항목2</th>
-            <td>내용2</td>
+            <th>식품의 유형</th>
+            <td>상세페이지 참조</td>
           </tr>
           <tr>
-            <th>항목1</th>
-            <td>내용1</td>
-            <th>항목2</th>
-            <td>내용2</td>
+            <th>영양성분(식품위생법에 따른 표시대상에 한함)</th>
+            <td>해당없음</td>
           </tr>
           <tr>
-            <th>항목1</th>
-            <td>내용1</td>
-            <th>항목2</th>
-            <td>내용2</td>
+            <th>생산자 및 소재지</th>
+            <td>상세페이지 참조</td>
           </tr>
           <tr>
-            <th>항목1</th>
-            <td>내용1</td>
-            <th>항목2</th>
-            <td>내용2</td>
+            <th>유전자변형식품에 해당하는 경우의 표시</th>
+            <td>해당없음</td>
           </tr>
           <tr>
-            <th>항목1</th>
-            <td>내용1</td>
-            <th>항목2</th>
-            <td>내용2</td>
+            <th>제조연월일, 유통기한 또는 품질유지기한</th>
+            <td>상세페이지 참조</td>
+          </tr>
+          <tr>
+            <th>포장단위별 용량(중량), 수량</th>
+            <td>상세페이지 참조</td>
+          </tr>
+          <tr>
+            <th>수입식품에 해당하는 경우 "식품위생법에 따른 수입신고를 필함"의 문구</th>
+            <td>해당없음</td>
+          </tr>
+          <tr>
+            <th>원재료밍 및 함량</th>
+            <td>상세페이지 참조</td>
+          </tr>
+          <tr>
+            <th>소비자상담 관련 전화번호</th>
+            <td>마켓컬리 고객행복센터(1644-1107)</td>
           </tr>
         </table>
         <div className="why-bully">

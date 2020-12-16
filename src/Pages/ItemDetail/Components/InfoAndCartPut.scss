@@ -47,14 +47,31 @@
         color: $dark-gray;
       }
       .price {
-        font-size: 28px;
-        font-weight: 600;
-        .unit {
-          display: inline-block;
-          position: absolute;
-          padding: 6px 0 0 2px;
-          font-size: 18px;
-          font-weight: 400;
+        .on-login {
+          font-size: 14px;
+        }
+        .real-price {
+          margin: 6px 0 8px;
+          font-size: 28px;
+          font-weight: 600;
+          .unit {
+            display: inline-block;
+            position: absolute;
+            padding: 6px 0 0 2px;
+            font-size: 18px;
+            font-weight: 400;
+          }
+          .sale-percentage {
+            margin-left: 30px;
+            color: $yellow-color;
+          }
+        }
+        .nosale-price {
+          color: $light-gray;
+          .price {
+            text-decoration: line-through;
+            margin-right: 4px;
+          }
         }
       }
       .point-guide {

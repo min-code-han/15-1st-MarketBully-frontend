@@ -22,16 +22,10 @@ const MENU_NAME = ["ItemDescription", "ItemImage", "DetailInfo", "CustomerReview
 class ItemDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      refPosition: 1,
-    };
+    this.state = {};
   }
 
   changePosition = id => {
-    console.log(id);
-    this.setState({ refPosition: id });
-    console.log(MENU_NAME[id - 1]);
-
     scroller.scrollTo(MENU_NAME[id - 1], {
       duration: 500,
       smooth: true,

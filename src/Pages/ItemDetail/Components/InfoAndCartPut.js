@@ -75,8 +75,16 @@ class InfoAndCartPut extends Component {
             </div>
             <h3>{itemData.shortDescription}</h3>
             <div className="price">
-              <span>{itemData.price}</span>
-              <div className="unit">원</div>
+              <span className="on-login">회원할인가</span>
+              <div class="real-price">
+                <span>{itemData.price}</span>
+                <div className="unit">원</div>
+                <span className="sale-percentage">15%</span>
+              </div>
+              <span className="nosale-price">
+                <span className="price">8800원</span>
+                <i class="far fa-question-circle"></i>
+              </span>
             </div>
             <div className="point-guide">
               <span className="member-class">일반 0.5%</span>

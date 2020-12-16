@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./ItemList.scss";
+import ItemListModal from "./ItemListModal";
 
 class ItemList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       optionBoxOnAndOff: false,
+      isModalBoxOn: false,
     };
   }
 
@@ -16,9 +18,20 @@ class ItemList extends Component {
     });
   };
 
+  showModalBox = e => {
+    console.log("showModalBox activated");
+    this.setState({
+      isModalBoxOn: !this.state.isModalBoxOn,
+    });
+  };
+
   render() {
     return (
       <div className="ItemList">
+        <ItemListModal
+          isModalBoxOnOrOff={this.state.isModalBoxOn}
+          ModalBoxClose={this.showModalBox}
+        />
         <header>
           <div className="categoryHeader">
             <span className="meatIcon">
@@ -79,31 +92,45 @@ class ItemList extends Component {
         </header>
         <ul className="cardContainer">
           <li className="card">
-            <img src="/images/samsamsam.jpeg" alt="샘플사진" />
+            <div className="img-container">
+              <img src="/images/park.jpg" alt="샘플사진"></img>
+              <button className="cart" onClick={this.showModalBox}>
+                <i class="fas fa-shopping-cart "></i>
+              </button>
+            </div>
             <div className="header">[토토미] 우리쌀 닭강정</div>
             <div className="price">129,800원</div>
             <div className="description">달콤짭조름한 매력의 닭강정</div>
           </li>
           <li className="card">
-            <img src="/images/samsamsam.jpeg" alt="샘플사진" />
+            <div className="img-container">
+              <img src="/images/park.jpg" alt="샘플사진"></img>
+              <button className="cart">
+                <i class="fas fa-shopping-cart"></i>
+              </button>
+            </div>
             <div className="header">[토토미] 우리쌀 닭강정</div>
             <div className="price">129,800원</div>
             <div className="description">달콤짭조름한 매력의 닭강정</div>
           </li>
           <li className="card">
-            <img src="/images/samsamsam.jpeg" alt="샘플사진" />
+            <div className="img-container">
+              <img src="/images/park.jpg" alt="샘플사진"></img>
+              <button className="cart">
+                <i class="fas fa-shopping-cart"></i>
+              </button>
+            </div>
             <div className="header">[토토미] 우리쌀 닭강정</div>
             <div className="price">129,800원</div>
             <div className="description">달콤짭조름한 매력의 닭강정</div>
           </li>
           <li className="card">
-            <img src="/images/samsamsam.jpeg" alt="샘플사진" />
-            <div className="header">[토토미] 우리쌀 닭강정</div>
-            <div className="price">129,800원</div>
-            <div className="description">달콤짭조름한 매력의 닭강정</div>
-          </li>
-          <li className="card">
-            <img src="/images/samsamsam.jpeg" alt="샘플사진" />
+            <div className="img-container">
+              <img src="/images/park.jpg" alt="샘플사진"></img>
+              <button className="cart">
+                <i class="fas fa-shopping-cart"></i>
+              </button>
+            </div>
             <div className="header">[토토미] 우리쌀 닭강정</div>
             <div className="price">129,800원</div>
             <div className="description">달콤짭조름한 매력의 닭강정</div>

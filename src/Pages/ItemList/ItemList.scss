@@ -107,6 +107,21 @@
       width: 336px;
       height: 611px;
       padding: 25px 28px 0 0;
+
+      .img-container {
+        position: relative;
+        .cart {
+          position: absolute;
+          top: 340px;
+          right: 15px;
+          width: 45px;
+          height: 45px;
+          border: 0;
+          outline: 0;
+          border-radius: 100%;
+          background-color: rgba(124, 101, 126, 0.8);
+        }
+      }
       img {
         object-fit: cover;
         width: 100%;

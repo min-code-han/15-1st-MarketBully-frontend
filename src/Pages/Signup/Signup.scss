@@ -1,5 +1,7 @@
 @import "../../Styles/common.scss";
 
+$main-color: #5f0080;
+
 .Signup {
   width: 100%;
   margin-bottom: 300px;
@@ -13,11 +15,11 @@
     color: #ee6a7b;
   }
   button {
-    border: 1px solid $purple-text-color;
+    border: 1px solid $main-color;
     background: none;
     line-height: 44px;
     border-radius: 3px;
-    color: $purple-text-color;
+    color: $main-color;
     font-weight: 600;
   }
   .small-btn {
@@ -38,6 +40,9 @@
     padding: 0 14px;
     width: 332px;
     height: 48px;
+    i {
+      margin-right: 10px;
+    }
   }
 
   .guide {
@@ -143,7 +148,7 @@
     width: 100%;
     border-bottom: 1px solid $light-gray;
     .purple-txt {
-      color: $theme-color;
+      color: $main-color;
     }
     th {
       width: 159px;
@@ -203,12 +208,16 @@
     height: 56px;
     font-size: 16px;
     line-height: 54px;
-    background-color: #5f0080;
+    background-color: $main-color;
     color: #fff;
   }
 }
 
-.Signup-modal {
+.Signup-modal.hide {
+  display: none;
+}
+.Signup-modal.show {
+  display: block;
   position: fixed;
   left: 0;
   top: 0;
@@ -267,7 +276,8 @@
       button {
         width: 150px;
         height: 45px;
-        background-color: $purple-text-color;
+        background-color: $main-color;
+        border-radius: 5px;
         color: white;
       }
     }

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./Signup.scss";
+import { AiFillCheckCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 class Signup extends Component {
   constructor(props) {
@@ -128,7 +130,10 @@ class Signup extends Component {
                 <th>성별</th>
                 <td className="fw-400">
                   <input type="radio" id="man" name="gender" />
-                  <label htmlFor="man">남자</label>
+                  <label htmlFor="man">
+                    <AiFillCheckCircle /> <AiOutlineCheckCircle />
+                    남자
+                  </label>
                   <input type="radio" id="woman" name="gender" />
                   <label htmlFor="woman">여자</label>
                   <label htmlFor="none">
@@ -263,13 +268,13 @@ class Signup extends Component {
           <div className="modal-box">
             <div className="alert">
               <p>알림메세지</p>
-              <button>
+              <button onClick={this.handleModal}>
                 <i class="fas fa-times"></i>
               </button>
             </div>
             <p>아이디를 입력해 주세요</p>
             <div className="modal-btn">
-              <button>확인</button>
+              <button onClick={this.handleModal}>확인</button>
             </div>
           </div>
         </div>

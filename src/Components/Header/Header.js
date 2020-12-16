@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./Header.scss";
 
 class Header extends Component {
@@ -10,43 +11,42 @@ class Header extends Component {
     return (
       <>
         <div className="header">
-          {/* user__Menu */}
-          <ul className="header__menu">
-            <li className="header__signup">
-              <a>회원가입</a>
+          <ul className="headerMenu">
+            <li>
+              <Link to="/">회원가입</Link>
             </li>
-            <li className="header__login">
-              <a>로그인</a>
+            <li>
+              <Link to="/">로그인</Link>
             </li>
-            <li className="header__customer">
-              <a> 고객센터 </a>
+            <li>
+              <Link to="/"> 고객센터</Link>
             </li>
-            <li className="header__search">
-              <a>배송지역 검색</a>
+            <li>
+              <Link to="/">배송지역 검색</Link>
             </li>
           </ul>
-          {/* header__Logo */}
+
           <div className="header__logo">
             <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif"></img>
             <img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png"></img>
           </div>
-          {/* gnb  */}
+
           <div className="gnb">
-            <ul className="gnb__menu__lists">
-              <li className="gnb__menu__list">
-                <a>전체 카테고리</a>
+            <ul>
+              <li>
+                <Link to="/">전체 카테고리</Link>
               </li>
-              <li className="gnb__menu__list">
-                <a>신상품</a>
+              <li>
+                <Link to="/">신상품</Link>
               </li>
-              <li className="gnb__menu__list">
-                <a>베스트</a>
+              <li>
+                <Link to="/">베스트</Link>
               </li>
-              <li className="gnb__menu__list">
-                <a>알뜰쇼핑</a>
+              <li>
+                <Link to="/">알뜰쇼핑</Link>
               </li>
-              <li className="gnb__menu__list">
-                <a>이벤트</a>
+              <li>
+                <Link to="/">이벤트</Link>
               </li>
             </ul>
             <div className="gnb__search">

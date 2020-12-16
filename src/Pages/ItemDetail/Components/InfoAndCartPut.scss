@@ -79,7 +79,9 @@
         margin: 27px 0;
         font-size: 14px;
         li {
-          padding: 18px 0;
+          display: flex;
+          align-items: center;
+          padding: 16px 0;
           border-top: 1px solid $light-gray;
           color: $dark-gray;
           .title {
@@ -88,6 +90,8 @@
           }
           .content {
             color: black;
+            width: 100%;
+            line-height: 21px;
           }
         }
         .buy-quantity {
@@ -106,10 +110,10 @@
             border: 1px solid $light-gray;
             outline: none;
 
-            &.left-btn {
+            &.subtract {
               border-right: none;
             }
-            &.right-btn {
+            &.add {
               border-left: none;
             }
           }

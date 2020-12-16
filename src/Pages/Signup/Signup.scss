@@ -3,6 +3,11 @@
 .Signup {
   width: 100%;
   margin-bottom: 300px;
+  z-index: 0;
+
+  input {
+    margin-right: 12px;
+  }
 
   i.sub {
     color: #ee6a7b;
@@ -33,6 +38,21 @@
     padding: 0 14px;
     width: 332px;
     height: 48px;
+  }
+
+  .guide {
+    padding-top: 10px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #666;
+
+    .red {
+      color: #b3130b;
+    }
+
+    span {
+      display: block;
+    }
   }
 
   .signup-wrap {
@@ -81,21 +101,6 @@
           color: #c7bfbf;
         }
 
-        .guide {
-          padding-top: 10px;
-          font-size: 12px;
-          line-height: 15px;
-          color: #666;
-
-          .red {
-            color: #b3130b;
-          }
-
-          span {
-            display: block;
-          }
-        }
-
         .birth-input-wrap {
           width: 332px;
           height: 48px;
@@ -103,7 +108,7 @@
           border-radius: 3px;
 
           input {
-            width: 30%;
+            width: 25%;
             height: 100%;
             border: none;
             text-align: center;
@@ -125,61 +130,146 @@
         input {
           margin-right: 12px;
         }
-
-        .radio-ico {
-          position: absolute;
-          display: inline-block;
-          width: 24px;
-          height: 24px;
-          border: 1px solid #ddd;
-          background-color: #fff;
-          border-radius: 100%;
-          vertical-align: -7px;
-          margin-left: -4px;
-        }
-
-        input[type="radio"] {
-          -webkit-appearance: none;
-          appearance: none;
-        }
-
-        input[type="radio"] {
-          position: relative;
-          width: 12px;
-          height: 12px;
-          vertical-align: 3px;
-          color: white;
-        }
-
-        input[type="radio"]::before {
-          content: "";
-          width: 24px;
-          height: 24px;
-          border-radius: 100%;
-          position: absolute;
-          padding: 1px 2px;
-          right: -3px;
-          top: -3px;
-          visibility: hidden;
-          background-color: $theme-color;
-        }
-
-        input[type="radio"]:checked::before {
-          visibility: visible;
-        }
-
-        input[type="radio"]:disabled {
-          border-color: black;
-          background: #ddd;
-          color: gray;
-        }
       }
     }
     .under-line {
-      margin: 30px 0;
+      margin: 30px 0 5px 0;
       width: 100%;
       height: 1px;
       background-color: black;
+    }
+  }
+  .agree {
+    width: 100%;
+    border-bottom: 1px solid $light-gray;
+    .purple-txt {
+      color: $theme-color;
+    }
+    th {
+      width: 159px;
+      font-size: 14px;
+      text-align: left;
+    }
+    td {
+      padding: 19px 0 10px 0;
+      color: #414141;
+      font-size: 15px;
+
+      label.check-all {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .ageree-check {
+        padding: 9px 0;
+
+        .necessary {
+          color: #999;
+          margin-left: 4px;
+        }
+        .see-more {
+          float: right;
+          .see-more-ico {
+            margin-left: 10px;
+          }
+        }
+        .if-you-agree {
+          font-size: 12px;
+          line-height: 15px;
+          margin-top: 15px;
+
+          .detail {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-left: 1px solid $dark-gray;
+            border-bottom: 1px solid $dark-gray;
+            margin-right: 10px;
+          }
+        }
+        .check-news {
+          padding-top: 14px;
+        }
+      }
+      .ageree-check:last-child {
+        padding-bottom: 26px;
+      }
+    }
+  }
+  .make-account {
+    display: block;
+    margin: 0 auto;
+    margin-top: 40px;
+    width: 240px;
+    height: 56px;
+    font-size: 16px;
+    line-height: 54px;
+    background-color: #5f0080;
+    color: #fff;
+  }
+}
+
+.Signup-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  .modal-box {
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 490px;
+    height: 300px;
+    text-align: center;
+
+    button {
+      background: none;
+      border: none;
+    }
+
+    .alert {
+      margin: 0 auto;
+      width: 90%;
+      height: 20%;
+      border-bottom: 1px solid $dark-gray;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+        font-size: 16px;
+        font-weight: bold;
+        color: $purple-text-color;
+      }
+    }
+
+    .alert + p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 14px;
+      height: 50%;
+    }
+
+    .modal-btn {
+      height: 30%;
+      background-color: $light-gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      button {
+        width: 150px;
+        height: 45px;
+        background-color: $purple-text-color;
+        color: white;
+      }
     }
   }
 }

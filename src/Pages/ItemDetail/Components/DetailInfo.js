@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
-import ItemDetailMenu from "./ItemDetailMenu";
 import "./DetailInfo.scss";
 
 class DetailInfo extends Component {
@@ -11,7 +10,6 @@ class DetailInfo extends Component {
   render() {
     return (
       <div className="DetailInfo">
-        <ItemDetailMenu menuTabId={3} />
         <table>
           <tr>
             <th>항목1</th>

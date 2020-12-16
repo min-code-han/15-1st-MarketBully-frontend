@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
-import ItemDetailMenu from "./ItemDetailMenu";
 import "./ItemDescription.scss";
 
 class ItemDescription extends Component {
@@ -11,7 +10,6 @@ class ItemDescription extends Component {
   render() {
     return (
       <section className="ItemDescription">
-        <ItemDetailMenu menuTabId={1} />
         <main>
           <img src="images/tomato.jpg" alt="tomato" />
           <h2>탐스러운 붉은빛은 가진</h2>

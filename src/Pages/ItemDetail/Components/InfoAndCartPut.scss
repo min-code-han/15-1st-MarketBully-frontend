@@ -136,14 +136,7 @@
       .point-guide {
         text-align: right;
         .point {
-          display: inline-block;
-          width: 50px;
-          padding: 4px 4px;
-          background-color: #febf00;
-          border-radius: 12px;
-          color: white;
-          font-size: 14px;
-          text-align: center;
+          @extend .small-yellow-box;
         }
         .guide {
           display: inline-block;

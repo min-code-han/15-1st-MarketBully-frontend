@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ItemDetailMenu from "./ItemDetailMenu";
 import "./ItemImage.scss";
 
 class ItemImage extends Component {
@@ -10,7 +9,6 @@ class ItemImage extends Component {
   render() {
     return (
       <div className="ItemImage">
-        <ItemDetailMenu menuTabId={2} />
         <img src="images/tomato.jpg" alt="tomato" />
         <p className="simple-description">무농약 토마토(1kg/3~6개입)</p>
       </div>

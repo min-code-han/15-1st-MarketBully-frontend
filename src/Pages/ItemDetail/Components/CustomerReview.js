@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ItemDetailMenu from "./ItemDetailMenu";
+import Board from "./Board";
 import "./CustomerReview.scss";
 
 class CustomerReview extends Component {
@@ -10,7 +10,7 @@ class CustomerReview extends Component {
   render() {
     return (
       <div className="CustomerReview">
-        <ItemDetailMenu menuTabId={4} />
+        <Board name={this.props.name} />
       </div>
     );
   }

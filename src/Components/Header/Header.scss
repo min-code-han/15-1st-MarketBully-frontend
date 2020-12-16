@@ -10,17 +10,11 @@
   .headerMenu {
     display: flex;
     justify-content: flex-end;
-    padding: 15px 10px;
+    padding: 15px 3px;
     font-size: 12px;
 
     li {
-      &::after {
-        content: "";
-        float: right;
-        width: 1px;
-        height: 13px;
-        background-color: #d8d8d8;
-      }
+      border-right: 1px solid #dadada;
       &:last-child::after {
         display: none;
       }
@@ -32,10 +26,12 @@
         padding-right: 0;
       }
       &:nth-child(3) {
+        margin-right: 5px;
         position: relative;
       }
       &:nth-child(3)::before {
         position: absolute;
+        padding-right: 1px;
         font-family: "Font Awesome 5 Free";
         content: "\f0dd";
         font-weight: 700;
@@ -43,6 +39,9 @@
         top: 30%;
         transform: translate(0, -50%);
         right: 5px;
+      }
+      &:last-child {
+        border: none;
       }
       a {
         text-decoration: none;
@@ -85,6 +84,8 @@
       display: flex;
       justify-content: space-between;
       li {
+        display: flex;
+        align-items: center;
         &:first-child::before {
           font-family: "Font Awesome 5 Free";
           font-weight: 900;

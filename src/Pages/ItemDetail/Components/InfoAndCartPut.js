@@ -66,8 +66,8 @@ class InfoAndCartPut extends Component {
           <img src="images/tomato.jpg" alt="tomato"></img>
         </div>
         <div className="item-detail-right">
-          <div className="item-info">
-            <div className="item-name">
+          <div className="info">
+            <div className="name">
               <h1>{itemData.name}</h1>
               <span>
                 <i className="fas fa-share-alt" />

@@ -16,8 +16,8 @@
   }
   .item-detail-right {
     width: 560px;
-    .item-info {
-      .item-name {
+    .info {
+      .name {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -32,7 +32,7 @@
           align-items: center;
           width: 40px;
           height: 40px;
-          padding: 5px 5px;
+          padding: 5px;
           border: 1px solid $light-gray;
           border-radius: 50%;
           font-size: 20px;
@@ -78,7 +78,7 @@
         margin-top: 11px;
 
         .member-class {
-          padding: 1px 8px 1px 8px;
+          padding: 1px 8px;
           border: 1px solid $theme-color;
           border-radius: 12px;
           color: $theme-color;

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "./RelatedProduct.scss";
 
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 class RelatedProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
   render() {
-    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     return (
       <div className="RelatedProduct">
         <div className="design-block"></div>

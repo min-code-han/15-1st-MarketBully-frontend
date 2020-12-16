@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import "./Board.scss";
 
 const boardContent = [1, 2, 3, 4, 5, 6, 7, 8];
-const paging = ["<", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ">"];
+const PAGES = ["<", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ">"];
 class Board extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     return (
       <div className="Board">
@@ -44,8 +40,8 @@ class Board extends Component {
           <button>작성</button>
         </div>
         <div className="page-routing">
-          <ul className="page-list">
-            {paging.map((page, idx) => {
+          <ul>
+            {PAGES.map((page, idx) => {
               return (
                 <li key={idx}>
                   <button>{page}</button>

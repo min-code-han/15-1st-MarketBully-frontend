@@ -4,9 +4,17 @@ import "./Signup.scss";
 class Signup extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      modal: false,
+    };
   }
+
+  handleModal = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+
   render() {
+    console.log(this.state.modal);
     return (
       <>
         <div className="Signup">
@@ -246,10 +254,12 @@ class Signup extends Component {
                 </td>
               </tr>
             </table>
-            <button className="make-account">가입하기</button>
+            <button className="make-account" onClick={this.handleModal}>
+              가입하기
+            </button>
           </div>
         </div>
-        <div className="Signup-modal">
+        <div className={"Signup-modal " + (this.state.modal ? "show" : "hide")}>
           <div className="modal-box">
             <div className="alert">
               <p>알림메세지</p>

@@ -2,6 +2,48 @@
 import React, { Component } from "react";
 import "./ItemCart.scss";
 
+const dummyCartData = [
+  {
+    id: 1,
+    name: "미친 생고기",
+    salePrice: 32700,
+    originPrice: 38000,
+    imgUrl:
+      "https://images.unsplash.com/photo-1592686092916-672fa9e86866?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
+    quantity: 1,
+    selected: true,
+  },
+  {
+    id: 2,
+    name: "진짜 맛있는 고기",
+    salePrice: 80000,
+    originPrice: 90000,
+    imgUrl:
+      "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1275&q=80",
+    quantity: 1,
+    selected: true,
+  },
+  {
+    id: 3,
+    name: "미친 닭고기",
+    salePrice: null,
+    originPrice: 50000,
+    imgUrl:
+      "https://images.unsplash.com/photo-1501200291289-c5a76c232e5f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80",
+    quantity: 1,
+    selected: true,
+  },
+  {
+    id: 4,
+    name: "미친 닭고기",
+    salePrice: null,
+    originPrice: 50000,
+    imgUrl:
+      "https://images.unsplash.com/photo-1501200291289-c5a76c232e5f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80",
+    quantity: 1,
+    selected: true,
+  },
+];
 class ItemCart extends Component {
   constructor(props) {
     super(props);
@@ -31,31 +73,25 @@ class ItemCart extends Component {
               <div className="cart">
                 <div className="items-in-cart">
                   <ul>
-                    {selectList.map((item, idx) => {
+                    {dummyCartData.map((item, id) => {
                       return (
-                        <li key={idx}>
+                        <li key={item.id}>
                           <i
                             className={`fa-check-circle ${item ? "far" : "fas purple"}`}
-                            onClick={() => {
-                              this.setState({
-                                selectList: selectList.map((elem, index) => {
-                                  return index === idx ? !elem : elem;
-                                }),
-                              });
-                            }}
+                            onClick={() => {}}
                           />
-                          <img src="images/tomato2.jpg" alt="tomato" />
-                          <h2 className="item-name">[Bully's] 신선한 토마토 1kg</h2>
+                          <img src={item.imgUrl} alt="tomato" />
+                          <h2 className="item-name">{item.name}</h2>
                           <div className="item-counter">
                             <button>-</button>
                             <input value="1" readOnly></input>
                             <button>+</button>
                           </div>
                           <div className="price-box">
-                            <div className="price">9,810원</div>
-                            <div className="price-without-sale"></div>
+                            <div className="price">{item.salePrice}원</div>
+                            <div className="price-without-sale">{item.originPrice}원</div>
                           </div>
-                          <i className="fas fa-times" />
+                          <img className="delete" src="images/cancel.svg" alt="delete" />
                         </li>
                       );
                     })}

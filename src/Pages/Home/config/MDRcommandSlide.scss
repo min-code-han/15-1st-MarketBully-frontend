@@ -1,51 +1,76 @@
-.MDRcommanCard {
-  border-bottom: 1px solid #dddddd;
-  padding-bottom: 2rem;
-
-  .MDRcommanCardList {
+.mdRcommandContainer {
+  margin-bottom: 8rem;
+  display: flex;
+  flex-direction: column;
+  .mdRcommandHader {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+  }
+  .mdRcommandMenu {
     width: 1050px;
     margin: 0 auto;
-
+    display: flex;
+    justify-content: center;
+    margin-bottom: 6rem;
+    .mdRcommandBtn {
+      padding: 10px 14px;
+      border-radius: 15px;
+      outline: none;
+      border: none;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+    .mdRcommandBtn:hover {
+      color: #5f0080;
+    }
+  }
+  .RcommandSlideContainer {
+    width: 1050px;
+    margin: 0 auto;
     .slick-initialized {
       width: inherit;
     }
 
-    .slick-prev {
-      left: -2.2% !important;
-      top: 37% !important;
-      z-index: 1;
-    }
-
-    .slick-next {
-      right: 2% !important;
-      top: 35% !important;
-      z-index: 1;
-    }
     .slick-prev:before,
     .slick-next:before {
       font-size: 52px;
       color: #000000;
+      display: none;
     }
-    .recommand__container {
-      height: 506px;
-      overflow: hidden;
+    .slick-prev {
+      background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png");
+      padding: 5%;
+      transform: rotate(180deg);
+      background-repeat: no-repeat;
+      left: -7% !important;
+      top: 25% !important;
+      z-index: 1;
     }
-    img {
-      width: 250px;
-      height: 370px;
-      object-fit: cover;
+
+    .slick-next {
+      background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png");
+      padding: 5%;
+      background-repeat: no-repeat;
+      right: -6% !important;
+      top: 55% !important;
+      z-index: 1;
     }
-    .recommand__desc {
-      margin-top: 5px;
-      height: 100px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      font-weight: 700;
-      color: #000000;
-    }
-    .recommand__link span {
-      margin-right: 5px;
+
+    .MDRcommanCard {
+      .MDLink {
+        display: block;
+        width: 250px;
+        text-decoration: none;
+        img {
+          width: 100%;
+          height: 320px;
+          object-fit: cover;
+        }
+      }
+      .MDLink.invisible {
+        display: none;
+      }
     }
   }
 }

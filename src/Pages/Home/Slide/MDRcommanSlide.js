@@ -3,149 +3,50 @@ import { Link } from "react-router-dom";
 import Slide from "react-slick";
 import "../config/MDRcommandSlide.scss";
 export default class SimpleSlider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [
+        { name: "정육", filterName: "yearevent", img: "./images/디저트.jpg" },
+        { name: "소고기", filterName: "vegetable", img: "./images/스테이크.jpg" },
+        { name: "돼지고기", filterName: "meat", img: "./images/밥상.jpg" },
+        { name: "계란류", filterName: "bakery", img: "./images/스테이크.jpg" },
+        { name: "닭", filterName: "bakery", img: "./images/스테이크.jpg" },
+        { name: "계란류", filterName: "bakery", img: "./images/스테이크.jpg" },
+        { name: "양고기", filterName: "bakery", img: "./images/스테이크.jpg" },
+      ],
+    };
+  }
+
   render() {
     var settings = {
-      dots: false,
-      infinite: true,
+      infinite: false,
       speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: true,
-      autoplay: false,
-      autoplaySpeed: 4000,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      initialSlide: 0,
     };
+    const { mode, filterTarget } = this.props;
+
     return (
       <Slide {...settings}>
-        <div className="MDRcommanCard">
-          <div className="MDRcommanCardList">
-            <Link to="/">
-              <img src="./images/디저트.jpg" alt="meat"></img>
-            </Link>
-            <div className="MDRcommanSlideDesc">
+        {this.state.data.map(data => {
+          return (
+            <div className="MDRcommanCard">
               <Link
-                className="MDRcommanSlideLink"
-                style={{ textDecoration: "none", color: "#000" }}
+                className={mode ? "MDLink invisible" : "MDLink"}
+                data-filter={data.filterName}
                 to="/"
               >
-                <span>가벼운 한식 도시락 6종</span>{" "}
+                <img src={data.img} alt="meat"></img>
+                <div className="MDRcommanSlideDesc">
+                  <span>가벼운 한식 도시락 6종</span>
+                  <span>3300원</span>
+                </div>
               </Link>
-              <span>3700원</span>
-              <span>3300원</span>
             </div>
-            <div className="MDRcommanCard">
-              <Link to="/">
-                <img src="./images/디저트.jpg" alt="meat"></img>
-              </Link>
-              <div className="MDRcommanSlideDesc">
-                <Link
-                  className="MDRcommanSlideLink"
-                  style={{ textDecoration: "none", color: "#000" }}
-                  to="/"
-                >
-                  <span>가벼운 한식 도시락 6종</span>{" "}
-                </Link>
-                <span>3700원</span>
-                <span>3300원</span>
-              </div>
-            </div>
-            <div className="MDRcommanCard">
-              <Link to="/">
-                <img src="./images/디저트.jpg" alt="meat"></img>
-              </Link>
-              <div className="MDRcommanSlideDesc">
-                <Link
-                  className="MDRcommanSlideLink"
-                  style={{ textDecoration: "none", color: "#000" }}
-                  to="/"
-                >
-                  <span>가벼운 한식 도시락 6종</span>{" "}
-                </Link>
-                <span>3700원</span>
-                <span>3300원</span>
-              </div>
-            </div>
-            <div className="MDRcommanCard">
-              <Link to="/">
-                <img src="./images/디저트.jpg" alt="meat"></img>
-              </Link>
-              <div className="MDRcommanSlideDesc">
-                <Link
-                  className="MDRcommanSlideLink"
-                  style={{ textDecoration: "none", color: "#000" }}
-                  to="/"
-                >
-                  <span>가벼운 한식 도시락 6종</span>{" "}
-                </Link>
-                <span>3700원</span>
-                <span>3300원</span>
-              </div>
-            </div>
-            <div className="MDRcommanCard">
-              <Link to="/">
-                <img src="./images/디저트.jpg" alt="meat"></img>
-              </Link>
-              <div className="MDRcommanSlideDesc">
-                <Link
-                  className="MDRcommanSlideLink"
-                  style={{ textDecoration: "none", color: "#000" }}
-                  to="/"
-                >
-                  <span>가벼운 한식 도시락 6종</span>{" "}
-                </Link>
-                <span>3700원</span>
-                <span>3300원</span>
-              </div>
-            </div>
-            <div className="MDRcommanCard">
-              <Link to="/">
-                <img src="./images/디저트.jpg" alt="meat"></img>
-              </Link>
-              <div className="MDRcommanSlideDesc">
-                <Link
-                  className="MDRcommanSlideLink"
-                  style={{ textDecoration: "none", color: "#000" }}
-                  to="/"
-                >
-                  <span>가벼운 한식 도시락 6종</span>{" "}
-                </Link>
-                <span>3700원</span>
-                <span>3300원</span>
-              </div>
-            </div>
-            <div className="MDRcommanCard">
-              <Link to="/">
-                <img src="./images/디저트.jpg" alt="meat"></img>
-              </Link>
-              <div className="MDRcommanSlideDesc">
-                <Link
-                  className="MDRcommanSlideLink"
-                  style={{ textDecoration: "none", color: "#000" }}
-                  to="/"
-                >
-                  <span>가벼운 한식 도시락 6종</span>{" "}
-                </Link>
-                <span>3700원</span>
-                <span>3300원</span>
-              </div>
-            </div>
-            <div className="MDRcommanCard">
-              <Link to="/">
-                <img src="./images/디저트.jpg" alt="meat"></img>
-              </Link>
-              <div className="MDRcommanSlideDesc">
-                <Link
-                  className="MDRcommanSlideLink"
-                  style={{ textDecoration: "none", color: "#000" }}
-                  to="/"
-                >
-                  <span>가벼운 한식 도시락 6종</span>{" "}
-                </Link>
-                <span>3700원</span>
-                <span>3300원</span>
-              </div>
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </Slide>
     );
   }

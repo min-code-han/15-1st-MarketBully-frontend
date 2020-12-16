@@ -1,77 +1,64 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import MDRcommanSlide from "./Slide/MDRcommanSlide";
-import "./config/MDRcommand.scss";
+import "./config/MDRcommandSlide.scss";
 class MDRcommand extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: [
+        { name: "정육", filterName: "yearevent", img: "./images/디저트.jpg" },
+        { name: "소고기", filterName: "vegetable", img: "./images/스테이크.jpg" },
+        { name: "돼지고기", filterName: "meat", img: "./images/밥상.jpg" },
+        { name: "계란류", filterName: "bakery", img: "./images/스테이크.jpg" },
+        { name: "닭", filterName: "bakery", img: "./images/스테이크.jpg" },
+        { name: "계란류", filterName: "bakery", img: "./images/스테이크.jpg" },
+        { name: "양고기", filterName: "bakery", img: "./images/스테이크.jpg" },
+      ],
+      filterTarget: "",
+      mode: false,
+    };
   }
+
+  clickHandler = e => {
+    const filterTarget = e.target.dataset.filter;
+    if (filterTarget) {
+      this.state.data.map(data => {
+        if (filterTarget == data.filterName) {
+          this.setState({
+            mode: !this.state.mode,
+          });
+        }
+      });
+    }
+  };
+
   render() {
+    console.log(this.state.mode);
     return (
       <>
         <div class="mdRcommandContainer">
           {/* MD MenuList */}
-          <div className="mdRcommand">
-            <div className="mdRcommandHader">
-              <h2>MD의 추천</h2>
-            </div>
-            <div className="mdRcommandMenu">
-              <ul>
-                <li>
-                  <Link to="/">연말대전</Link>
-                </li>
-                <li>
-                  <Link to="/">채소</Link>
-                </li>
-                <li>
-                  <Link to="/">과일</Link>
-                </li>
-                <li>
-                  <Link to="/">정육</Link>
-                </li>
-                <li>
-                  <Link to="/">고기</Link>
-                </li>
-                <li>
-                  <Link to="/">주방용품</Link>
-                </li>
-                <li>
-                  <Link to="/">베이커리</Link>
-                </li>
-                <li>
-                  <Link to="/">음료</Link>
-                </li>
-                <li>
-                  <Link to="/">반려동물</Link>
-                </li>
-                <li>
-                  <Link to="/">연말대전</Link>
-                </li>
-                <li>
-                  <Link to="/">연말대전</Link>
-                </li>
-                <li>
-                  <Link to="/">연말대전</Link>
-                </li>
-                <li>
-                  <Link to="/">연말대전</Link>
-                </li>
-                <li>
-                  <Link to="/">연말대전</Link>
-                </li>
-                <li>
-                  <Link to="/">연말대전</Link>
-                </li>
-                <li>
-                  <Link to="/">연말대전</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
 
-          {/* MD Slide Card */}
-          <MDRcommanSlide />
+          <div className="mdRcommandHader">
+            <h2>MD의 추천</h2>
+          </div>
+          {/* mdRcommandBtn */}
+          <div className="mdRcommandMenu">
+            {this.state.data.map(data => (
+              <button
+                class="mdRcommandBtn"
+                data-filter={data.filterName}
+                onClick={this.clickHandler}
+              >
+                {data.name}
+              </button>
+            ))}
+          </div>
+          <div className="RcommandSlideContainer">
+            {/* MD Slide Card */}
+            <MDRcommanSlide mode={this.state.mode} clickHandler={this.state.filterTarget} />
+          </div>
         </div>
       </>
     );

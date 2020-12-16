@@ -21,12 +21,14 @@
         content: "\f054";
         font-family: "Font Awesome\ 5 Free";
         margin-left: 10px;
+        top: 8px;
       }
     }
     .eventNewsList {
       ul {
         display: flex;
         li {
+          list-style: none;
           margin-right: 15px;
           height: 538px;
 

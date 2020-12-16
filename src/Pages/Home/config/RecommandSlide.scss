@@ -16,31 +16,41 @@
       width: inherit;
     }
 
-    .slick-prev {
-      left: -2.2% !important;
-      top: 37% !important;
-      z-index: 1;
-    }
-
-    .slick-next {
-      right: 2% !important;
-      top: 35% !important;
-      z-index: 1;
-    }
     .slick-prev:before,
     .slick-next:before {
       font-size: 52px;
       color: #000000;
+      display: none;
     }
-    .recommand__container {
-      height: 506px;
-      overflow: hidden;
+    .slick-prev {
+      background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png");
+      padding: 5%;
+      transform: rotate(180deg);
+      background-repeat: no-repeat;
+      left: -7% !important;
+      top: 22% !important;
+      z-index: 1;
+    }
+
+    .slick-next {
+      background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png");
+      padding: 5%;
+      background-repeat: no-repeat;
+      right: -6% !important;
+      top: 40% !important;
+      z-index: 1;
     }
     img {
       width: 250px;
       height: 370px;
       object-fit: cover;
     }
+
+    .recommand__container {
+      height: 506px;
+      overflow: hidden;
+    }
+
     .recommand__desc {
       margin-top: 5px;
       height: 100px;

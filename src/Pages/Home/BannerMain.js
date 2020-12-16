@@ -11,7 +11,7 @@ class BannerMain extends Component {
       <>
         <div className="bnrMain">
           <Link style={{ display: "block", width: "inherit", height: "inherit" }} to="/">
-            <img src="./images/밥상.jpg"></img>
+            <img src="./images/new.png"></img>
           </Link>
         </div>
       </>

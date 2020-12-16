@@ -13,7 +13,7 @@ class EventNews extends Component {
           <div className="eventNewsWrap">
             <div className="eventHeader">
               <Link style={{ textDecoration: "none", color: "#000" }} to="/">
-                <h2>이벤트 소식</h2>
+                <h2>이벤트 소식 </h2>
               </Link>
             </div>
             <div className="eventNewsList">

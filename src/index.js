@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Signup from "./Pages/Signup/Signup";
+import Login from "./Pages/Login/Login";
+import "./../src/Styles/reset.scss";
 
-ReactDOM.render(<Signup />, document.getElementById("root"));
+ReactDOM.render(<Login />, document.getElementById("root"));

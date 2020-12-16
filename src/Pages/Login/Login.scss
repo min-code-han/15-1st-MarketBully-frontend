@@ -13,7 +13,7 @@
     margin: 0 auto;
     margin-top: 90px;
 
-    .login-title {
+    .title {
       font-size: 20px;
       color: #333;
       font-weight: bold;
@@ -99,7 +99,7 @@
             color: #333;
           }
 
-          span {
+          div {
             display: inline-block;
             vertical-align: middle;
             margin: 0 5px;
@@ -110,7 +110,7 @@
         }
       }
       button,
-      a.login-to-assign {
+      div.login-to-assign {
         display: inline-block;
         border: 1px solid $theme-color;
         border-radius: 3px;
@@ -122,7 +122,7 @@
         color: #fff;
       }
 
-      a.login-to-assign {
+      div.login-to-assign {
         margin-top: 10px;
         width: 100%;
         line-height: 54px;

@@ -1,0 +1,187 @@
+@import "../../Styles/common.scss";
+
+.ItemCart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  main {
+    height: 1000px;
+    width: $main-width;
+  }
+  .title {
+    padding: 55px 0 46px 0;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+  }
+  .cart-container {
+    display: flex;
+    justify-content: space-between;
+
+    .cart-box {
+      width: 742px;
+      height: 1000px;
+      i {
+        font-size: 28px;
+        margin-right: 10px;
+        color: $light-gray;
+        &.purple {
+          color: $purple-text-color;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .cart {
+        background-color: white;
+        ul {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 128px;
+            border-bottom: 1px solid $light-gray;
+            img {
+              width: 60px;
+              height: 78px;
+              margin: 0 20px;
+              object-fit: cover;
+            }
+            h2 {
+              width: 327px;
+            }
+            .item-counter {
+              border: 1px solid $light-gray;
+              input {
+                width: 30px;
+                height: 30px;
+                border: none;
+                text-align: center;
+                background-color: white;
+              }
+              button {
+                width: 30px;
+                height: 30px;
+                border: none;
+                font-size: 18px;
+                background-color: white;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+            }
+            .price-box {
+              width: 116px;
+              text-align: right;
+              font-size: 18px;
+              font-weight: 600;
+            }
+            i {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+      .top-select-box,
+      .bottom-select-box {
+        display: flex;
+        align-items: center;
+        height: 60px;
+        border-bottom: 1px solid black;
+        button {
+          border: none;
+          background-color: transparent;
+          font-size: 16px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      .bottom-select-box {
+        border: none;
+      }
+    }
+    .cart-result {
+      display: flex;
+      flex-direction: column;
+      width: 284px;
+      margin-top: 60px;
+
+      .address {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 198px;
+        padding: 23px 19px 20px;
+        border: 1px solid $light-gray;
+        .delivery-type {
+          font-size: 14px;
+          color: $purple-text-color;
+        }
+        button {
+          height: 36px;
+          border: 1px solid $purple-text-color;
+          background-color: white;
+          color: $purple-text-color;
+          font-size: 14px;
+        }
+      }
+      .price-result {
+        display: flex;
+        flex-direction: column;
+        height: 250px;
+        padding: 9px 18px 18px 20px;
+        margin-bottom: 20px;
+        border: 1px solid $light-gray;
+        border-top: none;
+        background-color: #fafafa;
+        table {
+          tr {
+            &.final-price {
+              border-top: 1px solid $light-gray;
+            }
+          }
+          th,
+          td {
+            padding: 12px 0;
+          }
+          th {
+            text-align: left;
+          }
+          td {
+            text-align: right;
+            &.free-deliver-guide {
+              font-size: 12px;
+              color: $purple-text-color;
+            }
+            &.point-guide {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+      button {
+        height: 56px;
+        border: none;
+        border-radius: 4px;
+        background-color: $purple-text-color;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .notice {
+        margin: 20px 0;
+        font-size: 12px;
+        color: $dark-gray;
+        li {
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+}

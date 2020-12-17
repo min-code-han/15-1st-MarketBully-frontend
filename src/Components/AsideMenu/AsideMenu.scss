@@ -1,0 +1,70 @@
+@import "../../Styles/common.scss";
+.AsideMenu {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 20px;
+  width: 80px;
+  height: 500px;
+  margin: 30vh 0;
+
+  .dawn-delivery {
+    height: 120px;
+    background: linear-gradient($theme-color, rgb(142, 26, 142));
+    padding: 10px;
+    p {
+      padding: 10px 0 0;
+      text-align: center;
+      font-size: 14px;
+      color: white;
+      letter-spacing: 1px;
+      &.delivery {
+        letter-spacing: 2px;
+      }
+    }
+  }
+  .menu {
+    height: 87px;
+    margin-top: 10px;
+
+    ul {
+      border: 1px solid $light-gray;
+      font-size: 12px;
+      li {
+        display: block;
+        text-align: center;
+        padding: 8px 8px;
+        border-bottom: 1px solid $light-gray;
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+  .recently-seen-item {
+    height: 272px;
+    margin-top: 10px;
+    border: 1px solid $light-gray;
+    h2 {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 20px;
+    }
+    .recent-items {
+      height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: auto;
+      img {
+        padding: 5px 0;
+        width: 60px;
+        height: 80px;
+        object-fit: cover;
+      }
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}

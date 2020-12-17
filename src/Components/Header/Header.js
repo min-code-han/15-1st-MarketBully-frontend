@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Header.scss";
+import ItemCard from "../ItemCard/ItemCard";
 
 class Header extends Component {
   constructor(props) {

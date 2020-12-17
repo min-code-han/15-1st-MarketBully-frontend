@@ -15,16 +15,16 @@ class Footer extends Component {
           <h2>Frontend Members</h2>
           <ul>
             <li>
-              김찬영<i class="fab fa-github"></i>
+              김찬영<i className="fab fa-github"></i>
             </li>
             <li>
-              박채훈<i class="fab fa-github"></i>
+              박채훈<i className="fab fa-github"></i>
             </li>
             <li>
-              이장현<i class="fab fa-github"></i>
+              이장현<i className="fab fa-github"></i>
             </li>
             <li>
-              한민아<i class="fab fa-github"></i>
+              한민아<i className="fab fa-github"></i>
             </li>
           </ul>
         </div>
@@ -32,13 +32,13 @@ class Footer extends Component {
           <h2>Backend Members</h2>
           <ul>
             <li>
-              김원희<i class="fab fa-github"></i>
+              김원희<i className="fab fa-github"></i>
             </li>
             <li>
-              이주형<i class="fab fa-github"></i>
+              이주형<i className="fab fa-github"></i>
             </li>
             <li>
-              이현주<i class="fab fa-github"></i>
+              이현주<i className="fab fa-github"></i>
             </li>
           </ul>
         </div>

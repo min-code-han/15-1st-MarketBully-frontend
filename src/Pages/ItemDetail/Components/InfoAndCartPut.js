@@ -46,6 +46,12 @@ class InfoAndCartPut extends Component {
     };
   }
 
+  componentDidMount() {
+    fetch("data/itemdetail.json")
+      .then(res => res.json)
+      .then(res => console.log(res));
+  }
+
   handleQuantity = e => {
     const QUANTITY_MIN = 1;
     const currentQuantity = this.state.quantity;
@@ -55,6 +61,8 @@ class InfoAndCartPut extends Component {
       quantity: type === "add" ? currentQuantity + 1 : currentQuantity - 1,
     });
   };
+
+  refine;
 
   render() {
     const { quantity } = this.state;
@@ -76,14 +84,14 @@ class InfoAndCartPut extends Component {
             <h3>{itemData.shortDescription}</h3>
             <div className="price">
               <span className="on-login">회원할인가</span>
-              <div class="real-price">
+              <div className="real-price">
                 <span>{itemData.price}</span>
                 <div className="unit">원</div>
                 <span className="sale-percentage">15%</span>
               </div>
               <span className="nosale-price">
                 <span className="price">8800원</span>
-                <i class="far fa-question-circle"></i>
+                <i className="far fa-question-circle"></i>
               </span>
             </div>
             <div className="point-guide">

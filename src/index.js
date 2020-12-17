@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Login from "./Pages/Login/Login";
 import "./../src/Styles/reset.scss";
 
-ReactDOM.render(<Login />, document.getElementById("root"));
+ReactDOM.render(<Routes />, document.getElementById("root"));

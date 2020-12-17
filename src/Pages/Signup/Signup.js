@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { AiFillCheckCircle } from "react-icons/ai";
-import { AiOutlineCheckCircle } from "react-icons/ai";
 import "./Signup.scss";
 
 class Signup extends Component {
@@ -8,11 +6,27 @@ class Signup extends Component {
     super(props);
     this.state = {
       isModalActive: false,
+      allChecked: true,
+      ischecked: false,
     };
   }
 
   handleModal = () => {
     this.setState({ isModalActive: !this.state.isModalActive });
+  };
+
+  checkAllcheckbox = () => {
+    this.setState({ allChecked: !this.state.allChecked });
+    if (this.state.allChecked === false) {
+      this.setState({ ischecked: false });
+    } else {
+      this.setState({ ischecked: true });
+    }
+  };
+
+  check = e => {
+    const { value } = e.target;
+    this.setState({ [value]: !this.state.ischecked });
   };
 
   render() {
@@ -125,23 +139,17 @@ class Signup extends Component {
                   </p>
                 </td>
               </tr>
-              <tr>
+              <tr className="sex">
                 <th>성별</th>
                 <td className="fw-400">
                   <input type="radio" id="man" name="gender" />
-                  <label htmlFor="man">
-                    <AiFillCheckCircle /> <AiOutlineCheckCircle />
-                    남자
-                  </label>
+                  <label htmlFor="man">남자</label>
+
                   <input type="radio" id="woman" name="gender" />
                   <label htmlFor="woman">여자</label>
-                  <label htmlFor="none">
-                    <span className="radio-ico">
-                      <span className="radio-checked"></span>
-                    </span>
-                    <input type="radio" id="none" name="gender" />
-                    선택안함
-                  </label>
+
+                  <input type="radio" id="none" name="gender" />
+                  <label htmlFor="none">선택안함</label>
                 </td>
               </tr>
               <tr>
@@ -159,7 +167,7 @@ class Signup extends Component {
                   </p>
                 </td>
               </tr>
-              <tr>
+              <tr className="sex">
                 <th>추가입력 사항</th>
                 <td className="fw-400">
                   <input type="radio" id="id" name="recommend" />
@@ -192,8 +200,8 @@ class Signup extends Component {
                 <td>
                   <div className="agree-txt">
                     <div className="ageree-check">
-                      <input type="radio" id="all" />
-                      <label htmlFor="all" className="check-all">
+                      <input type="checkbox" id="all" />
+                      <label htmlFor="all" className="check-all" onClick={this.checkAllcheckbox}>
                         전체 동의합니다
                       </label>
                       <p className="guide">
@@ -204,7 +212,12 @@ class Signup extends Component {
                       </p>
                     </div>
                     <div className="ageree-check">
-                      <input type="radio" id="use" />
+                      <input
+                        type="checkbox"
+                        id="use"
+                        checked={this.state.ischecked}
+                        onClick={this.check}
+                      />
                       <label htmlFor="use">
                         이용약관 동의<span className="necessary">(필수)</span>
                       </label>
@@ -213,7 +226,12 @@ class Signup extends Component {
                       </p>
                     </div>
                     <div className="ageree-check">
-                      <input type="radio" id="personal" />
+                      <input
+                        type="checkbox"
+                        id="personal"
+                        checked={this.state.ischecked}
+                        onClick={this.check}
+                      />
                       <label htmlFor="personal">
                         개인정보처리방침 동의<span className="necessary">(필수)</span>
                       </label>
@@ -222,8 +240,8 @@ class Signup extends Component {
                       </p>
                     </div>
                     <div className="ageree-check">
-                      <input type="radio" id="personal" />
-                      <label htmlFor="personal">
+                      <input type="checkbox" id="personal2" />
+                      <label htmlFor="personal2">
                         개인정보처리방침 동의<span className="necessary">(필수)</span>
                       </label>
                       <p className="purple-txt see-more">
@@ -231,15 +249,17 @@ class Signup extends Component {
                       </p>
                     </div>
                     <div className="ageree-check">
-                      <input type="radio" id="coupon" />
+                      <input type="checkbox" id="coupon" />
                       <label htmlFor="coupon">
                         무료배송, 할인쿠폰 등 혜택/정보 수신 동의
                         <span className="necessary">(선택)</span>
                       </label>
                       <div className="check-news">
-                        <input type="radio" id="sms" />
-                        <label htmlFor="sms">SMS</label>
-                        <input type="radio" id="email" />
+                        <input type="checkbox" id="sms" />
+                        <label htmlFor="sms" className="sms">
+                          SMS
+                        </label>
+                        <input type="checkbox" id="email" />
                         <label htmlFor="email">이메일</label>
                         <p className="purple-txt if-you-agree">
                           <span className="detail"></span>
@@ -249,8 +269,8 @@ class Signup extends Component {
                       </div>
                     </div>
                     <div className="ageree-check">
-                      <input type="radio" id="personal" />
-                      <label htmlFor="personal">
+                      <input type="checkbox" id="fourteen" />
+                      <label htmlFor="fourteen">
                         본인은 만 14세 이상입니다.<span className="necessary">(필수)</span>
                       </label>
                     </div>

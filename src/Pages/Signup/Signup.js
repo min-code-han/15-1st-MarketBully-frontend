@@ -1,22 +1,21 @@
 import React, { Component } from "react";
-import "./Signup.scss";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import "./Signup.scss";
 
 class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
+      isModalActive: false,
     };
   }
 
   handleModal = () => {
-    this.setState({ modal: !this.state.modal });
+    this.setState({ isModalActive: !this.state.isModalActive });
   };
 
   render() {
-    console.log(this.state.modal);
     return (
       <>
         <div className="Signup">
@@ -264,7 +263,7 @@ class Signup extends Component {
             </button>
           </div>
         </div>
-        <div className={"Signup-modal " + (this.state.modal ? "show" : "hide")}>
+        <div className={"Signup-modal " + (this.state.isModalActive ? "show" : "hide")}>
           <div className="modal-box">
             <div className="alert">
               <p>알림메세지</p>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ItemList from "../../Pages/ItemList/ItemList";
+import ItemCard from "../ItemCard/ItemCard";
 
 class Header extends Component {
   constructor(props) {

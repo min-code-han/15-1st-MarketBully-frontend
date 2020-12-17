@@ -1,0 +1,29 @@
+.Footer {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  background-color: #fafafa;
+  .logo {
+    width: 300px;
+  }
+  .frontend,
+  .backend {
+    margin: 0 30px;
+    padding-top: 10px;
+    h2 {
+      font-size: 24px;
+    }
+    ul {
+      margin: 14px 0;
+      li {
+        margin: 10px 0;
+        font-size: 18px;
+        font-weight: 200;
+      }
+    }
+    i {
+      margin-left: 14px;
+      cursor: pointer;
+    }
+  }
+}

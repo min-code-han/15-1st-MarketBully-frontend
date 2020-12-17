@@ -1,10 +1,5 @@
 @import "../../Styles/common.scss";
 
-%flex_space_between {
-  display: flex;
-  justify-content: space-between;
-}
-
 .ItemListModal {
   position: fixed;
   width: 100%;
@@ -30,7 +25,7 @@
       width: 380px;
       margin: 0 auto;
       header {
-        @extend %flex_space_between;
+        @extend %flex-space-between;
         width: 380px;
         height: 82px;
         padding-top: 20px;
@@ -54,7 +49,7 @@
       padding-top: 14px;
       font-size: 14px;
       .price-and-quantities {
-        @extend %flex_space_between;
+        @extend %flex-space-between;
         padding-top: 14px;
         .price {
           font-size: 14px;
@@ -87,7 +82,7 @@
     }
 
     .total-wording-and-price {
-      @extend %flex_space_between;
+      @extend %flex-space-between;
       .wording {
         font-size: 16px;
         font-weight: 700;

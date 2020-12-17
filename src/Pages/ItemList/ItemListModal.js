@@ -19,16 +19,17 @@ class ItemListModal extends Component {
   };
 
   render() {
-    const { isModalBoxOnOrOff } = this.props;
+    const { isModalBoxOnOrOff, ModalBoxClose } = this.props;
+    const { quantities } = this.state;
     return (
       <>
-        {isModalBoxOnOrOff ? (
+        {isModalBoxOnOrOff && (
           <div className="ItemListModal">
             <div className="ItemListModalBox">
               <div className="content-container">
                 <header>
                   <div>상품 선택</div>
-                  <div onClick={this.props.ModalBoxClose}>
+                  <div onClick={ModalBoxClose}>
                     <i class="fas fa-times" />
                   </div>
                 </header>
@@ -44,7 +45,7 @@ class ItemListModal extends Component {
                         <button className="subtract" onClick={this.subtractQuantity}>
                           -
                         </button>
-                        <input value={this.state.quantities}></input>
+                        <input value={quantities}></input>
                         <button className="add" onClick={this.addQuantity}>
                           +
                         </button>
@@ -63,7 +64,7 @@ class ItemListModal extends Component {
               </div>
             </div>
           </div>
-        ) : null}
+        )}
       </>
     );
   }

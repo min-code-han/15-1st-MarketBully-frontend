@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./ItemList.scss";
 import ItemListModal from "./ItemListModal";
+import "./ItemList.scss";
 
 class ItemList extends Component {
   constructor(props) {
@@ -19,19 +19,16 @@ class ItemList extends Component {
   };
 
   showModalBox = e => {
-    console.log("showModalBox activated");
     this.setState({
       isModalBoxOn: !this.state.isModalBoxOn,
     });
   };
 
   render() {
+    const { optionBoxOnAndOff, isModalBoxOn } = this.state;
     return (
       <div className="ItemList">
-        <ItemListModal
-          isModalBoxOnOrOff={this.state.isModalBoxOn}
-          ModalBoxClose={this.showModalBox}
-        />
+        <ItemListModal isModalBoxOnOrOff={isModalBoxOn} ModalBoxClose={this.showModalBox} />
         <header>
           <div className="categoryHeader">
             <span className="meatIcon">
@@ -78,9 +75,9 @@ class ItemList extends Component {
               </li>
             </ul>
             <div className="selectOptions" onClick={this.showOptionBox}>
-              <span className={this.state.optionBoxOnAndOff ? "selectedOption" : ""}>추천 순</span>
+              <span className={optionBoxOnAndOff ? "selectedOption" : ""}>추천 순</span>
               <i class="fas fa-chevron-down" />
-              <ul className={this.state.optionBoxOnAndOff ? "optionList" : "optionListNone"}>
+              <ul className={optionBoxOnAndOff ? "optionList" : "optionListNone"}>
                 <li className="option">추천순</li>
                 <li className="option">신상품순</li>
                 <li className="option">인기상품순</li>

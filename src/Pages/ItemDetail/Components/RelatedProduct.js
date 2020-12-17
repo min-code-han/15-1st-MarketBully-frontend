@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./RelatedProduct.scss";
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 class RelatedProduct extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +17,6 @@ class RelatedProduct extends Component {
 
   render() {
     const { relatedProduct } = this.state;
-    console.log(relatedProduct);
     return (
       <div className="RelatedProduct">
         <div className="design-block"></div>

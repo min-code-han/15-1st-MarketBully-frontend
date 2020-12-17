@@ -11,17 +11,42 @@
     border-bottom: 1px solid $purple-text-color;
     font-size: 12px;
     text-align: center;
+
     .title {
       width: 500px;
     }
+
     th {
       padding: 20px;
     }
     td {
       border-top: 1px solid $light-gray;
-      padding: 20px;
+      padding: 20px 0;
       &.title {
         text-align: left;
+        padding-left: 20px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      &.id,
+      &.like,
+      &.lookup {
+        width: 80px;
+      }
+      &.writer {
+        width: 100px;
+      }
+      &.date {
+        width: 140px;
+      }
+      &.content {
+        border: none;
+        padding: 0;
+        &.show {
+          text-align: left;
+          padding: 20px 40px;
+        }
       }
     }
   }

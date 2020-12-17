@@ -42,7 +42,7 @@ class ItemDetail extends Component {
             return (
               <div name={name} key={name}>
                 <ItemDetailMenu menuTabId={idx + 1} changePosition={this.changePosition} />
-                <ComponentName />
+                <ComponentName menuTabId={idx + 1} />
               </div>
             );
           })}

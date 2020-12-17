@@ -1,0 +1,67 @@
+{
+  "inquireData": [
+    {
+      "id": 1,
+      "title": "유통기한이 얼마나 될까요?",
+      "writer": "이*형",
+      "date": "2020-12-13",
+      "like": 0,
+      "lookup": 1,
+      "show": false
+    },
+    {
+      "id": 2,
+      "title": "환불하고 싶어요",
+      "writer": "박*훈",
+      "date": "2020-12-13",
+      "like": 0,
+      "lookup": 1,
+      "show": false
+    },
+    {
+      "id": 3,
+      "title": "재입고 언제 되나요?",
+      "writer": "이*현",
+      "date": "2020-12-12",
+      "like": 0,
+      "lookup": 1,
+      "show": false
+    },
+    {
+      "id": 4,
+      "title": "무항생제 제품인가요?",
+      "writer": "한*아",
+      "date": "2020-12-12",
+      "like": 0,
+      "lookup": 1,
+      "show": false
+    },
+    {
+      "id": 5,
+      "title": "언제 재입고 되나요?",
+      "writer": "김*영",
+      "date": "2020-12-12",
+      "like": 0,
+      "lookup": 1,
+      "show": false
+    },
+    {
+      "id": 6,
+      "title": "무항생제인가요?",
+      "writer": "이*주",
+      "date": "2020-12-12",
+      "like": 0,
+      "lookup": 1,
+      "show": false
+    },
+    {
+      "id": 7,
+      "title": "포장이 다 뜯어져서 왔어요 ㅠㅠ",
+      "writer": "김*희",
+      "date": "2020-12-11",
+      "like": 0,
+      "lookup": 1,
+      "show": false
+    }
+  ]
+}

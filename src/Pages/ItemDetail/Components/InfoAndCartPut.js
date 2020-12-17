@@ -47,9 +47,7 @@ class InfoAndCartPut extends Component {
   }
 
   componentDidMount() {
-    fetch("data/itemdetail.json")
-      .then(res => res.json)
-      .then(res => console.log(res));
+    fetch("data/itemdetail.json").then(res => res.json);
   }
 
   handleQuantity = e => {

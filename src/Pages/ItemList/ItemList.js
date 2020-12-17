@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import ItemListModal from "./ItemListModal";
+import ItemCard from "../../Components/ItemCard/ItemCard";
 import "./ItemList.scss";
 
 class ItemList extends Component {
@@ -9,7 +10,19 @@ class ItemList extends Component {
     this.state = {
       optionBoxOnAndOff: false,
       isModalBoxOn: false,
+      products: [],
+      clikcedID: 0,
     };
+  }
+
+  componentDidMount() {
+    fetch("data/item.json")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          products: res.data,
+        });
+      });
   }
 
   showOptionBox = e => {
@@ -25,7 +38,7 @@ class ItemList extends Component {
   };
 
   render() {
-    const { optionBoxOnAndOff, isModalBoxOn } = this.state;
+    const { optionBoxOnAndOff, isModalBoxOn, products } = this.state;
     return (
       <div className="ItemList">
         <ItemListModal isModalBoxOnOrOff={isModalBoxOn} ModalBoxClose={this.showModalBox} />
@@ -88,50 +101,20 @@ class ItemList extends Component {
           </div>
         </header>
         <ul className="cardContainer">
-          <li className="card">
-            <div className="img-container">
-              <img src="/images/park.jpg" alt="샘플사진"></img>
-              <button className="cart" onClick={this.showModalBox}>
-                <i class="fas fa-shopping-cart "></i>
-              </button>
-            </div>
-            <div className="header">[토토미] 우리쌀 닭강정</div>
-            <div className="price">129,800원</div>
-            <div className="description">달콤짭조름한 매력의 닭강정</div>
-          </li>
-          <li className="card">
-            <div className="img-container">
-              <img src="/images/park.jpg" alt="샘플사진"></img>
-              <button className="cart">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-            </div>
-            <div className="header">[토토미] 우리쌀 닭강정</div>
-            <div className="price">129,800원</div>
-            <div className="description">달콤짭조름한 매력의 닭강정</div>
-          </li>
-          <li className="card">
-            <div className="img-container">
-              <img src="/images/park.jpg" alt="샘플사진"></img>
-              <button className="cart">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-            </div>
-            <div className="header">[토토미] 우리쌀 닭강정</div>
-            <div className="price">129,800원</div>
-            <div className="description">달콤짭조름한 매력의 닭강정</div>
-          </li>
-          <li className="card">
-            <div className="img-container">
-              <img src="/images/park.jpg" alt="샘플사진"></img>
-              <button className="cart">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-            </div>
-            <div className="header">[토토미] 우리쌀 닭강정</div>
-            <div className="price">129,800원</div>
-            <div className="description">달콤짭조름한 매력의 닭강정</div>
-          </li>
+          {products.map(el => {
+            return (
+              <li className="card">
+                <ItemCard
+                  name={el.name}
+                  price={el.price}
+                  imgUrl={el.imgUrl}
+                  sale={el.sale}
+                  showModalBoxButton={this.showModalBox}
+                  type={"ItemList"}
+                />
+              </li>
+            );
+          })}
         </ul>
       </div>
     );

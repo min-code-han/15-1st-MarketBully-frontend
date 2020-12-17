@@ -19,7 +19,7 @@ class ItemListModal extends Component {
   };
 
   render() {
-    const { isModalBoxOnOrOff, ModalBoxClose } = this.props;
+    const { name, price, isModalBoxOnOrOff, ModalBoxClose } = this.props;
     const { quantities } = this.state;
     return (
       <>
@@ -33,14 +33,12 @@ class ItemListModal extends Component {
                     <i class="fas fa-times" />
                   </div>
                 </header>
-                <section className="product-name">
-                  [가농바이오] 가농금계란 1 + 등급 특란 10구
-                </section>
+                <section className="product-name">{name}</section>
                 <ul className="product-name-and-price-and-quantities">
                   <li>
-                    <span>[가농바이오] 가농금계란 1 + 등급 특란 10구</span>
+                    <span>{name}</span>
                     <div className="price-and-quantities">
-                      <div className="price">3,500원</div>
+                      <div className="price">{price}</div>
                       <div className="button-container">
                         <button className="subtract" onClick={this.subtractQuantity}>
                           -

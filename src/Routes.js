@@ -21,6 +21,7 @@ class Routes extends Component {
       <Router>
         <Header />
         <AsideMenu />
+
         <Switch>
           <Route exact path="/Home" component={Home}></Route>
           <Route exact path="/Signup" component={Signup}></Route>

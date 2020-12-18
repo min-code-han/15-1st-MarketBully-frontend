@@ -11,7 +11,7 @@ class ItemCartCard extends Component {
     return (
       <li key={item.id}>
         <i className={`fa-check-circle ${item ? "far" : "fas purple"}`} onClick={() => {}} />
-        <img src={item.imgUrl} alt="tomato" />
+        <img src={item.img_url} alt="tomato" />
         <h2 className="item-name">{item.name}</h2>
         <div className="item-counter">
           <button>-</button>

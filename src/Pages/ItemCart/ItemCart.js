@@ -6,40 +6,101 @@ class ItemCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      cartDummyData: [],
       cartData: [],
-      cartRealData: [],
       selectAll: false,
       showRoomItems: false,
       showColdItems: false,
       showFrozenItems: false,
     };
   }
+
   clickShowButton = e => {
     const { id } = e.target;
     this.setState({ [id]: !this.state[id] });
   };
 
+  deleteItem = e => {
+    console.log(e.target.id);
+    fetch("http://10.168.1.160:8000/order/cart", {
+      method: "DELETE",
+      body: JSON.stringify({
+        cart_item_id: e.target.id,
+      }),
+    })
+      .then(res => res.status)
+      .then(status => {
+        status === 204 ? this.getData() : alert("상품 삭제를 실패하였습니다.");
+      });
+  };
+
+  addItem = e => {
+    fetch("http://10.168.1.160:8000/order/cart", {
+      method: "PATCH",
+      body: JSON.stringify({
+        cart_item_id: e.target.id,
+        delta: "plus",
+      }),
+    })
+      .then(res => res.json())
+      .then(result => {
+        result.MESSAGE === "SUCCESS" ? this.getData() : console.log("실패!");
+      });
+  };
+
+  subtractItem = e => {
+    console.log("subtract!");
+    fetch("http://10.168.1.160:8000/order/cart", {
+      method: "PATCH",
+      body: JSON.stringify({
+        cart_item_id: e.target.id,
+        delta: "minus",
+      }),
+    })
+      .then(res => res.json())
+      .then(result => {
+        result.MESSAGE === "SUCCESS" ? this.getData() : console.log("실패!");
+      });
+  };
+
+  testFunction = e => {
+    fetch("http://10.168.1.160:8000/order/cart", {
+      method: "POST",
+      body: JSON.stringify({
+        product_id: "7",
+        quantity: "2",
+      }),
+    })
+      .then(res => res.json())
+      .then(result => {
+        console.log(result);
+        this.getData();
+      });
+  };
+
   getCartData = async () => {
     const response = await fetch(`data/cartdata.json`);
     const data = await response.json();
-    this.setState({ cartData: data.cartData });
+    this.setState({ cartDummyData: data.cartData });
   };
+
   getData = async () => {
     // 2020.12.18 오후 3시 20분, 마켓컬리 백엔드와 프론트의 역사적인 만남이 이루어진 코드
     // 역사적인 첫 API 주소: http://10.168.1.160:8000/order/cart
     const response = await fetch(`http://10.168.1.160:8000/order/cart`);
     const data = await response.json();
-    console.log(data.items_in_cart);
-    this.setState({ cartRealData: data.items_in_cart });
+    this.setState({ cartData: data.items_in_cart });
   };
+
   componentDidMount() {
     this.getCartData();
     this.getData();
   }
+
   render() {
     const {
-      cartRealData,
       cartData,
+      cartDummyData,
       selectAll,
       showRoomItems,
       showColdItems,
@@ -76,7 +137,7 @@ class ItemCart extends Component {
                         className={`fas fa-chevron-${showFrozenItems ? "down" : "up"}`}
                       />
                     </li>
-                    {cartRealData.map((item, id) => {
+                    {cartData.map((item, id) => {
                       return (
                         <li key={item.id} className={`${showFrozenItems ? "hide" : ""}`}>
                           <i
@@ -86,9 +147,13 @@ class ItemCart extends Component {
                           <img src={item.image_url} alt={item.name} />
                           <h2 className="item-name">{item.name}</h2>
                           <div className="item-counter">
-                            <button>-</button>
+                            <button id={item.id} onClick={this.subtractItem}>
+                              -
+                            </button>
                             <input value={`${item.quantity}`} readOnly></input>
-                            <button>+</button>
+                            <button id={item.id} onClick={this.addItem}>
+                              +
+                            </button>
                           </div>
                           <div className="price-box">
                             <div className="price">
@@ -97,7 +162,13 @@ class ItemCart extends Component {
                             </div>
                             <div className="price-without-sale">{+item.price}원</div>
                           </div>
-                          <img className="delete" src="images/cancel.svg" alt="delete" />
+                          <img
+                            onClick={this.deleteItem}
+                            id={item.id}
+                            className="delete"
+                            src="images/cancel.svg"
+                            alt="delete"
+                          />
                         </li>
                       );
                     })}
@@ -112,14 +183,14 @@ class ItemCart extends Component {
                         className={`fas fa-chevron-${showColdItems ? "down" : "up"}`}
                       />
                     </li>
-                    {cartData.map((item, id) => {
+                    {cartDummyData.map((item, id) => {
                       return (
                         <li key={item.id} className={`${showColdItems ? "hide" : ""}`}>
                           <i
                             className={`fa-check-circle ${item ? "far" : "fas purple"}`}
                             onClick={() => {}}
                           />
-                          <img src={item.imgUrl} alt="tomato" />
+                          <img src={item.image_url} alt="tomato" />
                           <h2 className="item-name">{item.name}</h2>
                           <div className="item-counter">
                             <button>-</button>
@@ -145,14 +216,14 @@ class ItemCart extends Component {
                         className={`fas fa-chevron-${showRoomItems ? "down" : "up"}`}
                       />
                     </li>
-                    {cartData.map((item, id) => {
+                    {cartDummyData.map((item, id) => {
                       return (
                         <li key={item.id} className={`${showRoomItems ? "hide" : ""}`}>
                           <i
                             className={`fa-check-circle ${item ? "far" : "fas purple"}`}
                             onClick={() => {}}
                           />
-                          <img src={item.imgUrl} alt="tomato" />
+                          <img src={item.image_url} alt="tomato" />
                           <h2 className="item-name">{item.name}</h2>
                           <div className="item-counter">
                             <button>-</button>
@@ -228,7 +299,8 @@ class ItemCart extends Component {
                 <div className="final-price"></div>
                 <div className="point-guide"></div>
               </div>
-              <button>주문하기</button>
+              {/* 장바구니에 상품 추가 버튼으로 임시 활용중인 버튼 */}
+              <button onClick={this.testFunction}>주문하기</button>
 
               <ul className="notice">
                 <li>· 쿠폰/적립금은 주문서에서 사용 가능합니다.</li>

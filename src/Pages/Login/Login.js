@@ -17,7 +17,7 @@ class Login extends React.Component {
   checkValidation = e => {
     e.preventDefault();
     const { id, password } = this.state;
-    console.log(id);
+
     const num = /^[0-9]{1,}$/; //숫자 하나 이상
     const txt = /^[A-Za-z]{6,}$/; // 알파벳 6자이상 !!!
     const emoji = /^[!@#$%^&*()_+]{1,}$/; //특수문자 하나이상

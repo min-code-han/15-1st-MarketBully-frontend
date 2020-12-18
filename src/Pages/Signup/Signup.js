@@ -6,27 +6,11 @@ class Signup extends Component {
     super(props);
     this.state = {
       isModalActive: false,
-      allChecked: true,
-      ischecked: false,
     };
   }
 
   handleModal = () => {
     this.setState({ isModalActive: !this.state.isModalActive });
-  };
-
-  checkAllcheckbox = () => {
-    this.setState({ allChecked: !this.state.allChecked });
-    if (this.state.allChecked === false) {
-      this.setState({ ischecked: false });
-    } else {
-      this.setState({ ischecked: true });
-    }
-  };
-
-  check = e => {
-    const { value } = e.target;
-    this.setState({ [value]: !this.state.ischecked });
   };
 
   render() {
@@ -201,7 +185,7 @@ class Signup extends Component {
                   <div className="agree-txt">
                     <div className="ageree-check">
                       <input type="checkbox" id="all" />
-                      <label htmlFor="all" className="check-all" onClick={this.checkAllcheckbox}>
+                      <label htmlFor="all" className="check-all">
                         전체 동의합니다
                       </label>
                       <p className="guide">
@@ -212,12 +196,7 @@ class Signup extends Component {
                       </p>
                     </div>
                     <div className="ageree-check">
-                      <input
-                        type="checkbox"
-                        id="use"
-                        checked={this.state.ischecked}
-                        onClick={this.check}
-                      />
+                      <input type="checkbox" id="use" />
                       <label htmlFor="use">
                         이용약관 동의<span className="necessary">(필수)</span>
                       </label>
@@ -226,12 +205,7 @@ class Signup extends Component {
                       </p>
                     </div>
                     <div className="ageree-check">
-                      <input
-                        type="checkbox"
-                        id="personal"
-                        checked={this.state.ischecked}
-                        onClick={this.check}
-                      />
+                      <input type="checkbox" id="personal" />
                       <label htmlFor="personal">
                         개인정보처리방침 동의<span className="necessary">(필수)</span>
                       </label>

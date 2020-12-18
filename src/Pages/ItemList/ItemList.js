@@ -11,37 +11,80 @@ class ItemList extends Component {
       optionBoxOnAndOff: false,
       isModalBoxOn: false,
       products: [],
-      clikcedID: 0,
+      clickedID: null,
+      quantities: 0,
+      filteringOption: "추천순",
     };
   }
 
   componentDidMount() {
-    fetch("data/item.json")
+    // fetch("http://10.168.1.160:8000/order/cart")
+    fetch("./data/item.json")
       .then(res => res.json())
       .then(res => {
         this.setState({
+          // products: res.items_in_cart,
           products: res.data,
         });
       });
   }
 
-  showOptionBox = e => {
+  addQuantity = () => {
+    console.log("addQuantity activated");
+    this.setState({ quantities: this.state.quantities + 1 });
+  };
+
+  subtractQuantity = () => {
+    console.log("subtractQuantity activated");
+    if (this.state.quantities < 1) return;
+    this.setState({ quantities: this.state.quantities - 1 });
+  };
+
+  changingFilteringOption = e => {
+    console.log("changingFilteringOption activated");
+    const { products, filteringOption } = this.state;
+
+    this.setState({ filteringOption: e.target.id });
+
+    if (filteringOption === "높은 가격순")
+      products.sort(function (a, b) {
+        return a.price - (a.price * a.sale) / 100 - b.price + b.price * (b.sale / 100);
+      });
+  };
+
+  showOptionBox = () => {
     this.setState({
       optionBoxOnAndOff: !this.state.optionBoxOnAndOff,
     });
   };
 
   showModalBox = e => {
+    console.log("showModalBox activated");
+    console.log(e.target.id);
+    const { isModalBoxOn } = this.state;
     this.setState({
-      isModalBoxOn: !this.state.isModalBoxOn,
+      isModalBoxOn: !isModalBoxOn,
+      clickedID: isModalBoxOn ? null : e.target.id,
+      quantities: 0,
     });
   };
 
   render() {
-    const { optionBoxOnAndOff, isModalBoxOn, products } = this.state;
+    const { clickedID, optionBoxOnAndOff, isModalBoxOn, products, quantities } = this.state;
+    console.log(products);
+    console.log(clickedID);
+    console.log(products.find(el => el.id === +clickedID));
     return (
       <div className="ItemList">
-        <ItemListModal isModalBoxOnOrOff={isModalBoxOn} ModalBoxClose={this.showModalBox} />
+        <ItemListModal
+          name={clickedID && products.find(el => el.id === +clickedID).name}
+          price={clickedID && products.find(el => el.id === +clickedID).price}
+          isModalBoxOnOrOff={isModalBoxOn}
+          ModalBoxClose={this.showModalBox}
+          quantities={quantities}
+          addQuantity={this.addQuantity}
+          subtractQuantity={this.subtractQuantity}
+        />
         <header>
           <div className="categoryHeader">
             <span className="meatIcon">
@@ -88,14 +131,26 @@ class ItemList extends Component {
               </li>
             </ul>
             <div className="selectOptions" onClick={this.showOptionBox}>
-              <span className={optionBoxOnAndOff ? "selectedOption" : ""}>추천 순</span>
+              <span className={optionBoxOnAndOff ? "selectedOption" : ""}>
+                {this.state.filteringOption}
+              </span>
               <i class="fas fa-chevron-down" />
               <ul className={optionBoxOnAndOff ? "optionList" : "optionListNone"}>
-                <li className="option">추천순</li>
-                <li className="option">신상품순</li>
-                <li className="option">인기상품순</li>
-                <li className="option">낮은 가격순</li>
-                <li className="option">높은 가격순</li>
+                <li id={`추천순`} className="option" onClick={this.changingFilteringOption}>
+                  추천순
+                </li>
+                <li id={`신상품순`} className="option" onClick={this.changingFilteringOption}>
+                  신상품순
+                </li>
+                <li id={`인기상품순`} className="option" onClick={this.changingFilteringOption}>
+                  인기상품순
+                </li>
+                <li id={`낮은 가격순`} className="option" onClick={this.changingFilteringOption}>
+                  낮은 가격순
+                </li>
+                <li id={`높은 가격순`} className="option" onClick={this.changingFilteringOption}>
+                  높은 가격순
+                </li>
               </ul>
             </div>
           </div>
@@ -105,10 +160,13 @@ class ItemList extends Component {
             return (
               <li className="card">
                 <ItemCard
+                  id={el.id}
                   name={el.name}
                   price={el.price}
                   imgUrl={el.imgUrl}
                   sale={el.sale}
+                  // imgUrl={el.image_url}
+                  // sale={el.discount_rate}
                   shortDescription={el.shortDescription}
                   showModalBoxButton={this.showModalBox}
                   type={"ItemList"}

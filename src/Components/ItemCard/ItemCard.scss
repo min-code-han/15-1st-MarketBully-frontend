@@ -125,7 +125,7 @@
     }
   }
 
-  &.ItemDetail {
+  &.RelatedProduct {
     width: 180px;
     height: 320px;
     margin-right: 10px;
@@ -136,18 +136,21 @@
         height: 230px;
         object-fit: cover;
       }
-      .header {
-        height: 35px;
-        padding: 10px 0 0 10px;
-        font-size: 14px;
-        font-weight: 700;
-        color: #4c4c4c;
-        line-height: 18px;
-      }
+      .headerAndPriceContainer {
+        margin: 5px;
+        .header {
+          height: 35px;
+          font-size: 14px;
+          font-weight: 700;
+          color: #4c4c4c;
+          line-height: 18px;
+          overflow: hidden;
+        }
 
-      .price {
-        font-size: 14px;
-        padding: 5px 0 0 10px;
+        .price {
+          margin-top: 5px;
+          font-size: 14px;
+        }
       }
     }
   }

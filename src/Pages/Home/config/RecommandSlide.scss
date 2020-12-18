@@ -60,8 +60,19 @@
       font-weight: 700;
       color: #000000;
     }
-    .recommand__link span {
-      margin-right: 5px;
+    .recommand__desc {
+      & .savePrice {
+        text-decoration: line-through;
+        color: #dbdbdb;
+      }
+      .recommand__link {
+        text-decoration: none;
+        color: #000000;
+
+        & span {
+          margin-right: 5px;
+        }
+      }
     }
   }
 }

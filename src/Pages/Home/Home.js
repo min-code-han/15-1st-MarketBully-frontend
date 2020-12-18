@@ -15,19 +15,13 @@ class Home extends Component {
   render() {
     return (
       <>
-        {/* MainBanner Slide */}
         <div className="home__mainBanner">
           <BannerSlide />
         </div>
-        {/* Recommand Item List*/}
         <RecommandGoods />
-        {/* Year-end special */}
         <YearEndSpecial />
-        {/* EventNews */}
         <EventNews />
-        {/* BannerMain */}
         <BannerMain />
-        {/* MDRcommand */}
         <MDRcommand />
       </>
     );

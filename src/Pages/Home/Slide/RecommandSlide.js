@@ -3,6 +3,19 @@ import { Link } from "react-router-dom";
 import Slide from "react-slick";
 import "../config/RecommandSlide.scss";
 export default class SimpleSlider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+    };
+  }
+
+  componentDidMount = () => {
+    fetch("http://localhost:3000/data/Mddata.json")
+      .then(res => res.json())
+      .then(res => this.setState({ data: res.data }));
+  };
+
   render() {
     var settings = {
       infinite: true,
@@ -14,69 +27,23 @@ export default class SimpleSlider extends React.Component {
 
     return (
       <Slide {...settings}>
-        <div className="recommand__container">
-          <Link to="/">
-            <img src="./images/디저트.jpg" alt="meat"></img>
-          </Link>
-          <div className="recommand__desc">
-            <Link
-              className="recommand__link"
-              style={{ textDecoration: "none", color: "#000" }}
-              to="/"
-            >
-              <span>[탄단지]</span>
-              <span>가벼운 한식 도시락 6종</span>{" "}
-            </Link>
-            <span>3700원</span>
-            <span>3300원</span>
-          </div>
-        </div>
-        <div className="recommand__container">
-          <Link className="recommand__image" to="/">
-            {" "}
-            <img src="./images/디저트1.jpg" alt="meat"></img>
-          </Link>
-        </div>
-        <div>
-          <Link className="recommand__image" to="/">
-            {" "}
-            <img src="./images/스테이크.jpg" alt="meat"></img>
-          </Link>
-        </div>
-        <div className="recommand__container">
-          <Link className="recommand__image" to="/">
-            {" "}
-            <img src="./images/밥상.jpg" alt="meat"></img>
-          </Link>{" "}
-        </div>
-        <div className="recommand__container">
-          {" "}
-          <Link className="recommand__image" to="/">
-            {" "}
-            <img src="./images/스파케티.jpg" alt="meat"></img>
-          </Link>{" "}
-        </div>
-        <div className="recommand__container">
-          {" "}
-          <Link className="recommand__image" to="/">
-            {" "}
-            <img src="./images/스테이크.jpg" alt="meat"></img>
-          </Link>{" "}
-        </div>
-        <div className="recommand__container">
-          {" "}
-          <Link className="recommand__image" to="/">
-            {" "}
-            <img src="./images/스테이크.jpg" alt="meat"></img>
-          </Link>
-        </div>
-        <div className="recommand__container">
-          {" "}
-          <Link to="/">
-            {" "}
-            <img src="./images/밥상.jpg" alt="meat"></img>
-          </Link>{" "}
-        </div>
+        {this.state.data?.map(data => {
+          return (
+            <div className="recommand__container">
+              <Link to="/">
+                <img src={data.imgUrl} alt={data.alt}></img>
+              </Link>
+              <div className="recommand__desc">
+                <Link className="recommand__link" to="/">
+                  <span>{data.companyName}</span>
+                  <span>{data.productName}</span>{" "}
+                </Link>
+                <span>{data.price}</span>
+                <span className="savePrice">{data.savePrice}</span>
+              </div>
+            </div>
+          );
+        })}
       </Slide>
     );
   }

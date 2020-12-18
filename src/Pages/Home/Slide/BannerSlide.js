@@ -7,21 +7,11 @@ export default class SimpleSlider extends React.Component {
     super(props);
     this.state = {
       bannerImag: [
-        {
-          src: "./images/크리스마스.png",
-        },
-        {
-          src: "./images/시카고햄버거.png",
-        },
-        {
-          src: "./images/크리스마스.png",
-        },
-        {
-          src: "./images/크리스마스.png",
-        },
-        {
-          src: "./images/디저트1.jpg",
-        },
+        { id: 1, src: "./images/크리스마스.png" },
+        { id: 2, src: "./images/시카고햄버거.png" },
+        { id: 3, src: "./images/크리스마스.png" },
+        { id: 4, src: "./images/크리스마스.png" },
+        { id: 5, src: "./images/디저트1.jpg" },
       ],
     };
   }

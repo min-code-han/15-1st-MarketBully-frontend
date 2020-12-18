@@ -6,40 +6,28 @@ class MDRcommand extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        { name: "정육", filterName: "yearevent", img: "./images/디저트.jpg" },
-        { name: "소고기", filterName: "vegetable", img: "./images/스테이크.jpg" },
-        { name: "돼지고기", filterName: "meat", img: "./images/밥상.jpg" },
-        { name: "계란류", filterName: "bakery", img: "./images/스테이크.jpg" },
-        { name: "닭", filterName: "bakery", img: "./images/스테이크.jpg" },
-        { name: "계란류", filterName: "bakery", img: "./images/스테이크.jpg" },
-        { name: "양고기", filterName: "bakery", img: "./images/스테이크.jpg" },
-      ],
+      data: [],
       filterTarget: "",
       mode: false,
     };
   }
 
-  clickHandler = e => {
-    const filterTarget = e.target.dataset.filter;
-
-    this.setState({
-      filterTarget: filterTarget,
-    });
+  componentDidMount = () => {
+    fetch("http://localhost:3000/data/Mddata.json")
+      .then(res => res.json())
+      .then(res => this.setState({ data: res.data }));
   };
 
   render() {
     return (
       <>
         <div class="mdRcommandContainer">
-          {/* MD MenuList */}
-
           <div className="mdRcommandHader">
             <h2>MD의 추천</h2>
           </div>
-          {/* mdRcommandBtn */}
+
           <div className="mdRcommandMenu">
-            {this.state.data.map(data => (
+            {this.state.data?.map(data => (
               <button
                 class="mdRcommandBtn"
                 data-filter={data.filterName}
@@ -50,12 +38,7 @@ class MDRcommand extends Component {
             ))}
           </div>
           <div className="RcommandSlideContainer">
-            {/* MD Slide Card */}
-            <MDRcommanSlide
-              mode={this.state.mode}
-              data={this.state.data}
-              filterType={this.state.filterTarget}
-            />
+            <MDRcommanSlide data={this.state.data} mode={this.state.mode} />
           </div>
         </div>
       </>

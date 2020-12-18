@@ -1,0 +1,81 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "정육",
+      "filterName": "yearevent",
+      "imgUrl": "./images/스테이크.jpg",
+      "companyName": "[탄단지]",
+      "productName": "가벼운 한식 도시락 6종",
+      "price": "3700원",
+      "savePrice": "3333원",
+      "alt": "meat"
+    },
+    {
+      "id": 2,
+      "name": "소고기",
+      "filterName": "yearevent",
+      "imgUrl": "./images/스테이크.jpg",
+      "companyName": "[남양]",
+      "productName": "가벼운 한식 도시락 6종",
+      "price": "3700원",
+      "savePrice": "3333원",
+      "alt": "meat"
+    },
+    {
+      "id": 3,
+      "name": "돼지고기",
+      "filterName": "yearevent",
+      "imgUrl": "./images/스테이크.jpg",
+      "companyName": "[남양]",
+      "productName": "맛있는 스테이크",
+      "price": "3700원",
+      "savePrice": "3333원",
+      "alt": "meat"
+    },
+    {
+      "id": 4,
+      "name": "계란류",
+      "filterName": "yearevent",
+      "imgUrl": "./images/스테이크.jpg",
+      "companyName": "[오뚜기]",
+      "productName": "오뚜기 카레",
+      "price": "3700원",
+      "savePrice": "3333원",
+      "alt": "meat"
+    },
+    {
+      "id": 5,
+      "name": "닭",
+      "filterName": "yearevent",
+      "imgUrl": "./images/디저트.jpg",
+      "companyName": "[풀무원]",
+      "productName": "빨아먹는 초콜릿",
+      "price": "3700원",
+      "savePrice": "3333원",
+      "alt": "meat"
+    },
+    {
+      "id": 6,
+      "name": "계란류",
+      "filterName": "yearevent",
+      "imgUrl": "./images/스테이크.jpg",
+      "companyName": "[탄단지]",
+      "productName": "한끼 합쇼",
+      "price": "3700원",
+      "savePrice": "3333원",
+      "alt": "meat"
+    },
+    {
+      "id": 7,
+      "name": "양고기",
+      "filterName": "yearevent",
+      "imgUrl": "./images/밥상.jpg",
+      "companyName": "[탄단지]",
+      "productName": "한끼 합쇼",
+      "price": "3700원",
+      "savePrice": "3333원",
+      "alt": "meat"
+    }
+  ]
+}

@@ -11,20 +11,16 @@ export default class SimpleSlider extends React.Component {
       slidesToScroll: 4,
       initialSlide: 0,
     };
-
     const { mode, data } = this.props;
+    console.log(data);
+
     return (
       <Slide {...settings}>
-        {data.map(data => {
+        {data?.map(data => {
           return (
             <div className="MDRcommanCard">
-              <Link
-                className="MDLink"
-                to="/"
-                data-type={data.filterName}
-                className={mode ? "MDLink invisible" : "MDLink"}
-              >
-                <img src={data.img} alt="meat"></img>
+              <Link className="MDLink" to="/" className={mode ? "MDLink invisible" : "MDLink"}>
+                <img src={data.imgUrl} alt="meat" />
                 <div className="MDRcommanSlideDesc">
                   <span>가벼운 한식 도시락 6종</span>
                   <span>3300원</span>

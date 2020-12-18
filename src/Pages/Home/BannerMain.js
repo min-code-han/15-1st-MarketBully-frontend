@@ -8,13 +8,11 @@ class BannerMain extends Component {
   }
   render() {
     return (
-      <>
-        <div className="bnrMain">
-          <Link style={{ display: "block", width: "inherit", height: "inherit" }} to="/">
-            <img src="./images/new.png"></img>
-          </Link>
-        </div>
-      </>
+      <div className="bnrMain">
+        <Link to="/">
+          <img src="./images/new.png" alt="yearEventBanner" />
+        </Link>
+      </div>
     );
   }
 }

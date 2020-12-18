@@ -9,32 +9,33 @@ class Login extends React.Component {
       password: "",
     };
   }
-
   handleValue = e => {
     const { id, value } = e.target;
     this.setState({ [id]: value });
   };
 
   checkValidation = e => {
+    console.log("checkValidation activated");
     e.preventDefault();
     const { id, password } = this.state;
-    const checkId = id.includes("@");
-    const checkPw = password.number;
 
-    if (checkId && checkPw) {
-      alert("로그인을 성공하셨습니다 😉 ");
-    }
+    console.log(password);
+    const checkIdValidation = /^[a-z0-9]{6,}$/;
+    const checkPwValidation = /^[A-Za-z0-9@#$%^&+=]{10,}$/;
 
-    if (!checkId) {
-      alert("아이디는 @ 를 포함해야 합니다");
-    }
+    console.log(checkIdValidation.test(id));
+    console.log(checkPwValidation.test(password));
 
-    if (!checkPw) {
-      alert("비밀번호가 틀립니다");
-    }
-
-    if (!checkId && checkPw) {
-      alert("로그인에 실패하셨습니다");
+    if (checkIdValidation.test(id) && checkPwValidation.test(password)) {
+      alert("로그인 성공");
+    } else if (!checkIdValidation.test(id) && checkPwValidation.test(password)) {
+      alert("아이디를 잘못 입력하셨습니다.");
+    } else if (checkIdValidation.test(id) && !checkPwValidation.test(password)) {
+      alert("비밀번호를 잘못 입력하셨습니다");
+    } else if (!checkIdValidation.test(id) && !checkPwValidation.test(password)) {
+      alert("아이디 또는 비밀번호 오류 입니다");
+    } else {
+      alert("넌뭔데");
     }
   };
 
@@ -52,7 +53,7 @@ class Login extends React.Component {
               onChange={this.handleValue}
             />
             <input
-              type="password"
+              type="text"
               placeholder="비밀번호를 입력해주세요"
               id="password"
               className="password box"

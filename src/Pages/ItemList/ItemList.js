@@ -109,6 +109,7 @@ class ItemList extends Component {
                   price={el.price}
                   imgUrl={el.imgUrl}
                   sale={el.sale}
+                  shortDescription={el.shortDescription}
                   showModalBoxButton={this.showModalBox}
                   type={"ItemList"}
                 />

@@ -6,11 +6,43 @@ class Signup extends Component {
     super(props);
     this.state = {
       isModalActive: false,
+      showIdDetail: false,
+      showPwDetail: false,
+      showCheckPwDetail: false,
+      id: "",
+      validateId: false,
     };
   }
 
   handleModal = () => {
     this.setState({ isModalActive: !this.state.isModalActive });
+  };
+
+  openIdDetail = () => {
+    this.setState({ showIdDetail: true });
+  };
+
+  openPwDetail = () => {
+    this.setState({ showPwDetail: true });
+  };
+
+  openCheckPwDetail = () => {
+    this.setState({ showCheckPwDetail: true });
+  };
+
+  validationId = e => {
+    const { id, value } = e.target;
+    this.setState({ [id]: value });
+
+    const txt = /^[A-Za-z]{5,}$/;
+    const numtxt6 = /^(?=.*[0-9])(?=.*[a-zA-Z]){5,}$/;
+    const checkIdValidation = txt.test(this.state.id) || numtxt6.test(this.state.id);
+
+    if (checkIdValidation) {
+      this.setState({ validateId: true });
+    } else {
+      this.setState({ validateId: false });
+    }
   };
 
   render() {
@@ -29,13 +61,18 @@ class Signup extends Component {
                 </th>
                 <td>
                   <input
+                    id="id"
                     className="inputbox-commonstyle"
                     type="text"
                     placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합"
+                    onClick={this.openIdDetail}
+                    onChange={this.validationId}
                   />
                   <button className="button small-btn">중복확인</button>
-                  <p className="guide">
-                    <span>&middot; 6자 이상의 영문 혹은 영문과 숫자를 조합</span>
+                  <p className={"guide " + (this.state.showIdDetail ? "show" : "hide")}>
+                    <span className={this.state.validateId ? "true" : "false"}>
+                      &middot; 6자 이상의 영문 혹은 영문과 숫자를 조합
+                    </span>
                     <span>&middot; 아이디 중복확인</span>
                   </p>
                 </td>
@@ -48,12 +85,12 @@ class Signup extends Component {
                   <input
                     className="inputbox-commonstyle"
                     type="text"
-                    placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합"
+                    placeholder="비밀번호를 입력해주세요"
+                    onClick={this.openPwDetail}
                   />
-                  <p className="guide">
+                  <p className={"guide " + (this.state.showPwDetail ? "show" : "hide")}>
                     <span>&middot; 10자 이상 입력</span>
                     <span>&middot; 영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합</span>
-                    <span>&middot; 동일한 숫자 3개 이상 연속 사용 불가</span>
                   </p>
                 </td>
               </tr>
@@ -66,8 +103,9 @@ class Signup extends Component {
                     className="inputbox-commonstyle"
                     type="text"
                     placeholder="비밀번호를 입력해주세요"
+                    onClick={this.openCheckPwDetail}
                   />
-                  <p className="guide">
+                  <p className={"guide " + (this.state.showCheckPwDetail ? "show" : "hide")}>
                     <span>&middot; 동일한 비밀번호를 입력해주세요.</span>
                   </p>
                 </td>

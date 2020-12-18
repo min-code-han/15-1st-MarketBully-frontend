@@ -46,6 +46,7 @@ $main-color: #5f0080;
   }
 
   .guide {
+    display: none;
     padding-top: 10px;
     font-size: 12px;
     line-height: 15px;
@@ -58,6 +59,18 @@ $main-color: #5f0080;
     span {
       display: block;
     }
+
+    span.true {
+      color: green;
+    }
+
+    span.false {
+      color: red;
+    }
+  }
+
+  .guide.show {
+    display: block;
   }
 
   .signup-wrap {

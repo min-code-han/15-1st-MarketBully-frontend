@@ -19,6 +19,7 @@ const MENU_COMPONENTS = {
   5: ItemInquire,
 };
 const MENU_NAME = ["ItemDescription", "ItemImage", "DetailInfo", "CustomerReview", "ItemInquire"];
+
 class ItemDetail extends Component {
   constructor(props) {
     super(props);

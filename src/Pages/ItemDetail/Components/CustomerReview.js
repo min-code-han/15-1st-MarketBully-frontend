@@ -10,7 +10,7 @@ class CustomerReview extends Component {
   render() {
     return (
       <div className="CustomerReview">
-        <Board menuTabId={this.props.menuTabId} />
+        <Board menuTabId={this.props.menuTabId} showLike={true} />
       </div>
     );
   }

@@ -17,7 +17,7 @@ class Board extends Component {
   openBoardContent = e => {
     const { boardData } = this.state;
     for (let i = 0; i < boardData.length; i++) {
-      if (boardData[i].id === +e.target.id) boardData[i].show = true;
+      if (boardData[i].id === +e.target.id) boardData[i].show = !boardData[i].show;
     }
     this.setState({ boardData: boardData });
   };
@@ -39,7 +39,7 @@ class Board extends Component {
     menuTabId === 4 ? getReviewData() : getInquireData();
   }
   render() {
-    const { menuTabId } = this.props;
+    const { menuTabId, showLike } = this.props;
     return (
       <div className="Board">
         <div className="menu-header">
@@ -52,7 +52,7 @@ class Board extends Component {
               <th className="title">제목</th>
               <th className="writer">작성자</th>
               <th className="date">작성일</th>
-              {menuTabId === 4 && <th className="like">도움</th>}
+              {showLike && <th className="like">도움</th>}
               <th className="lookup">조회</th>
             </tr>
           </thead>
@@ -67,13 +67,13 @@ class Board extends Component {
                   </td>
                   <td className="writer">{review.writer}</td>
                   <td className="date">{review.date}</td>
-                  {menuTabId === 4 && <td className="like">{review.like}</td>}
+                  {showLike && <td className="like">{review.like}</td>}
                   <td className="lookup">{review.lookup}</td>
                 </tr>
                 <tr>
                   {true && (
                     <td colSpan="6" className={`content ${review.show ? "show" : ""}`}>
-                      {review.show ? review.title : ""}
+                      {review.show ? review.content : ""}
                     </td>
                   )}
                 </tr>

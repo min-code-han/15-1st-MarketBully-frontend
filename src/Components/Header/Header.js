@@ -11,6 +11,54 @@ class Header extends Component {
       fix: false,
       hoverAction: false,
       subHoverAction: false,
+      gnbCategorydata: [
+        {
+          id: 1,
+          content: "신상품",
+        },
+        {
+          id: 2,
+          content: "베스트",
+        },
+        {
+          id: 3,
+          content: "알뜰쇼핑",
+        },
+        {
+          id: 4,
+          content: "이벤트",
+        },
+      ],
+      gnbSubMenudata: [
+        {
+          id: 1,
+          image:
+            "https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png",
+          alt: "연말대전",
+          text: "연말대전",
+        },
+        {
+          id: 2,
+          image:
+            "https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png",
+          alt: "연말대전",
+          text: "연말대전",
+        },
+        {
+          id: 3,
+          image:
+            "https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png",
+          alt: "연말대전",
+          text: "연말대전",
+        },
+        {
+          id: 4,
+          image:
+            "https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png",
+          alt: "연말대전",
+          text: "연말대전",
+        },
+      ],
     };
   }
 
@@ -23,20 +71,18 @@ class Header extends Component {
 
   handleScroll = e => {
     const scrollTop = ("scroll", window.scrollY);
-    if (scrollTop > 160) {
-      this.setState({ fix: true });
-    } else {
-      this.setState({ fix: false });
-    }
+    this.setState({ fix: scrollTop > 160 ? true : false });
   };
 
-  onMouseOver = e => {
+  hadnleClick = e => {
     if (e.target.className === "gnbAllCategory") {
       this.setState({
         hoverAction: !this.state.hoverAction,
+        subHoverAction: false,
       });
     }
     if (e.target.className === "gnbOverlay") {
+      console.log("hi");
       this.setState({
         hoverAction: false,
         subHoverAction: false,
@@ -54,7 +100,7 @@ class Header extends Component {
       <>
         <div
           className={`${this.state.hoverAction ? "gnbOverlay" : ""}`}
-          onClick={this.onMouseOver}
+          onClick={this.hadnleClick}
         ></div>
 
         <div className="header">
@@ -79,23 +125,19 @@ class Header extends Component {
           </div>
           <div className={`gnb ${this.state.fix ? "fix" : ""}`}>
             <ul>
-              <li onClick={this.onMouseOver}>
+              <li onClick={this.hadnleClick}>
                 <Link className="gnbAllCategory" to="/">
                   전체 카테고리
                 </Link>
               </li>
-              <li>
-                <Link to="/">신상품</Link>
-              </li>
-              <li>
-                <Link to="/">베스트</Link>
-              </li>
-              <li>
-                <Link to="/">알뜰쇼핑</Link>
-              </li>
-              <li>
-                <Link to="/">이벤트</Link>
-              </li>
+
+              {this.state.gnbCategorydata.map(data => {
+                return (
+                  <li key={data.id}>
+                    <Link to="/">{data.content}</Link>
+                  </li>
+                );
+              })}
             </ul>
 
             <div className="gnb__search">
@@ -120,166 +162,23 @@ class Header extends Component {
             </div>
             <div className={`gnb__subMenu ${this.state.hoverAction ? "hoverd" : ""}`}>
               <ul>
-                <li onClick={this.subMenuMoues}>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <div className="gnb__image">
-                        <img
-                          src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                          alt="연말대전"
-                        ></img>
+                {this.state.gnbSubMenudata.map(data => {
+                  return (
+                    <li onClick={this.subMenuMoues} key={data.id}>
+                      <div className="gnb__subMenuBox">
+                        <Link to="/">
+                          {" "}
+                          <div className="gnb__image">
+                            <img src={data.image} alt={data.alt}></img>
+                          </div>
+                          <div className="gnbSubMenuText">
+                            <span> {data.text} </span>
+                          </div>
+                        </Link>
                       </div>
-                      <div className="gnbSubMenuText">
-                        <span> Link1 </span>
-                      </div>
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="gnb__subMenuBox">
-                    <Link to="/">
-                      {" "}
-                      <img
-                        src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                        alt="연말대전"
-                      ></img>
-                      Link1
-                    </Link>
-                  </div>
-                </li>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>

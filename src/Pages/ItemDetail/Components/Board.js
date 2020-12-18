@@ -9,11 +9,11 @@ const PAGES = ["<", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ">"];
 class Board extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       boardData: [],
     };
   }
+
   openBoardContent = e => {
     const { boardData } = this.state;
     for (let i = 0; i < boardData.length; i++) {
@@ -27,6 +27,7 @@ class Board extends Component {
     const reviewData = await reviewDataRes.json();
     this.setState({ boardData: reviewData.reviewData });
   };
+
   getInquireData = async () => {
     const inquireDataRes = await fetch(`data/inquire.json`);
     const inquireData = await inquireDataRes.json();

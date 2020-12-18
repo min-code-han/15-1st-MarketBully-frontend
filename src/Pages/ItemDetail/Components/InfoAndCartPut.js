@@ -39,7 +39,7 @@ class InfoAndCartPut extends Component {
 
   componentDidMount() {
     this.getItemDetailData();
-    this.getData();
+    //this.getData();
   }
 
   handleQuantity = e => {
@@ -92,12 +92,12 @@ class InfoAndCartPut extends Component {
               <span className="point-save">개당 50원 적립</span>
             </div>
             <ul className="item-info-list">
-              {Object.entries(itemData).map((title, content) => {
-                if (!Object.keys(INFO_TITLE).includes(title[0])) return null;
+              {Object.entries(itemData).map(data => {
+                if (!Object.keys(INFO_TITLE).includes(data[0])) return null;
                 return (
-                  <li key={title[0]}>
-                    <p className="title">{INFO_TITLE[title[0]]}</p>
-                    <p className="content">{title[1]}</p>
+                  <li key={data[0]}>
+                    <p className="title">{INFO_TITLE[data[0]]}</p>
+                    <p className="content">{data[1]}</p>
                   </li>
                 );
               })}

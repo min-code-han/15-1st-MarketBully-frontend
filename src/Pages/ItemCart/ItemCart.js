@@ -2,58 +2,50 @@
 import React, { Component } from "react";
 import "./ItemCart.scss";
 
-const dummyCartData = [
-  {
-    id: 1,
-    name: "미친 생고기",
-    salePrice: 32700,
-    originPrice: 38000,
-    imgUrl:
-      "https://images.unsplash.com/photo-1592686092916-672fa9e86866?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
-    quantity: 1,
-    selected: true,
-  },
-  {
-    id: 2,
-    name: "진짜 맛있는 고기",
-    salePrice: 80000,
-    originPrice: 90000,
-    imgUrl:
-      "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1275&q=80",
-    quantity: 1,
-    selected: true,
-  },
-  {
-    id: 3,
-    name: "미친 닭고기",
-    salePrice: null,
-    originPrice: 50000,
-    imgUrl:
-      "https://images.unsplash.com/photo-1501200291289-c5a76c232e5f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80",
-    quantity: 1,
-    selected: true,
-  },
-  {
-    id: 4,
-    name: "미친 닭고기",
-    salePrice: null,
-    originPrice: 50000,
-    imgUrl:
-      "https://images.unsplash.com/photo-1501200291289-c5a76c232e5f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80",
-    quantity: 1,
-    selected: true,
-  },
-];
 class ItemCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      cartData: [],
+      cartRealData: [],
       selectAll: false,
-      selectList: [false, false, false, false],
+      showRoomItems: false,
+      showColdItems: false,
+      showFrozenItems: false,
     };
   }
+  clickShowButton = e => {
+    const { id } = e.target;
+    this.setState({ [id]: !this.state[id] });
+  };
+
+  getCartData = async () => {
+    const response = await fetch(`data/cartdata.json`);
+    const data = await response.json();
+    this.setState({ cartData: data.cartData });
+  };
+  getData = async () => {
+    // 2020.12.18 오후 3시 20분, 마켓컬리 백엔드와 프론트의 역사적인 만남이 이루어진 코드
+    // 역사적인 첫 API 주소: http://10.168.1.160:8000/order/cart
+    const response = await fetch(`http://10.168.1.160:8000/order/cart`);
+    const data = await response.json();
+    console.log(data.items_in_cart);
+    this.setState({ cartRealData: data.items_in_cart });
+  };
+  componentDidMount() {
+    this.getCartData();
+    this.getData();
+  }
   render() {
-    const { selectAll, selectList } = this.state;
+    const {
+      cartRealData,
+      cartData,
+      selectAll,
+      showRoomItems,
+      showColdItems,
+      showFrozenItems,
+    } = this.state;
+
     return (
       <div className="ItemCart">
         <main>
@@ -73,9 +65,89 @@ class ItemCart extends Component {
               <div className="cart">
                 <div className="items-in-cart">
                   <ul>
-                    {dummyCartData.map((item, id) => {
+                    <li className="frozen">
+                      <div>
+                        <img alt="snowflake" src="images/frozen.svg" />
+                        <h2>냉동 상품</h2>
+                      </div>
+                      <i
+                        id="showFrozenItems"
+                        onClick={this.clickShowButton}
+                        className={`fas fa-chevron-${showFrozenItems ? "down" : "up"}`}
+                      />
+                    </li>
+                    {cartRealData.map((item, id) => {
                       return (
-                        <li key={item.id}>
+                        <li key={item.id} className={`${showFrozenItems ? "hide" : ""}`}>
+                          <i
+                            className={`fa-check-circle ${item ? "far" : "fas purple"}`}
+                            onClick={() => {}}
+                          />
+                          <img src={item.image_url} alt={item.name} />
+                          <h2 className="item-name">{item.name}</h2>
+                          <div className="item-counter">
+                            <button>-</button>
+                            <input value={`${item.quantity}`} readOnly></input>
+                            <button>+</button>
+                          </div>
+                          <div className="price-box">
+                            <div className="price">
+                              {/* 할인 후 10원 이하 절삭 */}
+                              {Math.floor((item.price * (1 - item.discount_rate)) / 10) * 10}원
+                            </div>
+                            <div className="price-without-sale">{+item.price}원</div>
+                          </div>
+                          <img className="delete" src="images/cancel.svg" alt="delete" />
+                        </li>
+                      );
+                    })}
+                    <li className="cold">
+                      <div>
+                        <img alt="water drop" src="images/cold.svg" />
+                        <h2>냉장 상품</h2>
+                      </div>
+                      <i
+                        id="showColdItems"
+                        onClick={this.clickShowButton}
+                        className={`fas fa-chevron-${showColdItems ? "down" : "up"}`}
+                      />
+                    </li>
+                    {cartData.map((item, id) => {
+                      return (
+                        <li key={item.id} className={`${showColdItems ? "hide" : ""}`}>
+                          <i
+                            className={`fa-check-circle ${item ? "far" : "fas purple"}`}
+                            onClick={() => {}}
+                          />
+                          <img src={item.imgUrl} alt="tomato" />
+                          <h2 className="item-name">{item.name}</h2>
+                          <div className="item-counter">
+                            <button>-</button>
+                            <input value="1" readOnly></input>
+                            <button>+</button>
+                          </div>
+                          <div className="price-box">
+                            <div className="price">{item.salePrice}원</div>
+                            <div className="price-without-sale">{item.originPrice}원</div>
+                          </div>
+                          <img className="delete" src="images/cancel.svg" alt="delete" />
+                        </li>
+                      );
+                    })}
+                    <li className="room">
+                      <div>
+                        <img alt="sun" src="images/room.svg" />
+                        <h2>상온 상품</h2>
+                      </div>
+                      <i
+                        id="showRoomItems"
+                        onClick={this.clickShowButton}
+                        className={`fas fa-chevron-${showRoomItems ? "down" : "up"}`}
+                      />
+                    </li>
+                    {cartData.map((item, id) => {
+                      return (
+                        <li key={item.id} className={`${showRoomItems ? "hide" : ""}`}>
                           <i
                             className={`fa-check-circle ${item ? "far" : "fas purple"}`}
                             onClick={() => {}}
@@ -112,7 +184,7 @@ class ItemCart extends Component {
             <div className="cart-result">
               <div className="address">
                 <h2>
-                  <i class="fas fa-map-marker-alt" /> 배송지
+                  <i className="fas fa-map-marker-alt" /> 배송지
                 </h2>
                 <div className="full-address">경기도 수원시 팔달구 매산로 2가 마켓불리 1311호</div>
                 <div className="delivery-type">샛별배송</div>
@@ -120,30 +192,34 @@ class ItemCart extends Component {
               </div>
               <div className="price-result">
                 <table>
-                  <tr>
-                    <th>상품금액</th>
-                    <td>29,800원</td>
-                  </tr>
-                  <tr>
-                    <th>상품할인금액</th>
-                    <td>-9,800원</td>
-                  </tr>
-                  <tr>
-                    <th>배송비</th>
-                    <td>+3,000원</td>
-                  </tr>
-                  <tr>
-                    <th></th>
-                    <td className="free-deliver-guide">20,000원 추가주문 시, 무료배송</td>
-                  </tr>
-                  <tr className="final-price">
-                    <th className="final-price">결제예정금액</th>
-                    <td className="final-price">23,000원</td>
-                  </tr>
-                  <tr>
-                    <th></th>
-                    <td className="point-guide">구매 시 94원 적립</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>상품금액</th>
+                      <td>29,800원</td>
+                    </tr>
+                    <tr>
+                      <th>상품할인금액</th>
+                      <td>-9,800원</td>
+                    </tr>
+                    <tr>
+                      <th>배송비</th>
+                      <td>+3,000원</td>
+                    </tr>
+                    <tr>
+                      <td colSpan={2} className="free-deliver-guide">
+                        20,000원 추가주문 시, 무료배송
+                      </td>
+                    </tr>
+                    <tr className="final-price">
+                      <th className="final-price">결제예정금액</th>
+                      <td className="final-price">23,000원</td>
+                    </tr>
+                    <tr>
+                      <td colSpan={2} className="point-guide">
+                        <span className="small-yellow-box">적립</span>구매 시 94원 적립
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
                 <div className="pre-price"></div>
                 <div className="total-sale-amount"></div>
@@ -153,13 +229,12 @@ class ItemCart extends Component {
                 <div className="point-guide"></div>
               </div>
               <button>주문하기</button>
-              <p className="notice">
-                <ul>
-                  <li>· 쿠폰/적립금은 주문서에서 사용 가능합니다.</li>
-                  <li>· '입금확인' 상태일 때는 직접 주문취소가 가능합니다.</li>
-                  <li>· '입금확인' 이후 상태에는 고객센터로 문의해주세요.</li>
-                </ul>
-              </p>
+
+              <ul className="notice">
+                <li>· 쿠폰/적립금은 주문서에서 사용 가능합니다.</li>
+                <li>· '입금확인' 상태일 때는 직접 주문취소가 가능합니다.</li>
+                <li>· '입금확인' 이후 상태에는 고객센터로 문의해주세요.</li>
+              </ul>
             </div>
           </section>
         </main>

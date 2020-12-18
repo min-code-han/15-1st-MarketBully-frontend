@@ -15,24 +15,29 @@ class Login extends React.Component {
   };
 
   checkValidation = e => {
-    console.log("checkValidation activated");
     e.preventDefault();
     const { id, password } = this.state;
+    console.log(id);
+    const num = /^[0-9]{1,}$/; //숫자 하나 이상
+    const txt = /^[A-Za-z]{6,}$/; // 알파벳 6자이상 !!!
+    const emoji = /^[!@#$%^&*()_+]{1,}$/; //특수문자 하나이상
+    const numtxt6 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/; // 영문 + 숫자 합쳐서 6개 이상 !!!
 
-    console.log(password);
-    const checkIdValidation = /^[a-z0-9]{6,}$/;
-    const checkPwValidation = /^[A-Za-z0-9@#$%^&+=]{10,}$/;
+    const numtxt10 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{10,}$/; // 영문 + 숫자 합쳐서 10개 이상 !!!
+    const txtemoji10 = /^(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{10,}$/; // 영문 + 특수기호 합쳐서 10개 이상 !!!
+    const numemoji10 = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+]).{10,}$/; // 특수문자 + 숫자 합쳐서 10개 이상 !!!
 
-    console.log(checkIdValidation.test(id));
-    console.log(checkPwValidation.test(password));
+    const checkIdValidation = txt.test(id) || numtxt6.test(id);
+    const checkPwValidation =
+      numtxt10.test(password) || txtemoji10.test(password) || numemoji10.test(password);
 
-    if (checkIdValidation.test(id) && checkPwValidation.test(password)) {
+    if (checkIdValidation && checkPwValidation) {
       alert("로그인 성공");
-    } else if (!checkIdValidation.test(id) && checkPwValidation.test(password)) {
+    } else if (!checkIdValidation && checkPwValidation) {
       alert("아이디를 잘못 입력하셨습니다.");
-    } else if (checkIdValidation.test(id) && !checkPwValidation.test(password)) {
+    } else if (checkIdValidation && !checkPwValidation) {
       alert("비밀번호를 잘못 입력하셨습니다");
-    } else if (!checkIdValidation.test(id) && !checkPwValidation.test(password)) {
+    } else if (!checkIdValidation && !checkPwValidation) {
       alert("아이디 또는 비밀번호 오류 입니다");
     } else {
       alert("넌뭔데");
@@ -53,7 +58,7 @@ class Login extends React.Component {
               onChange={this.handleValue}
             />
             <input
-              type="text"
+              type="password"
               placeholder="비밀번호를 입력해주세요"
               id="password"
               className="password box"
@@ -61,8 +66,10 @@ class Login extends React.Component {
             />
             <div className="check-and-find">
               <div className="checkbox-wrap">
-                <input type="checkbox" id="security" />
-                <label htmlFor="security">보안접속</label>
+                <label>
+                  <input type="checkbox" />
+                  보안접속
+                </label>
               </div>
               <div className="find-account">
                 <p>아이디 찾기</p>

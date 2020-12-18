@@ -6,11 +6,11 @@ import "./InfoAndCartPut.scss";
 const INFO_TITLE = {
   sellUnit: "판매단위",
   weight: "중량/용량",
-  deliveryType: "배송구분",
-  originCountry: "원산지",
-  packageType: "포장타입",
-  shelfLife: "유통기한",
-  allergyInfo: "알레르기 정보",
+  delivery_type: "배송구분",
+  origin: "원산지",
+  packaging_type: "포장타입",
+  expiration_date: "유통기한",
+  allergy: "알레르기 정보",
 };
 
 class InfoAndCartPut extends Component {
@@ -25,15 +25,21 @@ class InfoAndCartPut extends Component {
   getItemDetailData = async () => {
     const response = await fetch(`data/itemdetail.json`);
     const result = await response.json();
-    this.setState({ itemData: result.itemInfo }, this.allergyUpdate);
+    this.setState({ itemData: result.itemInfo });
   };
-  allergyUpdate = () => {
-    const newAllergyInfo = this.state.itemData.allergyInfo;
 
-    console.log(newAllergyInfo);
+  getData = async () => {
+    // 우리팀 두 번째 API + 프론트!
+    const response = await fetch("http://10.168.1.121:8000/product/1");
+    const result = await response.json();
+    this.setState({ ss: result.product_detail });
   };
+
+  allergyUpdate = () => {};
+
   componentDidMount() {
     this.getItemDetailData();
+    this.getData();
   }
 
   handleQuantity = e => {
@@ -51,12 +57,14 @@ class InfoAndCartPut extends Component {
   render() {
     const { quantity, itemData } = this.state;
     const userMileageClass = 0.005;
-    const mileage = Math.ceil(itemData.price * userMileageClass * quantity);
-
+    // 세일 가격에서 10원 이하 절삭
+    const discountedPrice =
+      Math.floor((itemData.price * (1 - itemData.discount_percentage)) / 10) * 10;
+    console.log(itemData);
     return (
       <div className="InfoAndCartPut">
         <div className="item-image">
-          <img src="images/tomato.jpg" alt="tomato"></img>
+          <img src={itemData.img_url} alt="tomato" />
         </div>
         <div className="item-detail-right">
           <div className="info">
@@ -66,14 +74,13 @@ class InfoAndCartPut extends Component {
                 <i className="fas fa-share-alt" />
               </span>
             </div>
-            <h3>{itemData.shortDescription}</h3>
+            <h3>{itemData.subtitle}</h3>
             <div className="price">
               <span className="on-login">회원할인가</span>
               <div className="real-price">
-                {/* 세일가격에서 10원 이하 절삭 */}
-                <span>{Math.floor((itemData.price * (1 - itemData.sale)) / 10) * 10}</span>
+                <span>{discountedPrice}</span>
                 <div className="unit">원</div>
-                <span className="sale-percentage">{itemData.sale * 100}%</span>
+                <span className="sale-percentage">{itemData.discount_name}</span>
               </div>
               <span className="nosale-price">
                 <span className="price">8800원</span>
@@ -109,12 +116,14 @@ class InfoAndCartPut extends Component {
           <div className="cart-put">
             <div className="price-box">
               <span className="total">총 상품금액 : </span>
-              <span className="price">{itemData.price * quantity}</span>
+              <span className="price">{discountedPrice * quantity}</span>
               <span className="unit"> 원</span>
             </div>
             <div className="point-guide">
               <span className="point">적립</span>
-              <span className="guide">구매 시 {mileage}원 적립</span>
+              <span className="guide">
+                구매 시 {Math.ceil(itemData.price * userMileageClass * quantity)}원 적립
+              </span>
             </div>
             <div className="button-box">
               <button className="restock-notify">재입고 알림</button>

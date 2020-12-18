@@ -7,8 +7,6 @@ class MDRcommand extends Component {
     super(props);
     this.state = {
       data: [],
-      filterTarget: "",
-      mode: false,
     };
   }
 

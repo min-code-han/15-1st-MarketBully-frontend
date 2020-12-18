@@ -22,19 +22,13 @@ class MDRcommand extends Component {
 
   clickHandler = e => {
     const filterTarget = e.target.dataset.filter;
-    if (filterTarget) {
-      this.state.data.map(data => {
-        if (filterTarget == data.filterName) {
-          this.setState({
-            mode: !this.state.mode,
-          });
-        }
-      });
-    }
+
+    this.setState({
+      filterTarget: filterTarget,
+    });
   };
 
   render() {
-    console.log(this.state.mode);
     return (
       <>
         <div class="mdRcommandContainer">
@@ -57,7 +51,11 @@ class MDRcommand extends Component {
           </div>
           <div className="RcommandSlideContainer">
             {/* MD Slide Card */}
-            <MDRcommanSlide mode={this.state.mode} clickHandler={this.state.filterTarget} />
+            <MDRcommanSlide
+              mode={this.state.mode}
+              data={this.state.data}
+              filterType={this.state.filterTarget}
+            />
           </div>
         </div>
       </>

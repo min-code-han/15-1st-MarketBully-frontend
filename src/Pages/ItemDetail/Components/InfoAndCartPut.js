@@ -18,29 +18,27 @@ class InfoAndCartPut extends Component {
     super(props);
     this.state = {
       quantity: 1,
-      itemData: [],
+      itemData: {
+        id: 1,
+        name: "로딩 중",
+        subtitle: "로딩 중",
+        img_url: "",
+        price: 0,
+        discount_percentage: 0,
+        sellUnit: "",
+        weight: "0",
+        delivery_type: "",
+        origin: "",
+        packaging_type: "",
+        allergy: "",
+        expiration_date: "",
+      },
     };
   }
 
-  getItemDetailData = async () => {
-    const response = await fetch(`data/itemdetail.json`);
-    const result = await response.json();
-    this.setState({ itemData: result.itemInfo });
+  formatPrice = price => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-
-  getData = async () => {
-    // 우리팀 두 번째 API + 프론트!
-    const response = await fetch("http://10.168.1.121:8000/product/1");
-    const result = await response.json();
-    this.setState({ ss: result.product_detail });
-  };
-
-  allergyUpdate = () => {};
-
-  componentDidMount() {
-    this.getItemDetailData();
-    //this.getData();
-  }
 
   handleQuantity = e => {
     const QUANTITY_MIN = 1;
@@ -52,19 +50,18 @@ class InfoAndCartPut extends Component {
     });
   };
 
-  refine;
-
   render() {
-    const { quantity, itemData } = this.state;
+    const { quantity } = this.state;
+    const { itemData } = this.props;
+    const { formatPrice } = this;
     const userMileageClass = 0.005;
     // 세일 가격에서 10원 이하 절삭
     const discountedPrice =
       Math.floor((itemData.price * (1 - itemData.discount_percentage)) / 10) * 10;
-    console.log(itemData);
     return (
       <div className="InfoAndCartPut">
         <div className="item-image">
-          <img src={itemData.img_url} alt="tomato" />
+          {itemData.img_url && <img src={itemData.img_url} alt={itemData.name} />}
         </div>
         <div className="item-detail-right">
           <div className="info">
@@ -78,18 +75,27 @@ class InfoAndCartPut extends Component {
             <div className="price">
               <span className="on-login">회원할인가</span>
               <div className="real-price">
-                <span>{discountedPrice}</span>
+                <span>{formatPrice(discountedPrice)}</span>
                 <div className="unit">원</div>
-                <span className="sale-percentage">{itemData.discount_name}</span>
+                <span className="sale-percentage">
+                  {!(itemData.discount_percentage === 0) &&
+                    `${itemData.discount_percentage * 100}%`}
+                </span>
               </div>
               <span className="nosale-price">
-                <span className="price">8800원</span>
-                <i className="far fa-question-circle"></i>
+                {!(itemData.discount_percentage === 0) && (
+                  <>
+                    <span className="price">{formatPrice(itemData.price)}원</span>
+                    <i className="far fa-question-circle"></i>
+                  </>
+                )}
               </span>
             </div>
             <div className="point-guide">
               <span className="member-class">일반 0.5%</span>
-              <span className="point-save">개당 50원 적립</span>
+              <span className="point-save">
+                개당 {formatPrice(Math.ceil(discountedPrice * 0.005))}원 적립
+              </span>
             </div>
             <ul className="item-info-list">
               {Object.entries(itemData).map(data => {
@@ -116,13 +122,14 @@ class InfoAndCartPut extends Component {
           <div className="cart-put">
             <div className="price-box">
               <span className="total">총 상품금액 : </span>
-              <span className="price">{discountedPrice * quantity}</span>
+              <span className="price">{formatPrice(discountedPrice * quantity)}</span>
               <span className="unit"> 원</span>
             </div>
             <div className="point-guide">
               <span className="point">적립</span>
               <span className="guide">
-                구매 시 {Math.ceil(itemData.price * userMileageClass * quantity)}원 적립
+                구매 시 {formatPrice(Math.ceil(itemData.price * userMileageClass * quantity))}원
+                적립
               </span>
             </div>
             <div className="button-box">

@@ -5,16 +5,14 @@
     "subtitle": "친환경으로 재배한 신선한 무농약 토마토",
     "img_url": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1275&q=80",
     "price": 7650,
-    "discount_percentage": 0.1,
+    "discount_percentage": 0.45,
     "sellUnit": "1개",
     "weight": "1kg",
     "delivery_type": "샛별배송/택배배송",
     "origin": "국산",
     "packaging_type": "냉장/종이포장",
-    "allergy": [
-      "소고기 함유",
-      "본 제품은 돼지고기를 사용한 제품과 같은 제조시설에서 제조했습니다."
-    ],
-    "expiration_date": "수령일 포함 4일 이상 남은 상품을 보내드립니다."
+    "allergy": ["본 제품은 돼지고기를 사용한 제품과 같은 제조시설에서 제조했습니다."],
+    "expiration_date": "수령일 포함 4일 이상 남은 상품을 보내드립니다.",
+    "content": ""
   }
 }

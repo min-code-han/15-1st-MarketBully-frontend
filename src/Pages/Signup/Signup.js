@@ -31,14 +31,15 @@ class Signup extends Component {
   };
 
   validationId = e => {
-    const { id, value } = e.target;
-    this.setState({ [id]: value });
+    const { value } = e.target;
+    const txt = /^[a-z]{6,}$/;
+    const numtxt6 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/;
+    const both = txt.test(value) || numtxt6.test(value);
 
-    const txt = /^[A-Za-z]{5,}$/;
-    const numtxt6 = /^(?=.*[0-9])(?=.*[a-zA-Z]){5,}$/;
-    const checkIdValidation = txt.test(this.state.id) || numtxt6.test(this.state.id);
+    console.log(value);
+    console.log(both);
 
-    if (checkIdValidation) {
+    if (both) {
       this.setState({ validateId: true });
     } else {
       this.setState({ validateId: false });
@@ -66,7 +67,7 @@ class Signup extends Component {
                     type="text"
                     placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합"
                     onClick={this.openIdDetail}
-                    onChange={this.validationId}
+                    onKeyUp={this.validationId}
                   />
                   <button className="button small-btn">중복확인</button>
                   <p className={"guide " + (this.state.showIdDetail ? "show" : "hide")}>

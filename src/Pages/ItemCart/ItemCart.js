@@ -1,7 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
+import CartTitleCard from "./Components/CartTitleCard";
+import CartItemCard from "./Components/CartItemCard";
 import "./ItemCart.scss";
 
+const FREE_DELIVERY_THRESHOLD = 40000;
+const DELIVERY_FEE = 3000;
 class ItemCart extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +31,9 @@ class ItemCart extends Component {
     };
   }
 
+  formatPrice = price => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   selectAll = () => {
     const { cartData } = this.state;
     cartData.reduce((result, item) => (result = result && item.selected), true)
@@ -54,13 +61,10 @@ class ItemCart extends Component {
   clickShowButton = e => {
     const { packingType } = this.state;
     const { id } = e.target;
-    console.log(id);
     packingType.map(item => {
       if (item.nameEng === id) item.show = !item.show;
       return item;
     });
-    console.log(packingType);
-    this.setState({ [id]: !this.state[id] });
     this.setState({ packingType: packingType });
   };
 
@@ -75,6 +79,27 @@ class ItemCart extends Component {
       .then(status => {
         status === 204 ? this.getData() : alert("상품 삭제를 실패하였습니다.");
       });
+  };
+
+  deleteSelected = async () => {
+    const { cartData } = this.state;
+    const itemsToDelete = cartData.filter(item => item.selected);
+    const idsToDelete = itemsToDelete.map(item => item.id);
+    for (let idx in idsToDelete) {
+      const response = await fetch("http://10.168.1.160:8000/order/cart", {
+        method: "DELETE",
+        body: JSON.stringify({
+          cart_item_id: idsToDelete[idx],
+        }),
+      });
+      const status =
+        (await response.status) === 204
+          ? console.log("삭제 성공")
+          : console.log("상품 삭제를 실패하였습니다.");
+      await console.log(status);
+    }
+    const response = await this.getData();
+    console.log(response);
   };
 
   addItem = e => {
@@ -144,7 +169,16 @@ class ItemCart extends Component {
 
   render() {
     const { cartData, packingType } = this.state;
+    const { formatPrice } = this;
     const selectedAll = cartData.reduce((result, item) => (result = result && item.selected), true);
+    const totalPrice = Math.floor(
+      cartData.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    );
+    const discounted = Math.floor(
+      cartData.reduce((acc, item) => acc + item.price * item.discount_rate * item.quantity, 0)
+    );
+    const freeDelivery = totalPrice - discounted > FREE_DELIVERY_THRESHOLD;
+    console.log(freeDelivery);
     return (
       <main className="ItemCart">
         <div className="main-width">
@@ -157,66 +191,30 @@ class ItemCart extends Component {
                   onClick={this.selectAll}
                 />
                 <button>전체선택</button>
-                <button>선택삭제</button>
+                <button onClick={this.deleteSelected}>선택삭제</button>
               </div>
               <div className="cart">
                 <div className="items-in-cart">
                   {packingType.map((type, idx) => {
                     return (
                       <ul key={idx}>
-                        <li className={`${type.nameEng}`}>
-                          <div>
-                            <img alt={`${type.nameEng}`} src={`images/${type.nameEng}.svg`} />
-                            <h2>{type.nameKor}</h2>
-                          </div>
-                          <i
-                            id={`${type.nameEng}`}
-                            onClick={this.clickShowButton}
-                            className={`fas fa-chevron-${type.show ? "up" : "down"}`}
-                          />
-                        </li>
+                        <CartTitleCard
+                          key={idx}
+                          type={type}
+                          clickShowButton={this.clickShowButton}
+                        />
                         {cartData.map(item => {
                           return (
-                            type.show &&
-                            item.cart_packing_type === type.nameKor && (
-                              <li key={item.id}>
-                                <i
-                                  id={item.id}
-                                  className={`fa-check-circle ${
-                                    item.selected ? "fas purple" : "far"
-                                  }`}
-                                  onClick={this.selectItem}
-                                />
-                                <img src={item.image_url} alt={item.name} />
-                                <h2 className="item-name">{item.name}</h2>
-                                <div className="item-counter">
-                                  <button id={item.id} onClick={this.subtractItem}>
-                                    -
-                                  </button>
-                                  <input value={`${item.quantity}`} readOnly></input>
-                                  <button id={item.id} onClick={this.addItem}>
-                                    +
-                                  </button>
-                                </div>
-                                <div className="price-box">
-                                  <div className="price">
-                                    {/* 할인 후 10원 이하 절삭 */}
-                                    {Math.floor((item.price * (1 - item.discount_rate)) / 10) *
-                                      10 *
-                                      item.quantity}
-                                    원
-                                  </div>
-                                  <div className="price-without-sale">{+item.price}원</div>
-                                </div>
-                                <img
-                                  onClick={this.deleteItem}
-                                  id={item.id}
-                                  className="delete"
-                                  src="images/cancel.svg"
-                                  alt="delete"
-                                />
-                              </li>
-                            )
+                            <CartItemCard
+                              key={item.id}
+                              type={type}
+                              item={item}
+                              selectItem={this.selectItem}
+                              subtractItem={this.subtractItem}
+                              addItem={this.addItem}
+                              deleteItem={this.deleteItem}
+                              formatPrice={formatPrice}
+                            />
                           );
                         })}
                       </ul>
@@ -230,7 +228,7 @@ class ItemCart extends Component {
                   onClick={this.selectAll}
                 />
                 <button>전체선택</button>
-                <button>선택삭제</button>
+                <button onClick={this.deleteSelected}>선택삭제</button>
               </div>
             </div>
             <div className="cart-result">
@@ -247,28 +245,35 @@ class ItemCart extends Component {
                   <tbody>
                     <tr>
                       <th>상품금액</th>
-                      <td>29,800원</td>
+                      <td>{formatPrice(totalPrice)}원</td>
                     </tr>
                     <tr>
                       <th>상품할인금액</th>
-                      <td>-9,800원</td>
+                      <td>-{formatPrice(discounted)}원</td>
                     </tr>
                     <tr>
                       <th>배송비</th>
-                      <td>+3,000원</td>
+                      <td>{freeDelivery ? "0원" : `+${formatPrice(DELIVERY_FEE)}원`}</td>
                     </tr>
                     <tr>
                       <td colSpan={2} className="free-deliver-guide">
-                        20,000원 추가주문 시, 무료배송
+                        {freeDelivery
+                          ? "무료 배송"
+                          : `${formatPrice(
+                              FREE_DELIVERY_THRESHOLD - totalPrice + discounted
+                            )}원 추가주문 시, 무료배송`}
                       </td>
                     </tr>
                     <tr className="final-price">
-                      <th className="final-price">결제예정금액</th>
-                      <td className="final-price">23,000원</td>
+                      <th>결제예정금액</th>
+                      <td>
+                        {formatPrice(totalPrice - discounted + (freeDelivery ? 0 : DELIVERY_FEE))}원
+                      </td>
                     </tr>
                     <tr>
                       <td colSpan={2} className="point-guide">
-                        <span className="small-yellow-box">적립</span>구매 시 94원 적립
+                        <span className="mileage-box">적립</span>구매 시
+                        {formatPrice(Math.floor((totalPrice - discounted) * 0.005))}원 적립
                       </td>
                     </tr>
                   </tbody>

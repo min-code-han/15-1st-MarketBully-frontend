@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import "./AsideMenu.scss";
 
 class AsideMenu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     return (
       <aside className="AsideMenu">

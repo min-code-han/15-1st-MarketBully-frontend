@@ -130,22 +130,6 @@ class ItemCart extends Component {
       });
   };
 
-  // 아직 사용하지 말것!!
-  testFunction = e => {
-    fetch("http://10.168.1.160:8000/order/cart", {
-      method: "POST",
-      body: JSON.stringify({
-        product_id: "7",
-        quantity: "2",
-      }),
-    })
-      .then(res => res.json())
-      .then(result => {
-        console.log(result);
-        this.getData();
-      });
-  };
-
   getCartData = async () => {
     const response = await fetch(`data/cartdata.json`);
     const data = await response.json();
@@ -163,9 +147,13 @@ class ItemCart extends Component {
   componentDidMount() {
     // getCartData()는 mockData사용하는 코드
     this.getCartData();
-    // 실제 서버 통신시 사용할 get은 아래에!
+    // 실제 서버 통신시 사용할 함수 아래에!
     // this.getData();
   }
+
+  clickOrder = () => {
+    /* 결제 페이지로 이동 및 최종 주문 정보 전달 */
+  };
 
   render() {
     const { cartData, packingType } = this.state;
@@ -279,8 +267,7 @@ class ItemCart extends Component {
                   </tbody>
                 </table>
               </div>
-              {/* 장바구니에 상품 추가 버튼으로 임시 활용중인 버튼 */}
-              <button onClick={this.testFunction}>주문하기</button>
+              <button onClick={this.clickOrder}>주문하기</button>
 
               <ul className="notice">
                 <li>· 쿠폰/적립금은 주문서에서 사용 가능합니다.</li>

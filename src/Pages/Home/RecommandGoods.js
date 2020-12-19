@@ -10,7 +10,7 @@ class RecommandGoods extends Component {
   }
 
   componentDidMount = () => {
-    fetch("http://localhost:3000/data/Mddata.json")
+    fetch("http://localhost:3000/data/data.json")
       .then(res => res.json())
       .then(res => this.setState({ data: res.data }));
   };

@@ -30,18 +30,15 @@ class ItemList extends Component {
   }
 
   addQuantity = () => {
-    console.log("addQuantity activated");
     this.setState({ quantities: this.state.quantities + 1 });
   };
 
   subtractQuantity = () => {
-    console.log("subtractQuantity activated");
     if (this.state.quantities < 1) return;
     this.setState({ quantities: this.state.quantities - 1 });
   };
 
   changingFilteringOption = e => {
-    console.log("changingFilteringOption activated");
     const { products, filteringOption } = this.state;
 
     this.setState({ filteringOption: e.target.id });
@@ -59,8 +56,6 @@ class ItemList extends Component {
   };
 
   showModalBox = e => {
-    console.log("showModalBox activated");
-    console.log(e.target.id);
     const { isModalBoxOn } = this.state;
     this.setState({
       isModalBoxOn: !isModalBoxOn,
@@ -70,10 +65,15 @@ class ItemList extends Component {
   };
 
   render() {
-    const { clickedID, optionBoxOnAndOff, isModalBoxOn, products, quantities } = this.state;
-    console.log(products);
-    console.log(clickedID);
-    console.log(products.find(el => el.id === +clickedID));
+    const {
+      clickedID,
+      optionBoxOnAndOff,
+      isModalBoxOn,
+      products,
+      quantities,
+      filteringOption,
+    } = this.state;
+
     return (
       <div className="ItemList">
         <ItemListModal
@@ -131,24 +131,22 @@ class ItemList extends Component {
               </li>
             </ul>
             <div className="selectOptions" onClick={this.showOptionBox}>
-              <span className={optionBoxOnAndOff ? "selectedOption" : ""}>
-                {this.state.filteringOption}
-              </span>
+              <span className={optionBoxOnAndOff ? "selectedOption" : ""}>{filteringOption}</span>
               <i class="fas fa-chevron-down" />
               <ul className={optionBoxOnAndOff ? "optionList" : "optionListNone"}>
-                <li id={`추천순`} className="option" onClick={this.changingFilteringOption}>
+                <li id={`추천순`} onClick={this.changingFilteringOption}>
                   추천순
                 </li>
-                <li id={`신상품순`} className="option" onClick={this.changingFilteringOption}>
+                <li id={`신상품순`} onClick={this.changingFilteringOption}>
                   신상품순
                 </li>
-                <li id={`인기상품순`} className="option" onClick={this.changingFilteringOption}>
+                <li id={`인기상품순`} onClick={this.changingFilteringOption}>
                   인기상품순
                 </li>
-                <li id={`낮은 가격순`} className="option" onClick={this.changingFilteringOption}>
+                <li id={`낮은 가격순`} onClick={this.changingFilteringOption}>
                   낮은 가격순
                 </li>
-                <li id={`높은 가격순`} className="option" onClick={this.changingFilteringOption}>
+                <li id={`높은 가격순`} onClick={this.changingFilteringOption}>
                   높은 가격순
                 </li>
               </ul>

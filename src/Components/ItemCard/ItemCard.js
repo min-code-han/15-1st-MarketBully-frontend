@@ -60,19 +60,3 @@ class ItemCard extends Component {
 }
 
 export default ItemCard;
-
-{
-  /* How to Use 
-1. import ItemCard Component from Upper Component
-
-2. Give Keys and Values that you need in ItemCard Component 
-  <ItemCard
-  name={el.name} //상품 이름
-  price={el.price} //상품 가격
-  imgUrl={el.imgUrl} //상품 이미지 Url
-  sale={el.sale} // 상품 세일 여부
-  showModalBoxButton={this.showModalBox} // 모달 박스 구현 
-  type={"ItemList"} // 본인이 하는 페이지, 여기에서 페이지 이름만 바꾸면 사용가능
-/>; 
-*/
-}

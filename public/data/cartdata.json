@@ -1,34 +1,101 @@
 {
-  "cartData": [
+  "MESSAGE": "SUCCESS",
+  "items_in_cart": [
     {
-      "id": 1,
-      "name": "미친 냉장 생고기",
-      "salePrice": 32700,
-      "originPrice": 38000,
-      "image_url": "https://images.unsplash.com/photo-1592686092916-672fa9e86866?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
-      "quantity": 1,
-      "selected": true,
-      "storageType": "냉장"
+      "id": 40,
+      "product_id": 1,
+      "name": "[박달재 삼시세끼한우] 1++ 한우 암소 등심 200g",
+      "quantity": 5,
+      "price": "37500.00",
+      "discount_rate": 0.05,
+      "is_soldout": false,
+      "cart_packing_type": "냉동 상품",
+      "image_url": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=975&q=80",
+      "selected": false
     },
     {
-      "id": 2,
-      "name": "상온 보관 진짜 맛있는 고기",
-      "salePrice": 80000,
-      "originPrice": 90000,
-      "image_url": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1275&q=80",
-      "quantity": 1,
-      "selected": true,
-      "storageType": "상온"
+      "id": 41,
+      "product_id": 2,
+      "name": "[박달재 삼시세끼한우] 1++ 한우 암소 채끝 스테이크용 200g",
+      "quantity": 4,
+      "price": "39500.00",
+      "discount_rate": 0.05,
+      "is_soldout": false,
+      "cart_packing_type": "냉동 상품",
+      "image_url": "https://images.unsplash.com/photo-1551028150-64b9f398f678?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80",
+      "selected": false
     },
     {
-      "id": 3,
-      "name": "미친 닭고기",
-      "salePrice": null,
-      "originPrice": 50000,
-      "image_url": "https://images.unsplash.com/photo-1501200291289-c5a76c232e5f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80",
-      "quantity": 1,
-      "selected": true,
-      "storageType": "냉동"
+      "id": 42,
+      "product_id": 3,
+      "name": "[KF365] 1등급 한우 등심 구이용 450g(냉장)",
+      "quantity": 4,
+      "price": "48700.00",
+      "discount_rate": 0,
+      "is_soldout": false,
+      "cart_packing_type": "냉동 상품",
+      "image_url": "https://images.unsplash.com/photo-1606677661991-446cea8ee182?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80",
+      "selected": false
+    },
+    {
+      "id": 43,
+      "product_id": 4,
+      "name": "[DAON] 호주산 MB3 서로인 페퍼 스테이크 300g(냉동)",
+      "quantity": 4,
+      "price": "15900.00",
+      "discount_rate": 0.1,
+      "is_soldout": false,
+      "cart_packing_type": "냉동 상품",
+      "image_url": "https://images.unsplash.com/photo-1597417175478-c161c1788242?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80",
+      "selected": false
+    },
+    {
+      "id": 44,
+      "product_id": 5,
+      "name": "[DAON] 뉴질랜드 안창살 양념구이 300g(냉동)",
+      "quantity": 8,
+      "price": "11000.00",
+      "discount_rate": 0,
+      "is_soldout": false,
+      "cart_packing_type": "냉동 상품",
+      "image_url": "https://images.unsplash.com/photo-1527578054032-8d8f044e013d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+      "selected": false
+    },
+    {
+      "id": 45,
+      "product_id": 6,
+      "name": "무항생제 1등급 한돈 앞다리3종",
+      "quantity": 4,
+      "price": "5400.00",
+      "discount_rate": 0,
+      "is_soldout": false,
+      "cart_packing_type": "냉동 상품",
+      "image_url": "https://images.unsplash.com/photo-1580682777666-24a7b3024e24?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
+      "selected": false
+    },
+    {
+      "id": 46,
+      "product_id": 7,
+      "name": "무항생제 1등급 암퇘지 삼겹 2종",
+      "quantity": 4,
+      "price": "8800.00",
+      "discount_rate": 0,
+      "is_soldout": false,
+      "cart_packing_type": "냉장 상품",
+      "image_url": "https://images.unsplash.com/photo-1574220307753-957783ab948b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
+      "selected": false
+    },
+    {
+      "id": 47,
+      "product_id": 8,
+      "name": "킹갓장현",
+      "quantity": 176,
+      "price": "9999999.00",
+      "discount_rate": 0,
+      "is_soldout": false,
+      "cart_packing_type": "상온 상품",
+      "image_url": "https://ca.slack-edge.com/TH0U6FBTN-U01BUTEBZLM-8f54f44f327e-512",
+      "selected": false
     }
   ]
 }

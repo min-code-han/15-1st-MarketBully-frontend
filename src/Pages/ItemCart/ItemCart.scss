@@ -7,7 +7,7 @@
   align-items: center;
   margin-bottom: 150px;
 
-  main {
+  .main-width {
     width: $main-width;
   }
 
@@ -51,9 +51,6 @@
             align-items: center;
             height: 128px;
             border-bottom: 1px solid $light-gray;
-            &.hide {
-              display: none;
-            }
             &.frozen,
             &.cold,
             &.room {

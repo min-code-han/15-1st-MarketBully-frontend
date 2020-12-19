@@ -7,19 +7,29 @@
       "id": 13,
       "image_url": "https://images.unsplash.com/photo-1592686092916-672fa9e86866?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
       "is_soldout": false,
-      "name": "[KF365] 1등급 한우 등심 구이용 450g(냉장)",
+      "name": "[KF365] 1등급 한우 등심 구이용 450g(냉동)",
       "price": 48700.0,
       "quantity": 76
     },
     {
-      "cart_packing_type": "냉동 상품",
+      "cart_packing_type": "냉장 상품",
       "discount_rate": 0.05,
       "id": 14,
       "image_url": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1275&q=80",
       "is_soldout": false,
-      "name": "[박달재 삼시세끼한우] 1++ 한우 암소 채끝 스테이크용 200g",
+      "name": "[냉장] 1++ 한우 암소 채끝 스테이크용 200g",
       "price": 39500.0,
       "quantity": 12
+    },
+    {
+      "cart_packing_type": "상온 상품",
+      "discount_rate": 0.05,
+      "id": 15,
+      "image_url": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1275&q=80",
+      "is_soldout": false,
+      "name": "상온에 보관해도 되는 신기한 고기",
+      "price": 30000.0,
+      "quantity": 0
     }
   ]
 }

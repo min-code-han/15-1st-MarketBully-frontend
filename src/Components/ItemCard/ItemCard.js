@@ -25,8 +25,8 @@ class ItemCard extends Component {
     } = this.props;
     return (
       <div className={`ItemCard ${type}`}>
-        <div className="ItemCardContainer" onClick={this.goToDetail}>
-          <img src={imgUrl} alt="제품의 이미지" />
+        <div className="ItemCardContainer">
+          <img src={imgUrl} alt="제품의 이미지" onClick={this.goToDetail} />
 
           {(type === "ItemList" || type === "main") && sale && (
             <div className="saleBox">Save {sale * 100}%</div>
@@ -37,7 +37,9 @@ class ItemCard extends Component {
             </button>
           )}
           <div className="headerAndPriceContainer">
-            <div className="header">{name}</div>
+            <div className="header" onClick={this.goToDetail}>
+              {name}
+            </div>
             {type === "main" && sale ? (
               <>
                 <div className="price">{price - price * sale}</div>
@@ -61,4 +63,4 @@ class ItemCard extends Component {
   }
 }
 
-export default ItemCard;
+export default withRouter(ItemCard);

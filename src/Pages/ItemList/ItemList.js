@@ -71,7 +71,6 @@ class ItemList extends Component {
   };
 
   render() {
-    console.log(this.props);
     const {
       clickedID,
       optionBoxOnAndOff,
@@ -86,6 +85,7 @@ class ItemList extends Component {
         <ItemListModal
           name={clickedID && products.find(el => el.id === +clickedID).name}
           price={clickedID && products.find(el => el.id === +clickedID).price}
+          clickedID={clickedID}
           isModalBoxOnOrOff={isModalBoxOn}
           ModalBoxClose={this.showModalBox}
           quantities={quantities}

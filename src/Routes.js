@@ -10,17 +10,18 @@ import ItemList from "./Pages/ItemList/ItemList";
 import ItemDetail from "./Pages/ItemDetail/ItemDetail";
 import ItemCart from "./Pages/ItemCart/ItemCart";
 import Payment from "./Pages/Payment/Payment";
+import NotFound from "./Pages/NotFound/NotFound";
+
+const HIDE_ASIDE_MENU = ["/Login", "/Signup", "/ItemCart"];
+const aside = HIDE_ASIDE_MENU.includes(window.location.pathname) ? null : <AsideMenu />;
 
 class Routes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
+    console.log(window.location.pathname);
     return (
       <Router>
         <Header />
-        <AsideMenu />
+        {aside}
 
         <Switch>
           <Route exact path="/Home" component={Home}></Route>
@@ -30,6 +31,7 @@ class Routes extends Component {
           <Route exact path="/ItemDetail" component={ItemDetail}></Route>
           <Route exact path="/ItemCart" component={ItemCart}></Route>
           <Route exact path="/Payment" component={Payment}></Route>
+          <Route component={NotFound} />
         </Switch>
         <Footer />
       </Router>

@@ -18,21 +18,7 @@ class InfoAndCartPut extends Component {
     super(props);
     this.state = {
       quantity: 1,
-      itemData: {
-        id: 1,
-        name: "로딩 중",
-        subtitle: "로딩 중",
-        img_url: "",
-        price: 0,
-        discount_percentage: 0,
-        sellUnit: "",
-        weight: "0",
-        delivery_type: "",
-        origin: "",
-        packaging_type: "",
-        allergy: "",
-        expiration_date: "",
-      },
+      itemData: {},
     };
   }
 

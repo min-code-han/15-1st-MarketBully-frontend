@@ -70,7 +70,6 @@ class ItemDetail extends Component {
 
   render() {
     const { itemData } = this.state;
-    console.log(itemData);
     return (
       <div className="ItemDetail">
         <div className="main-width">
@@ -81,7 +80,7 @@ class ItemDetail extends Component {
             return (
               <div name={name} key={name}>
                 <ItemDetailMenu menuTabId={idx + 1} changePosition={this.changePosition} />
-                <ComponentName menuTabId={idx + 1} />
+                <ComponentName menuTabId={idx + 1} itemData={itemData} />
               </div>
             );
           })}

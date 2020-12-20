@@ -17,7 +17,6 @@ const aside = HIDE_ASIDE_MENU.includes(window.location.pathname) ? null : <Aside
 
 class Routes extends Component {
   render() {
-    console.log(window.location.pathname);
     return (
       <Router>
         <Header />

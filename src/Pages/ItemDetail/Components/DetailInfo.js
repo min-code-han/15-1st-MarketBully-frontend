@@ -34,6 +34,7 @@ class DetailInfo extends Component {
         </table>
         <div className="why-bully">
           <h1>WHY BULLY</h1>
+          <img alt="why bully" src="images/WHYBULLY.png" />
         </div>
         <div className="custumer-center-guide">
           <h1>고객행복센터</h1>

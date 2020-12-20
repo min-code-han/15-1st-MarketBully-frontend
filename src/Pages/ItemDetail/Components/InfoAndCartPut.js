@@ -47,7 +47,7 @@ class InfoAndCartPut extends Component {
     return (
       <div className="InfoAndCartPut">
         <div className="item-image">
-          {itemData.img_url && <img src={itemData.img_url} alt={itemData.name} />}
+          {itemData.image_url && <img src={itemData.image_url} alt={itemData.name} />}
         </div>
         <div className="item-detail-right">
           <div className="info">

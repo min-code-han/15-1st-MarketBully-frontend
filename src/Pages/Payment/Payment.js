@@ -123,7 +123,7 @@ class Payment extends Component {
                           <span>모두 사용</span>
                         </div>
                         <span>보유적립금: {"0원"}</span>
-                        <span className="guide">적립금 내역 확인: 마이컬리 > 적립금</span>
+                        <span className="guide">{"적립금 내역 확인: 마이컬리 > 적립금"}</span>
                       </td>
                     </tr>
                   </tbody>
@@ -170,38 +170,40 @@ class Payment extends Component {
                 </table>
               </div>
               <div className="right">
-                <h1 className="receipt-title">결제 금액</h1>
-                <div className="final-receipt">
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th>상품금액</th>
-                        <td>원</td>
-                      </tr>
-                      <tr>
-                        <th>상품할인금액</th>
-                        <td>원</td>
-                      </tr>
-                      <tr>
-                        <th>배송비</th>
-                        <td>{`원`}</td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2} className="free-deliver-guide">
-                          {true ? "무료 배송" : `원 추가주문 시, 무료배송`}
-                        </td>
-                      </tr>
-                      <tr className="final-price">
-                        <th>결제예정금액</th>
-                        <td>{""}원</td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2} className="point-guide">
-                          <span className="mileage-box">적립</span>구매 시{""}원 적립
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div className="sticky-receipt">
+                  <h1 className="receipt-title">결제 금액</h1>
+                  <div className="final-receipt">
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th>상품금액</th>
+                          <td>원</td>
+                        </tr>
+                        <tr>
+                          <th>상품할인금액</th>
+                          <td>원</td>
+                        </tr>
+                        <tr>
+                          <th>배송비</th>
+                          <td>{`원`}</td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2} className="free-deliver-guide">
+                            {true ? "무료 배송" : `원 추가주문 시, 무료배송`}
+                          </td>
+                        </tr>
+                        <tr className="final-price">
+                          <th>결제예정금액</th>
+                          <td>{""}원</td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2} className="point-guide">
+                            <span className="mileage-box">적립</span>구매 시{""}원 적립
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -213,7 +215,7 @@ class Payment extends Component {
               <div className="guide">
                 <span>결제 진행 필수 동의</span>
                 <span className="check">
-                  개인정보 수집 이용 및 위탁 동의(필수) <span>약관확인 ></span>
+                  개인정보 수집 이용 및 위탁 동의(필수) <span>{"약관확인 >"}</span>
                 </span>
               </div>
             </div>

@@ -1,4 +1,5 @@
 @import "../../Styles/common.scss";
+@import "../ItemCart/ItemCart.scss";
 
 .Payment {
   display: flex;
@@ -232,12 +233,19 @@
             }
           }
         }
+
         .right {
           width: 284px;
         }
 
         .receipt-title {
           border: none;
+        }
+
+        .sticky-receipt {
+          position: sticky;
+          top: 0;
+          padding-top: 20px;
         }
 
         .final-receipt {

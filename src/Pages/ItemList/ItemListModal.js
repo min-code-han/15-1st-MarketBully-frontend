@@ -7,11 +7,11 @@ class ItemListModal extends Component {
     this.state = {};
   }
 
-  addQuantity = e => {
+  addQuantity = () => {
     this.setState({ quantities: this.state.quantities + 1 });
   };
 
-  subtractQuantity = e => {
+  subtractQuantity = () => {
     if (this.state.quantities < 1) return;
     this.setState({ quantities: this.state.quantities - 1 });
   };

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./ItemCard.scss";
 
 class ItemCard extends Component {
@@ -22,11 +22,9 @@ class ItemCard extends Component {
     return (
       <div className={`ItemCard ${type}`}>
         <div className="ItemCardContainer">
-          <Link to="#">
-            <img src={imgUrl} alt="제품의 이미지" />
-          </Link>
+          <img src={imgUrl} alt="제품의 이미지" />
 
-          {(type === "ItemList" || type === "main") && sale !== 0 && (
+          {(type === "ItemList" || type === "main") && sale && (
             <div className="saleBox">Save {sale * 100}%</div>
           )}
           {type === "ItemList" && (
@@ -36,12 +34,12 @@ class ItemCard extends Component {
           )}
           <div className="headerAndPriceContainer">
             <div className="header">{name}</div>
-            {type === "main" && sale !== 0 ? (
+            {type === "main" && sale ? (
               <>
-                <div className="price">{price - price * sale !== 0}</div>
+                <div className="price">{price - price * sale}</div>
                 <div className="originalPrice">{price}</div>
               </>
-            ) : type === "ItemList" && sale !== 0 ? (
+            ) : type === "ItemList" && sale ? (
               <div className="priceBox">
                 <span className="originalPrice">{Math.floor(price)}원</span>
                 <span className="price"> ㅡ> {Math.floor(price - price * (sale / 100))}원</span>

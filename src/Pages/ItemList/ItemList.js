@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import ItemListModal from "./ItemListModal";
 import ItemCard from "../../Components/ItemCard/ItemCard";
 import "./ItemList.scss";
@@ -14,16 +13,18 @@ class ItemList extends Component {
       clickedID: null,
       quantities: 0,
       filteringOption: "추천순",
+      categoryTesting: [],
     };
   }
 
   componentDidMount() {
-    // fetch("http://10.168.1.160:8000/order/cart")
+    // fetch("http://10.168.2.67:8000/product");
     fetch("./data/item.json")
       .then(res => res.json())
       .then(res => {
         this.setState({
-          // products: res.items_in_cart,
+          // products: res.product_list,
+          categoryTesting: res.category,
           products: res.data,
         });
       });
@@ -39,14 +40,19 @@ class ItemList extends Component {
   };
 
   changingFilteringOption = e => {
-    const { products, filteringOption } = this.state;
+    const { products } = this.state;
 
-    this.setState({ filteringOption: e.target.id });
-
-    if (filteringOption === "높은 가격순")
+    if (e.target.id === "낮은 가격순") {
       products.sort(function (a, b) {
         return a.price - (a.price * a.sale) / 100 - b.price + b.price * (b.sale / 100);
       });
+    } else if (e.target.id === "높은 가격순") {
+      products.sort(function (a, b) {
+        return -a.price + (a.price * a.sale) / 100 + b.price - b.price * (b.sale / 100);
+      });
+    }
+
+    // this.setState({ filteringOption: e.target.id });
   };
 
   showOptionBox = () => {
@@ -65,6 +71,7 @@ class ItemList extends Component {
   };
 
   render() {
+    console.log(this.props);
     const {
       clickedID,
       optionBoxOnAndOff,
@@ -72,8 +79,8 @@ class ItemList extends Component {
       products,
       quantities,
       filteringOption,
+      categoryTesting,
     } = this.state;
-
     return (
       <div className="ItemList">
         <ItemListModal
@@ -94,41 +101,10 @@ class ItemList extends Component {
           </div>
           <div className="filteringHeader">
             <ul className="typeOfCategories">
-              <li>
-                <Link className="meat" to="#">
-                  전체보기
-                </Link>
-              </li>
-              <li>
-                <Link className="meat" to="#">
-                  소고기
-                </Link>
-              </li>
-              <li>
-                <Link className="meat" to="#">
-                  돼지·고기{" "}
-                </Link>
-              </li>
-              <li>
-                <Link className="meat" to="#">
-                  계란류{" "}
-                </Link>
-              </li>
-              <li>
-                <Link className="meat" to="#">
-                  닭·오리고기
-                </Link>
-              </li>
-              <li>
-                <Link className="meat" to="#">
-                  양념육·돈까스
-                </Link>
-              </li>
-              <li>
-                <Link className="meat" to="#">
-                  양고기{" "}
-                </Link>
-              </li>
+              <li>전체보기</li>
+              {categoryTesting.map(el => {
+                return <li>{el.meat}</li>;
+              })}
             </ul>
             <div className="selectOptions" onClick={this.showOptionBox}>
               <span className={optionBoxOnAndOff ? "selectedOption" : ""}>{filteringOption}</span>
@@ -163,6 +139,7 @@ class ItemList extends Component {
                   price={el.price}
                   imgUrl={el.imgUrl}
                   sale={el.sale}
+                  // sale={el.discount_percentage}
                   // imgUrl={el.image_url}
                   // sale={el.discount_rate}
                   shortDescription={el.shortDescription}

@@ -8,6 +8,10 @@ class ItemCard extends Component {
     this.state = {};
   }
 
+  goToDetail = () => {
+    this.props.history.push(`/ItemDetail/${this.props.id}`);
+  };
+
   render() {
     const {
       id,
@@ -21,7 +25,7 @@ class ItemCard extends Component {
     } = this.props;
     return (
       <div className={`ItemCard ${type}`}>
-        <div className="ItemCardContainer">
+        <div className="ItemCardContainer" onClick={this.goToDetail}>
           <img src={imgUrl} alt="제품의 이미지" />
 
           {(type === "ItemList" || type === "main") && sale && (

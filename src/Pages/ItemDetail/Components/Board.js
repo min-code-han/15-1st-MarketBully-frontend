@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { REVIEW_BOARD_API } from "../../../config";
 import "./Board.scss";
 
 const BOARD_NAME = {
@@ -11,8 +12,30 @@ class Board extends Component {
     super(props);
     this.state = {
       boardData: [],
+      showForm: false,
     };
   }
+
+  postArticle = async () => {
+    /* 보드 종류별로 다른 API에 저장해야 한다. */
+    const response = await fetch(REVIEW_BOARD_API);
+    const result = await response.json();
+    await console.log(result);
+  };
+
+  showWriteForm = () => {
+    const { showForm } = this.state;
+    if (showForm) {
+      this.setState({ showForm: false });
+      this.postArticle();
+    } else {
+      this.setState({ showForm: true });
+    }
+  };
+
+  hideWriteForm = () => {
+    this.setState({ showForm: false });
+  };
 
   openBoardContent = e => {
     const { boardData } = this.state;
@@ -34,6 +57,12 @@ class Board extends Component {
     this.setState({ boardData: inquireData.inquireData });
   };
 
+  getData = async () => {
+    const response = await fetch(REVIEW_BOARD_API);
+    const data = await response.json();
+    this.setState({ boardData: data.data });
+  };
+
   componentDidMount() {
     const { menuTabId } = this.props;
     const { getReviewData, getInquireData } = this;
@@ -41,6 +70,8 @@ class Board extends Component {
   }
   render() {
     const { menuTabId, showLike } = this.props;
+    const { showForm } = this.state;
+    const { showWriteForm, hideWriteForm } = this;
     return (
       <div className="Board">
         <div className="menu-header">
@@ -82,8 +113,14 @@ class Board extends Component {
             );
           })}
         </table>
+        <div className={`textarea ${!showForm && "hide"}`}>
+          <textarea defaultValue="q" />
+        </div>
         <div className="button-box">
-          <button>작성</button>
+          <button className={`cancel ${!showForm && "hide"}`} onClick={hideWriteForm}>
+            취소
+          </button>
+          <button onClick={showWriteForm}>작성</button>
         </div>
         <div className="page-routing">
           <ul>

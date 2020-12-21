@@ -9,10 +9,18 @@ class Signup extends Component {
       showIdDetail: false,
       showPwDetail: false,
       showCheckPwDetail: false,
-      id: "",
       validateId: false,
+      validatePw: false,
+      validatePwLength: false,
+      isPwSame: false,
+      account: "",
+      password: "",
+      name: "",
+      email: "",
     };
   }
+
+  //this.setState({ info.account: })
 
   handleModal = () => {
     this.setState({ isModalActive: !this.state.isModalActive });
@@ -27,22 +35,57 @@ class Signup extends Component {
   };
 
   openCheckPwDetail = () => {
+    console.log("why?");
     this.setState({ showCheckPwDetail: true });
   };
 
   validationId = e => {
     const { value } = e.target;
+    this.setState({ account: value });
     const txt = /^[a-z]{6,}$/;
     const numtxt6 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/;
     const both = txt.test(value) || numtxt6.test(value);
-
-    console.log(value);
-    console.log(both);
-
     if (both) {
       this.setState({ validateId: true });
     } else {
       this.setState({ validateId: false });
+    }
+  };
+
+  validationPW = e => {
+    const { value } = e.target;
+    this.setState({ password: value });
+    const txt10 = /.{10,}$/;
+    const numtxt10 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{10,}$/; // 영문 + 숫자 합쳐서 10개 이상 !!!
+    const txtemoji10 = /^(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{10,}$/; // 영문 + 특수기호 합쳐서 10개 이상 !!!
+    const numemoji10 = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+]).{10,}$/; // 특수문자 + 숫자 합쳐서 10개 이상 !!!
+    const numtxtemoji10 = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{10,}$/; //영문+숫자+특수문자 10자 이상
+    const allCorrect =
+      numtxt10.test(value) ||
+      txtemoji10.test(value) ||
+      numemoji10.test(value) ||
+      numtxtemoji10.test(value);
+
+    if (txt10.test(value)) {
+      this.setState({ validatePwLength: true });
+    } else {
+      this.setState({ validatePwLength: false });
+    }
+    if (allCorrect) {
+      this.setState({ validatePw: true });
+    } else {
+      this.setState({ validatePw: false });
+    }
+  };
+
+  checkPwAgain = e => {
+    const nowPw = this.state.password;
+    const newPw = e.target.value;
+
+    if (nowPw === newPw) {
+      this.setState({ isPwSame: true });
+    } else {
+      this.setState({ isPwSame: false });
     }
   };
 
@@ -88,10 +131,15 @@ class Signup extends Component {
                     type="text"
                     placeholder="비밀번호를 입력해주세요"
                     onClick={this.openPwDetail}
+                    onKeyUp={this.validationPW}
                   />
                   <p className={"guide " + (this.state.showPwDetail ? "show" : "hide")}>
-                    <span>&middot; 10자 이상 입력</span>
-                    <span>&middot; 영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합</span>
+                    <span className={this.state.validatePwLength ? "true" : "false"}>
+                      &middot; 10자 이상 입력
+                    </span>
+                    <span className={this.state.validatePw ? "true" : "false"}>
+                      &middot; 영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합
+                    </span>
                   </p>
                 </td>
               </tr>
@@ -103,11 +151,14 @@ class Signup extends Component {
                   <input
                     className="inputbox-commonstyle"
                     type="text"
-                    placeholder="비밀번호를 입력해주세요"
+                    placeholder="비밀번호를 한번더 입력해주세요"
                     onClick={this.openCheckPwDetail}
+                    onKeyUp={this.checkPwAgain}
                   />
                   <p className={"guide " + (this.state.showCheckPwDetail ? "show" : "hide")}>
-                    <span>&middot; 동일한 비밀번호를 입력해주세요.</span>
+                    <span className={this.state.isPwSame ? "true" : "false"}>
+                      &middot; 동일한 비밀번호를 입력해주세요.
+                    </span>
                   </p>
                 </td>
               </tr>
@@ -119,7 +170,8 @@ class Signup extends Component {
                   <input
                     className="inputbox-commonstyle"
                     type="text"
-                    placeholder="비밀번호를 한번더 입력해주세요"
+                    placeholder="이름을 입력해주세요"
+                    onClick={this.getName}
                   />
                 </td>
               </tr>

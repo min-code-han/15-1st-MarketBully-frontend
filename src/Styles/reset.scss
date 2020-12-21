@@ -131,8 +131,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-button,
-input {
+
+input,
+button {
   outline: none;
   &:hover {
     cursor: pointer;

@@ -61,11 +61,7 @@ class InfoAndCartPut extends Component {
             <div className="price">
               <span className="on-login">회원할인가</span>
               <div className="real-price">
-<<<<<<< HEAD
-                <span>{itemData.price}</span>
-=======
                 <span>{formatPrice(discountedPrice)}</span>
->>>>>>> master
                 <div className="unit">원</div>
                 <span className="sale-percentage">
                   {!(itemData.discount_percentage === 0) &&
@@ -73,17 +69,12 @@ class InfoAndCartPut extends Component {
                 </span>
               </div>
               <span className="nosale-price">
-<<<<<<< HEAD
-                <span className="price">8800원</span>
-                <i className="far fa-question-circle"></i>
-=======
                 {!(itemData.discount_percentage === 0) && (
                   <>
                     <span className="price">{formatPrice(itemData.price)}원</span>
                     <i className="far fa-question-circle"></i>
                   </>
                 )}
->>>>>>> master
               </span>
             </div>
             <div className="point-guide">

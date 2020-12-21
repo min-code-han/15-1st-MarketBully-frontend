@@ -27,20 +27,6 @@ class Footer extends Component {
         <div className="frontend">
           <h2>Frontend Members</h2>
           <ul>
-<<<<<<< HEAD
-            <li>
-              김찬영<i className="fab fa-github"></i>
-            </li>
-            <li>
-              박채훈<i className="fab fa-github"></i>
-            </li>
-            <li>
-              이장현<i className="fab fa-github"></i>
-            </li>
-            <li>
-              한민아<i className="fab fa-github"></i>
-            </li>
-=======
             {MEMBERS.frontend.map((member, idx) => {
               return (
                 <li key={idx}>
@@ -50,23 +36,11 @@ class Footer extends Component {
                 </li>
               );
             })}
->>>>>>> master
           </ul>
         </div>
         <div className="backend">
           <h2>Backend Members</h2>
           <ul>
-<<<<<<< HEAD
-            <li>
-              김원희<i className="fab fa-github"></i>
-            </li>
-            <li>
-              이주형<i className="fab fa-github"></i>
-            </li>
-            <li>
-              이현주<i className="fab fa-github"></i>
-            </li>
-=======
             {MEMBERS.backend.map((member, idx) => {
               return (
                 <li key={idx}>
@@ -76,7 +50,6 @@ class Footer extends Component {
                 </li>
               );
             })}
->>>>>>> master
           </ul>
         </div>
         <div className="member-picture">

@@ -106,7 +106,7 @@ class Header extends Component {
         <div className="header">
           <ul className="headerMenu">
             <li>
-              <Link to="/">회원가입</Link>
+              <Link to="/Home">회원가입</Link>
             </li>
             <li>
               <Link to="/">로그인</Link>

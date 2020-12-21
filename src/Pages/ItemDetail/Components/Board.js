@@ -33,7 +33,7 @@ class Board extends Component {
     }
   };
 
-  hideWriteForm = () => {
+  cancelWriteForm = () => {
     this.setState({ showForm: false });
   };
 
@@ -71,7 +71,7 @@ class Board extends Component {
   render() {
     const { menuTabId, showLike } = this.props;
     const { showForm } = this.state;
-    const { showWriteForm, hideWriteForm } = this;
+    const { showWriteForm, cancelWriteForm } = this;
     return (
       <div className="Board">
         <div className="menu-header">
@@ -114,10 +114,10 @@ class Board extends Component {
           })}
         </table>
         <div className={`textarea ${!showForm && "hide"}`}>
-          <textarea defaultValue="q" />
+          <textarea defaultValue="갓원희 찬양해!" />
         </div>
         <div className="button-box">
-          <button className={`cancel ${!showForm && "hide"}`} onClick={hideWriteForm}>
+          <button className={`cancel ${!showForm && "hide"}`} onClick={cancelWriteForm}>
             취소
           </button>
           <button onClick={showWriteForm}>작성</button>

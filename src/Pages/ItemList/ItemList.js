@@ -81,7 +81,7 @@ class ItemList extends Component {
       filteringOption,
       categoryTesting,
     } = this.state;
-    console.log(categoryTesting);
+
     return (
       <div className="ItemList">
         <ItemListModal

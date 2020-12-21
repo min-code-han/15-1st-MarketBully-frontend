@@ -2,6 +2,19 @@
 import React, { Component } from "react";
 import "./Footer.scss";
 
+const MEMBERS = {
+  frontend: [
+    { name: "김찬영", githubUrl: "" },
+    { name: "박채훈", githubUrl: "" },
+    { name: "이장현", githubUrl: "" },
+    { name: "한민아", githubUrl: "" },
+  ],
+  backend: [
+    { name: "김원희", githubUrl: "" },
+    { name: "이주형", githubUrl: "" },
+    { name: "이현주", githubUrl: "" },
+  ],
+};
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +27,7 @@ class Footer extends Component {
         <div className="frontend">
           <h2>Frontend Members</h2>
           <ul>
+<<<<<<< HEAD
             <li>
               김찬영<i className="fab fa-github"></i>
             </li>
@@ -26,11 +40,23 @@ class Footer extends Component {
             <li>
               한민아<i className="fab fa-github"></i>
             </li>
+=======
+            {MEMBERS.frontend.map((member, idx) => {
+              return (
+                <li key={idx}>
+                  {member.name}
+                  <i className="fab fa-github" />
+                  {member.githubUrl}
+                </li>
+              );
+            })}
+>>>>>>> master
           </ul>
         </div>
         <div className="backend">
           <h2>Backend Members</h2>
           <ul>
+<<<<<<< HEAD
             <li>
               김원희<i className="fab fa-github"></i>
             </li>
@@ -40,6 +66,17 @@ class Footer extends Component {
             <li>
               이현주<i className="fab fa-github"></i>
             </li>
+=======
+            {MEMBERS.backend.map((member, idx) => {
+              return (
+                <li key={idx}>
+                  {member.name}
+                  <i className="fab fa-github" />
+                  {member.githubUrl}
+                </li>
+              );
+            })}
+>>>>>>> master
           </ul>
         </div>
         <div className="member-picture">

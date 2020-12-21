@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./Header.scss";
 import ItemCard from "../ItemCard/ItemCard";
 
@@ -106,7 +106,7 @@ class Header extends Component {
         <div className="header">
           <ul className="headerMenu">
             <li>
-              <Link to="/Home">회원가입</Link>
+              <Link to="/home">회원가입</Link>
             </li>
             <li>
               <Link to="/">로그인</Link>
@@ -188,4 +188,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);

@@ -35,7 +35,6 @@ class Signup extends Component {
   };
 
   openCheckPwDetail = () => {
-    console.log("why?");
     this.setState({ showCheckPwDetail: true });
   };
 
@@ -266,7 +265,7 @@ class Signup extends Component {
                 </td>
               </tr>
             </table>
-            <div className="under-line"></div>
+            <div className="under-line" />
             <table className="agree">
               <tr>
                 <th>
@@ -287,8 +286,8 @@ class Signup extends Component {
                       </p>
                     </div>
                     <div className="ageree-check">
-                      <input type="checkbox" id="use" />
-                      <label htmlFor="use">
+                      <label>
+                        <input type="checkbox" />
                         이용약관 동의<span className="necessary">(필수)</span>
                       </label>
                       <p className="purple-txt see-more">
@@ -296,8 +295,8 @@ class Signup extends Component {
                       </p>
                     </div>
                     <div className="ageree-check">
-                      <input type="checkbox" id="personal" />
-                      <label htmlFor="personal">
+                      <label>
+                        <input type="checkbox" />
                         개인정보처리방침 동의<span className="necessary">(필수)</span>
                       </label>
                       <p className="purple-txt see-more">
@@ -305,8 +304,8 @@ class Signup extends Component {
                       </p>
                     </div>
                     <div className="ageree-check">
-                      <input type="checkbox" id="personal2" />
-                      <label htmlFor="personal2">
+                      <label>
+                        <input type="checkbox" />
                         개인정보처리방침 동의<span className="necessary">(필수)</span>
                       </label>
                       <p className="purple-txt see-more">
@@ -314,18 +313,21 @@ class Signup extends Component {
                       </p>
                     </div>
                     <div className="ageree-check">
-                      <input type="checkbox" id="coupon" />
-                      <label htmlFor="coupon">
+                      <label>
+                        <input type="checkbox" />
                         무료배송, 할인쿠폰 등 혜택/정보 수신 동의
                         <span className="necessary">(선택)</span>
                       </label>
                       <div className="check-news">
-                        <input type="checkbox" id="sms" />
-                        <label htmlFor="sms" className="sms">
+                        <label className="sms">
+                          <input type="checkbox" />
                           SMS
                         </label>
-                        <input type="checkbox" id="email" />
-                        <label htmlFor="email">이메일</label>
+
+                        <label>
+                          <input type="checkbox" />
+                          이메일
+                        </label>
                         <p className="purple-txt if-you-agree">
                           <span className="detail"></span>
                           동의 시 한 달간[5% 적립]+[무제한 무료배송]
@@ -334,8 +336,8 @@ class Signup extends Component {
                       </div>
                     </div>
                     <div className="ageree-check">
-                      <input type="checkbox" id="fourteen" />
-                      <label htmlFor="fourteen">
+                      <label>
+                        <input type="checkbox" />
                         본인은 만 14세 이상입니다.<span className="necessary">(필수)</span>
                       </label>
                     </div>

@@ -340,8 +340,13 @@
           height: 48px;
           border: none;
           margin-bottom: 20px;
-          background-color: $purple-text-color;
+          background-color: $dark-gray;
+          cursor: default;
           color: white;
+          &.able {
+            background-color: $purple-text-color;
+            cursor: pointer;
+          }
         }
         span {
           padding: 2px 0;

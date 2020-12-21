@@ -10,6 +10,8 @@ class Payment extends Component {
 
     this.state = {
       cartData: [],
+      payType: "",
+      agreeTerms: false,
     };
   }
 
@@ -23,6 +25,14 @@ class Payment extends Component {
 
   priceEach = ({ price, discount_rate }) => {
     return Math.floor((price * (1 - discount_rate)) / 10) * 10;
+  };
+
+  getPayType = e => {
+    this.setState({ payType: e.target.id });
+  };
+
+  toggleAgree = e => {
+    this.setState({ agreeTerms: !this.state.agreeTerms });
   };
 
   goPay = () => {
@@ -47,8 +57,8 @@ class Payment extends Component {
   }
 
   render() {
-    const { cartData } = this.state;
-    const { formatPrice, priceEach, itemPrice, goPay } = this;
+    const { cartData, payType, agreeTerms } = this.state;
+    const { formatPrice, priceEach, itemPrice, getPayType, toggleAgree, goPay } = this;
     const totalPrice = Math.floor(
       cartData.reduce((acc, item) => acc + item.price * item.quantity, 0)
     );
@@ -57,7 +67,6 @@ class Payment extends Component {
     );
     const freeDelivery = discountedTotalPrice > FREE_DELIVERY_THRESHOLD;
 
-    console.log(cartData);
     return (
       <div className="Payment">
         <main>
@@ -173,35 +182,35 @@ class Payment extends Component {
                     <tr>
                       <th>일반 결제</th>
                       <td>
-                        <input type="radio" name="payType" />
+                        <input type="radio" name="payType" id="normal" onClick={getPayType} />
                         <span>신용카드</span>
                       </td>
                     </tr>
                     <tr>
                       <th>토스</th>
                       <td>
-                        <input type="radio" name="payType" />
+                        <input type="radio" name="payType" id="toss" onClick={getPayType} />
                         <span>toss</span>
                       </td>
                     </tr>
                     <tr>
                       <th>네이버페이</th>
                       <td>
-                        <input type="radio" name="payType" />
+                        <input type="radio" name="payType" id="naverPay" onClick={getPayType} />
                         <span>NAVER Pay</span>
                       </td>
                     </tr>
                     <tr>
                       <th>PAYCO 결제</th>
                       <td>
-                        <input type="radio" name="payType" />
+                        <input type="radio" name="payType" id="payco" onClick={getPayType} />
                         <span>Payco</span>
                       </td>
                     </tr>
                     <tr>
                       <th>휴대폰 결제</th>
                       <td>
-                        <input type="radio" name="payType" />
+                        <input type="radio" name="payType" id="phone" onClick={getPayType} />
                         <span>휴대폰</span>
                       </td>
                     </tr>
@@ -259,7 +268,7 @@ class Payment extends Component {
             <h1>개인정보 수집/제공</h1>
             <div className="personal-info">
               <div className="checkbox">
-                <input type="checkbox" />
+                <input type="checkbox" onClick={toggleAgree} />
               </div>
               <div className="guide">
                 <span>결제 진행 필수 동의</span>
@@ -269,7 +278,11 @@ class Payment extends Component {
               </div>
             </div>
             <div className="pay-btn">
-              <button className="pay" onClick={goPay}>
+              <button
+                className={`pay ${payType && agreeTerms && "able"}`}
+                disabled={!(agreeTerms && payType)}
+                onClick={goPay}
+              >
                 결제하기
               </button>
               <span>'입금확인' 상태일 때는 주문내역 상세페이지에서 주문 취소가 가능합니다.</span>

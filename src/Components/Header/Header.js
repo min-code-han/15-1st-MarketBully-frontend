@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "./Header.scss";
+import First from "./First";
+import Second from "./Second";
+import Third from "./Third";
+import LoginHeader from './LoginHeader'
 import ItemCard from "../ItemCard/ItemCard";
 
 class Header extends Component {
@@ -11,6 +15,7 @@ class Header extends Component {
       fix: false,
       hoverAction: false,
       subHoverAction: false,
+      currentID: 1,
       gnbCategorydata: [
         {
           id: 1,
@@ -60,10 +65,13 @@ class Header extends Component {
         },
       ],
     };
-  }
+ 
 
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
+    // const id = localStorage.getItem('id');
+    // id ? this.onLoing() : this.onLogOut() 
+ 
   }
   componentWillUnMount = () => {
     window.removeEventListener("scroll", this.handleScroll);
@@ -75,6 +83,7 @@ class Header extends Component {
   };
 
   hadnleClick = e => {
+    console.log(e);
     if (e.target.className === "gnbAllCategory") {
       this.setState({
         hoverAction: !this.state.hoverAction,
@@ -82,20 +91,29 @@ class Header extends Component {
       });
     }
     if (e.target.className === "gnbOverlay") {
-      console.log("hi");
       this.setState({
         hoverAction: false,
         subHoverAction: false,
       });
     }
   };
-  subMenuMoues = () => {
+  subMenuMoues = currentID => {
     this.setState({
-      subHoverAction: !this.state.subHoverAction,
+      subHoverAction: true,
+      currentID,
     });
+  };
+  subMenuClickItem = id => {
+    const filterCatergory = this.state.gnbCategorydata.filter(e => e.id !== id);
+    if (filterCatergory) {
+      this.setState({
+        subHoverAction: !this.state.subHoverAction,
+      });
+    }
   };
 
   render() {
+  
     return (
       <>
         <div
@@ -104,20 +122,7 @@ class Header extends Component {
         ></div>
 
         <div className="header">
-          <ul className="headerMenu">
-            <li>
-              <Link to="/home">회원가입</Link>
-            </li>
-            <li>
-              <Link to="/">로그인</Link>
-            </li>
-            <li>
-              <Link to="/"> 고객센터</Link>
-            </li>
-            <li>
-              <Link to="/">배송지역 검색</Link>
-            </li>
-          </ul>
+        <LoginHeader />
 
           <div className="header__logo">
             <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif"></img>
@@ -125,7 +130,7 @@ class Header extends Component {
           </div>
           <div className={`gnb ${this.state.fix ? "fix" : ""}`}>
             <ul>
-              <li onClick={this.hadnleClick}>
+              <li onMouseOver={this.hadnleClick}>
                 <Link className="gnbAllCategory" to="/">
                   전체 카테고리
                 </Link>
@@ -146,26 +151,21 @@ class Header extends Component {
             <div className="gnb__cart">
               <img src="https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png"></img>
             </div>
+
+            {/* Sub Inner Box */}
             <div className={`gnbInnerBox ${this.state.subHoverAction ? "hoverd" : ""}`}>
-              <ul>
-                <li>
-                  <Link to="/">
-                    {" "}
-                    <img
-                      src="https://img-cf.kurly.com/shop/data/category/icon_yearend_inactive_pc@2x.1606988604.png"
-                      alt="연말대전"
-                    ></img>
-                    Link1
-                  </Link>
-                </li>
-              </ul>
+              {MAPPING_OBJ[this.state.currentID]}
             </div>
+            {/* Sub Box */}
             <div className={`gnb__subMenu ${this.state.hoverAction ? "hoverd" : ""}`}>
               <ul>
-                {this.state.gnbSubMenudata.map(data => {
+                {this.state.gnbSubMenudata.map((data, index) => {
                   return (
-                    <li onClick={this.subMenuMoues} key={data.id}>
-                      <div className="gnb__subMenuBox">
+                    <li onMouseOver={() => this.subMenuMoues(index + 1)} key={data.id}>
+                      <div
+                        className="gnb__subMenuBox"
+                        onMouseOver={() => this.subMenuClickItem(data.id)}
+                      >
                         <Link to="/">
                           {" "}
                           <div className="gnb__image">
@@ -187,5 +187,12 @@ class Header extends Component {
     );
   }
 }
+
+const MAPPING_OBJ = {
+  1: <First />,
+  2: <Second />,
+  3: <Third />,
+};
+const CATEGORY_ARR = ["Frist", "Second", "Third"];
 
 export default withRouter(Header);

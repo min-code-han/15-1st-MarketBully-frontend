@@ -3,6 +3,8 @@ import ItemListModal from "./ItemListModal";
 import ItemCard from "../../Components/ItemCard/ItemCard";
 import "./ItemList.scss";
 
+const FILTEROPTIONS = ["추천순", "신상품순", "인기상품순", "낮은 가격순", "높은 가격순"];
+
 class ItemList extends Component {
   constructor(props) {
     super(props);
@@ -30,13 +32,12 @@ class ItemList extends Component {
       });
   }
 
-  addQuantity = () => {
-    this.setState({ quantities: this.state.quantities + 1 });
-  };
-
-  subtractQuantity = () => {
-    if (this.state.quantities < 1) return;
-    this.setState({ quantities: this.state.quantities - 1 });
+  controlQuantity = e => {
+    if (e.target.name === "+") {
+      this.setState({ quantities: this.state.quantities + 1 });
+    } else {
+      this.setState({ quantities: this.state.quantities - 1 });
+    }
   };
 
   changingFilteringOption = e => {
@@ -52,7 +53,7 @@ class ItemList extends Component {
       });
     }
 
-    // this.setState({ filteringOption: e.target.id });
+    this.setState({ filteringOption: e.target.id });
   };
 
   showOptionBox = () => {
@@ -80,6 +81,7 @@ class ItemList extends Component {
       filteringOption,
       categoryTesting,
     } = this.state;
+    console.log(categoryTesting);
     return (
       <div className="ItemList">
         <ItemListModal
@@ -89,8 +91,7 @@ class ItemList extends Component {
           isModalBoxOnOrOff={isModalBoxOn}
           ModalBoxClose={this.showModalBox}
           quantities={quantities}
-          addQuantity={this.addQuantity}
-          subtractQuantity={this.subtractQuantity}
+          controlQuantity={this.controlQuantity}
         />
         <header>
           <div className="categoryHeader">
@@ -110,21 +111,13 @@ class ItemList extends Component {
               <span className={optionBoxOnAndOff ? "selectedOption" : ""}>{filteringOption}</span>
               <i class="fas fa-chevron-down" />
               <ul className={optionBoxOnAndOff ? "optionList" : "optionListNone"}>
-                <li id={`추천순`} onClick={this.changingFilteringOption}>
-                  추천순
-                </li>
-                <li id={`신상품순`} onClick={this.changingFilteringOption}>
-                  신상품순
-                </li>
-                <li id={`인기상품순`} onClick={this.changingFilteringOption}>
-                  인기상품순
-                </li>
-                <li id={`낮은 가격순`} onClick={this.changingFilteringOption}>
-                  낮은 가격순
-                </li>
-                <li id={`높은 가격순`} onClick={this.changingFilteringOption}>
-                  높은 가격순
-                </li>
+                {FILTEROPTIONS.map(el => {
+                  return (
+                    <li id={el} onClick={this.changingFilteringOption}>
+                      {el}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>

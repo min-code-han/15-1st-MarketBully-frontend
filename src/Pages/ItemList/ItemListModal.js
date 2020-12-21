@@ -5,17 +5,18 @@ class ItemListModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantities: this.props.quantities,
+      quantitiesForBack: this.props.quantities,
     };
   }
 
   addQuantity = () => {
-    this.setState({ quantities: this.state.quantities + 1 }, () => {});
+    this.setState({ quantitiesForBack: this.state.quantities + 1 }, () => {});
   };
 
   subtractQuantity = () => {
-    if (this.state.quantities < 1) return;
-    this.setState({ quantities: this.state.quantities - 1 });
+    const { quantitiesForBack } = this.state;
+    if (quantitiesForBack < 1) return;
+    this.setState({ quantitiesForBack: this.state.quantities - 1 });
   };
 
   sendInfoToCart = () => {
@@ -36,8 +37,7 @@ class ItemListModal extends Component {
       quantities,
       isModalBoxOnOrOff,
       ModalBoxClose,
-      addQuantity,
-      subtractQuantity,
+      controlQuantity,
     } = this.props;
 
     return (
@@ -59,11 +59,11 @@ class ItemListModal extends Component {
                     <div className="price-and-quantities">
                       <div className="price">{Math.floor(price)}원</div>
                       <div className="button-container">
-                        <button className="subtract" onClick={subtractQuantity}>
+                        <button name="-" className="subtract" onClick={controlQuantity}>
                           -
                         </button>
                         <input value={quantities}></input>
-                        <button className="add" onClick={addQuantity}>
+                        <button name="+" className="add" onClick={controlQuantity}>
                           +
                         </button>
                       </div>

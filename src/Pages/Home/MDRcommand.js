@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import MDRcommandMeatSlide from "./Slide/MDRcommandMeatSlide";
+import MDRecommandSlide from "./Slide/MDRecommandSlide";
 import "./config/MDRcommandSlide.scss";
 
 class MDRcommand extends Component {
@@ -12,17 +12,19 @@ class MDRcommand extends Component {
       LimmitedData: [],
       mode: false,
       buttonData: [],
+      LimmitedName: [],
     };
   }
 
   componentDidMount = () => {
-    fetch("http://localhost:3000/data/data.json")
+    fetch("http://10.168.2.67:8000/product/index/md-choice")
       .then(res => res.json())
       .then(res => {
-        const limmitedID = res.data.filter(e => e.id);
-        this.setState({ data: res.data, LimmitedData: limmitedID });
+        const limmitedID = res.product_list.filter(e => e.id);
+        const LimmitedName = res.product_list.filter(e => e.subcategory_name);
+        this.setState({ data: res.product_list, LimmitedData: limmitedID, LimmitedName });
       });
-    fetch("http://localhost:3000/data/filterName.json")
+    fetch("http://localhost:3001/data/filterName.json")
       .then(res => res.json())
       .then(res => {
         this.setState({ buttonData: res.data });
@@ -31,14 +33,14 @@ class MDRcommand extends Component {
   };
   clickHandler = filterName => {
     const filtering = this.state.data.filter(data => {
-      return data.filterName === filterName;
+      return data.subcategory_name === filterName;
     });
     console.log(filtering, "..........", filterName);
     this.setState({ filtering: filtering, mode: true });
   };
 
   render() {
-    console.log(this.state.mode);
+    console.log(this.state.LimmitedName);
     return (
       <>
         <div className="mdRcommandContainer">
@@ -50,19 +52,14 @@ class MDRcommand extends Component {
               <button
                 key={index}
                 class="mdRcommandBtn"
-                onClick={() => this.clickHandler(data.filterName)}
+                onClick={() => this.clickHandler(data.name)}
               >
                 {data.name}
               </button>
             ))}
           </div>
           <div className="RcommandSlideContainer">
-            <MDRcommandMeatSlide
-              limmit={this.state.LimmitedData}
-              data={this.state.data}
-              filtering={this.state.filtering}
-              mode={this.state.mode}
-            />
+            <MDRecommandSlide filtering={this.state.filtering} />
           </div>
         </div>
       </>

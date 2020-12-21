@@ -18,9 +18,23 @@ class InfoAndCartPut extends Component {
     super(props);
     this.state = {
       quantity: 1,
-      itemData: {},
     };
   }
+
+  /* 카트에 추가 */
+  addToCart = async () => {
+    const { quantity } = this.state;
+    const { itemData } = this.props;
+    const response = await fetch("http://호스트/order/cart", {
+      method: "POST",
+      body: JSON.stringify({
+        product_id: itemData.id,
+        quantity: quantity,
+      }),
+    });
+    const res = await response.json();
+    await console.log("장바구니 추가 완료: response: ", res);
+  };
 
   formatPrice = price => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -39,7 +53,7 @@ class InfoAndCartPut extends Component {
   render() {
     const { quantity } = this.state;
     const { itemData } = this.props;
-    const { formatPrice } = this;
+    const { formatPrice, addToCart } = this;
     const userMileageClass = 0.005;
     // 세일 가격에서 10원 이하 절삭
     const discountedPrice =
@@ -121,7 +135,9 @@ class InfoAndCartPut extends Component {
             <div className="button-box">
               <button className="restock-notify">재입고 알림</button>
               <button className="alawys-buy">늘 사는 것</button>
-              <button className="put-cart">장바구니 담기</button>
+              <button className="put-cart" onClick={addToCart}>
+                장바구니 담기
+              </button>
             </div>
           </div>
         </div>

@@ -207,6 +207,11 @@
           color: $purple-text-color;
           font-size: 16px;
           font-weight: 600;
+          &.restock-notify {
+            border-color: $light-gray;
+            color: $light-gray;
+            cursor: default;
+          }
 
           &.put-cart {
             width: 278px;

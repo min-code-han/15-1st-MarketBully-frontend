@@ -31,8 +31,14 @@
     margin: 0 auto;
     .slick-initialized {
       width: inherit;
+      .slick-track {
+        // transform: translate3d(1050px, 0px, 0px) !important;
+      }
     }
 
+    .slider:not(.slick-initialized) .slide:not(:first-of-type) {
+      display: none;
+    }
     .slick-prev:before,
     .slick-next:before {
       font-size: 52px;

@@ -87,6 +87,39 @@
       "price": "3700원",
       "savePrice": "3333원",
       "alt": "meat"
+    },
+    {
+      "id": 9,
+      "name": "스테이크3",
+      "filterName": "sss",
+      "imgUrl": "./images/밥상.jpg",
+      "companyName": "[남양]",
+      "productName": "맛있는 스테이크",
+      "price": "3700원",
+      "savePrice": "3333원",
+      "alt": "meat"
+    },
+    {
+      "id": 9,
+      "name": "스테이크3",
+      "filterName": "sss",
+      "imgUrl": "./images/밥상.jpg",
+      "companyName": "[남양]",
+      "productName": "맛있는 스테이크",
+      "price": "3700원",
+      "savePrice": "3333원",
+      "alt": "meat"
+    },
+    {
+      "id": 9,
+      "name": "스테이크3",
+      "filterName": "sss",
+      "imgUrl": "./images/밥상.jpg",
+      "companyName": "[남양]",
+      "productName": "맛있는 스테이크",
+      "price": "3700원",
+      "savePrice": "3333원",
+      "alt": "meat"
     }
   ]
 }

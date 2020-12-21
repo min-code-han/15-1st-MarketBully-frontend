@@ -8,8 +8,10 @@ class MDRcommand extends Component {
     super(props);
     this.state = {
       data: [],
-      currentId: 1,
       filtering: [],
+      LimmitedData: [],
+      mode: false,
+      buttonData: [],
     };
   }
 
@@ -17,20 +19,26 @@ class MDRcommand extends Component {
     fetch("http://localhost:3000/data/data.json")
       .then(res => res.json())
       .then(res => {
-        console.log(res);
-        this.setState({ data: res.data });
+        const limmitedID = res.data.filter(e => e.id);
+        this.setState({ data: res.data, LimmitedData: limmitedID });
       });
+    fetch("http://localhost:3000/data/filterName.json")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ buttonData: res.data });
+      })
+      .catch(error => console.log(error.message));
   };
-  clickHandler = clickdata => {
+  clickHandler = filterName => {
     const filtering = this.state.data.filter(data => {
-      return data.name === clickdata;
+      return data.filterName === filterName;
     });
-    console.log(filtering);
-    this.setState({ filtering: filtering });
+    console.log(filtering, "..........", filterName);
+    this.setState({ filtering: filtering, mode: true });
   };
 
   render() {
-    console.log(this.state.data);
+    console.log(this.state.mode);
     return (
       <>
         <div className="mdRcommandContainer">
@@ -38,18 +46,23 @@ class MDRcommand extends Component {
             <h2>MD의 추천</h2>
           </div>
           <div className="mdRcommandMenu">
-            {this.state.data?.map((data, index) => (
+            {this.state.buttonData?.map((data, index) => (
               <button
                 key={index}
                 class="mdRcommandBtn"
-                onClick={() => this.clickHandler(data.name)}
+                onClick={() => this.clickHandler(data.filterName)}
               >
                 {data.name}
               </button>
             ))}
           </div>
           <div className="RcommandSlideContainer">
-            <MDRcommandMeatSlide data={this.state.data} />
+            <MDRcommandMeatSlide
+              limmit={this.state.LimmitedData}
+              data={this.state.data}
+              filtering={this.state.filtering}
+              mode={this.state.mode}
+            />
           </div>
         </div>
       </>

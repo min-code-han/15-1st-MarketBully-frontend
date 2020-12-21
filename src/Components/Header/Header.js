@@ -69,6 +69,7 @@ class Header extends Component {
 
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
+    // login시 
     // const id = localStorage.getItem('id');
     // id ? this.onLoing() : this.onLogOut() 
  

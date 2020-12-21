@@ -7,10 +7,11 @@ class ItemImage extends Component {
     this.state = {};
   }
   render() {
+    const { product_image_url, name } = this.props.itemData;
     return (
       <div className="ItemImage">
-        <img src="images/tomato.jpg" alt="tomato" />
-        <p className="simple-description">무농약 토마토(1kg/3~6개입)</p>
+        <img src={product_image_url} alt={name} />
+        <p className="simple-description">{name}</p>
       </div>
     );
   }

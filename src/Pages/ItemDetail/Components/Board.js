@@ -1,40 +1,86 @@
 import React, { Component } from "react";
 import "./Board.scss";
 
-const boardContent = [1, 2, 3, 4, 5, 6, 7, 8];
+const BOARD_NAME = {
+  4: "Review",
+  5: "Inquire",
+};
 const PAGES = ["<", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ">"];
 class Board extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      boardData: [],
+    };
+  }
+
+  openBoardContent = e => {
+    const { boardData } = this.state;
+    for (let i = 0; i < boardData.length; i++) {
+      if (boardData[i].id === +e.target.id) boardData[i].show = !boardData[i].show;
+    }
+    this.setState({ boardData: boardData });
+  };
+
+  getReviewData = async () => {
+    const reviewDataRes = await fetch(`data/review.json`);
+    const reviewData = await reviewDataRes.json();
+    this.setState({ boardData: reviewData.reviewData });
+  };
+
+  getInquireData = async () => {
+    const inquireDataRes = await fetch(`data/inquire.json`);
+    const inquireData = await inquireDataRes.json();
+    this.setState({ boardData: inquireData.inquireData });
+  };
+
+  componentDidMount() {
+    const { menuTabId } = this.props;
+    const { getReviewData, getInquireData } = this;
+    menuTabId === 4 ? getReviewData() : getInquireData();
+  }
   render() {
+    const { menuTabId, showLike } = this.props;
     return (
       <div className="Board">
         <div className="menu-header">
-          <h1>{this.props.name}</h1>
+          <h1>{`${BOARD_NAME[menuTabId]} Board`}</h1>
         </div>
         <table className="board-table">
           <thead>
             <tr>
-              <th>번호</th>
+              <th className="id">번호</th>
               <th className="title">제목</th>
-              <th>작성자</th>
-              <th>작성일</th>
-              <th>도움</th>
-              <th>조회</th>
+              <th className="writer">작성자</th>
+              <th className="date">작성일</th>
+              {showLike && <th className="like">도움</th>}
+              <th className="lookup">조회</th>
             </tr>
           </thead>
-          <tbody>
-            {boardContent.map((elem, idx) => {
-              return (
-                <tr key={idx}>
-                  <td>{elem}</td>
-                  <td className="title">제목입니다</td>
-                  <td>장현</td>
-                  <td>2020-12-12</td>
-                  <td>0</td>
-                  <td>2</td>
+
+          {this.state.boardData.map(review => {
+            return (
+              <tbody key={review.id}>
+                <tr>
+                  <td className="id">{review.id}</td>
+                  <td className="title" id={review.id} onClick={this.openBoardContent}>
+                    {review.title}
+                  </td>
+                  <td className="writer">{review.writer}</td>
+                  <td className="date">{review.date}</td>
+                  {showLike && <td className="like">{review.like}</td>}
+                  <td className="lookup">{review.lookup}</td>
                 </tr>
-              );
-            })}
-          </tbody>
+                <tr>
+                  {true && (
+                    <td colSpan="6" className={`content ${review.show ? "show" : ""}`}>
+                      {review.show ? review.content : ""}
+                    </td>
+                  )}
+                </tr>
+              </tbody>
+            );
+          })}
         </table>
         <div className="button-box">
           <button>작성</button>

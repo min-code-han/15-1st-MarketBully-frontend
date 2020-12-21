@@ -128,6 +128,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+input,
 button {
   outline: none;
+  &:hover {
+    cursor: pointer;
+  }
 }

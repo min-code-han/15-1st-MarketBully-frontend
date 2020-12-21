@@ -1,0 +1,117 @@
+@import "../../Styles/common.scss";
+
+* {
+  font-family: noto sans;
+}
+
+.ItemList {
+  width: $main-width;
+  margin: 0 auto;
+
+  header {
+    i {
+      padding: 2px 0 0 2px;
+    }
+    .categoryHeader {
+      margin: 10px 0 10px 0;
+
+      .fa-bacon:before {
+        color: $purple-text-color;
+        content: "\f7e5";
+        font-size: 30px;
+      }
+
+      .category {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 700;
+        color: #000;
+      }
+    }
+
+    .filteringHeader {
+      display: flex;
+      justify-content: space-between;
+
+      .typeOfCategories {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          float: left;
+          margin: 0;
+          padding: 0 13px 7px 12px;
+          line-height: 20px;
+          font-size: 12px;
+          font-weight: 600;
+          border-bottom: 1px solid #ddd;
+          color: #333333;
+          &:hover {
+            color: $theme-color;
+            border-bottom: 1px solid $theme-color;
+          }
+        }
+      }
+
+      .selectOptions {
+        position: relative;
+        margin-right: 30px;
+        font-size: 12px;
+
+        .selectedOption {
+          color: purple;
+        }
+
+        .optionList {
+          position: absolute;
+          top: 28px;
+          left: -28px;
+          display: flex;
+          flex-direction: column;
+          z-index: 30000000;
+          text-align: right;
+
+          li {
+            width: 98px;
+            height: 44px;
+            padding: 13px 18px 11px 0;
+            font-size: 12px;
+            background-color: #ffffff;
+            &:hover {
+              color: $theme-color;
+            }
+          }
+        }
+
+        .optionListNone {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+
+    .card {
+      display: block;
+
+      .card-container {
+        position: relative;
+        .cart {
+          position: absolute;
+          top: 340px;
+          right: 15px;
+          width: 45px;
+          height: 45px;
+          border: 0;
+          outline: 0;
+          border-radius: 100%;
+          background-color: rgba(124, 101, 126, 0.8);
+        } // button
+      }
+    }
+  }
+}

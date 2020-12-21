@@ -4,7 +4,7 @@ import RecommandGoods from "./RecommandGoods";
 import YearEndSpecial from "./YearEndSpecial";
 import EventNews from "./EventNews";
 import BannerMain from "./BannerMain";
-import MDRcommand from "./MDRcommand";
+import MDRecommand from "./MDRecommand";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 class Home extends Component {
@@ -22,7 +22,7 @@ class Home extends Component {
         <YearEndSpecial />
         <EventNews />
         <BannerMain />
-        <MDRcommand />
+        <MDRecommand />
       </>
     );
   }

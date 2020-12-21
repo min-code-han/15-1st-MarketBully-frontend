@@ -2,7 +2,16 @@ import React, { Component } from "react";
 
 class CartItemCard extends Component {
   render() {
-    const { type, item, selectItem, addItem, subtractItem, deleteItem, formatPrice } = this.props;
+    const {
+      type,
+      item,
+      selectItem,
+      addItem,
+      subtractItem,
+      deleteItem,
+      discountedPrice,
+      formatPrice,
+    } = this.props;
     return (
       type.show &&
       item.cart_packing_type === type.nameKor && (
@@ -26,10 +35,7 @@ class CartItemCard extends Component {
           <div className="price-box">
             <div className="price">
               {/* 할인 후 10원 이하 절삭 */}
-              {formatPrice(
-                Math.floor((item.price * (1 - item.discount_rate)) / 10) * 10 * item.quantity
-              )}
-              원
+              {formatPrice(discountedPrice(item))}원
             </div>
             <div className="price-without-sale">{formatPrice(+item.price * item.quantity)}원</div>
           </div>

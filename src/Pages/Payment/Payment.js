@@ -1,12 +1,63 @@
 import React, { Component } from "react";
 import "./Payment.scss";
 
+const FREE_DELIVERY_THRESHOLD = 40000;
+const DELIVERY_FEE = 3000;
+const MILEAGE_PERCENTAGE = 0.005;
 class Payment extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.state = {
+      cartData: [],
+    };
   }
+
+  formatPrice = price => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  itemPrice = ({ price, discount_rate, quantity }) => {
+    return Math.floor((price * (1 - discount_rate)) / 10) * 10 * quantity;
+  };
+
+  priceEach = ({ price, discount_rate }) => {
+    return Math.floor((price * (1 - discount_rate)) / 10) * 10;
+  };
+
+  goPay = () => {
+    alert("결제가 완료되었습니다!");
+    this.props.history.push("/Home");
+  };
+
+  getMockData = async () => {
+    const response = await fetch("data/cartdata.json");
+    const data = await response.json();
+    const selectedItems = data.items_in_cart.filter(item => item.selected);
+
+    !selectedItems[0] && alert("빈 장바구니로 결제할 수 없습니다.");
+
+    data.MESSAGE === "SUCCESS"
+      ? this.setState({ cartData: selectedItems })
+      : alert("장바구니 불러오기 실패!");
+  };
+
+  componentDidMount() {
+    this.getMockData();
+  }
+
   render() {
+    const { cartData } = this.state;
+    const { formatPrice, priceEach, itemPrice, goPay } = this;
+    const totalPrice = Math.floor(
+      cartData.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    );
+    const discountedTotalPrice = Math.floor(
+      cartData.reduce((acc, item) => acc + itemPrice(item), 0)
+    );
+    const freeDelivery = discountedTotalPrice > FREE_DELIVERY_THRESHOLD;
+
+    console.log(cartData);
     return (
       <div className="Payment">
         <main>
@@ -25,36 +76,24 @@ class Payment extends Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="image">
-                    <img alt="토마토" src="images/tomato2.jpg" />
-                  </td>
-                  <td className="item-info">
-                    <span className="name">{"신선한 토마토"}</span>
-                    <span>{"신선한 토마토"}</span>
-                  </td>
-                  <td className="price">{"3,000원"}</td>
-                </tr>
-                <tr>
-                  <td className="image">
-                    <img alt="토마토" src="images/tomato2.jpg" />
-                  </td>
-                  <td className="item-info">
-                    <span className="name">{"신선한 토마토"}</span>
-                    <span>{"신선한 토마토"}</span>
-                  </td>
-                  <td className="price">{"3,000원"}</td>
-                </tr>
-                <tr>
-                  <td className="image">
-                    <img alt="토마토" src="images/tomato2.jpg" />
-                  </td>
-                  <td className="item-info">
-                    <span className="name">{"신선한 토마토"}</span>
-                    <span>{"신선한 토마토"}</span>
-                  </td>
-                  <td className="price">{"3,000원"}</td>
-                </tr>
+                {cartData.map(item => {
+                  return (
+                    <tr key={item.id}>
+                      <td className="image">
+                        <img alt={item.name} src={item.image_url} />
+                      </td>
+                      <td className="item-info">
+                        <span className="name">{item.name}</span>
+                        <span>{`${item.quantity}개 / 개 당 ${formatPrice(
+                          priceEach(item)
+                        )}원`}</span>
+                      </td>
+                      <td className="price">
+                        <span>{`${formatPrice(itemPrice(item))} 원`}</span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
             <h1>주문자 정보</h1>
@@ -177,28 +216,38 @@ class Payment extends Component {
                       <tbody>
                         <tr>
                           <th>상품금액</th>
-                          <td>원</td>
+                          <td>{`${formatPrice(totalPrice)} 원`}</td>
                         </tr>
                         <tr>
                           <th>상품할인금액</th>
-                          <td>원</td>
+                          <td>{`- ${formatPrice(totalPrice - discountedTotalPrice)} 원`}</td>
                         </tr>
                         <tr>
                           <th>배송비</th>
-                          <td>{`원`}</td>
+                          <td>{freeDelivery ? "0원" : `+${formatPrice(DELIVERY_FEE)}원`}</td>
                         </tr>
                         <tr>
                           <td colSpan={2} className="free-deliver-guide">
-                            {true ? "무료 배송" : `원 추가주문 시, 무료배송`}
+                            {freeDelivery
+                              ? "무료 배송"
+                              : `${formatPrice(
+                                  FREE_DELIVERY_THRESHOLD - discountedTotalPrice
+                                )}원 추가주문 시, 무료배송`}
                           </td>
                         </tr>
                         <tr className="final-price">
                           <th>결제예정금액</th>
-                          <td>{""}원</td>
+                          <td>
+                            {formatPrice(discountedTotalPrice + (freeDelivery ? 0 : DELIVERY_FEE))}
+                            원
+                          </td>
                         </tr>
                         <tr>
                           <td colSpan={2} className="point-guide">
-                            <span className="mileage-box">적립</span>구매 시{""}원 적립
+                            <span className="mileage-box">적립</span>
+                            {`구매 시 ${formatPrice(
+                              Math.floor(discountedTotalPrice * MILEAGE_PERCENTAGE)
+                            )} 원 적립 (${MILEAGE_PERCENTAGE * 100}%)`}
                           </td>
                         </tr>
                       </tbody>
@@ -220,7 +269,9 @@ class Payment extends Component {
               </div>
             </div>
             <div className="pay-btn">
-              <button className="pay">결제하기</button>
+              <button className="pay" onClick={goPay}>
+                결제하기
+              </button>
               <span>'입금확인' 상태일 때는 주문내역 상세페이지에서 주문 취소가 가능합니다.</span>
               <span>미성년자가 결제 시 법정대리인이 그 거래를 취소할 수 있습니다.</span>
               <span>상품 미배송 시, 셜제수단으로 환불됩니다.</span>

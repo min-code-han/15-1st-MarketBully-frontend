@@ -75,7 +75,12 @@
             height: 156px;
             text-align: center;
             line-height: 156px;
-
+            &.price {
+              text-align: right;
+              span {
+                padding-right: 60px;
+              }
+            }
             &.item-info {
               display: flex;
               flex-direction: column;
@@ -244,8 +249,7 @@
 
         .sticky-receipt {
           position: sticky;
-          top: 0;
-          padding-top: 20px;
+          top: 25px;
         }
 
         .final-receipt {

@@ -34,6 +34,11 @@ class ItemCart extends Component {
   formatPrice = price => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
+
+  discountedPrice = ({ price, discount_rate, quantity }) => {
+    return Math.floor((price * (1 - discount_rate)) / 10) * 10 * quantity;
+  };
+
   selectAll = () => {
     const { cartData } = this.state;
     cartData.reduce((result, item) => (result = result && item.selected), true)
@@ -153,20 +158,22 @@ class ItemCart extends Component {
 
   clickOrder = () => {
     /* 결제 페이지로 이동 및 최종 주문 정보 전달 */
+    this.props.history.push("/Payment");
   };
 
   render() {
     const { cartData, packingType } = this.state;
-    const { formatPrice } = this;
+    const { formatPrice, discountedPrice } = this;
     const selectedAll = cartData.reduce((result, item) => (result = result && item.selected), true);
+    const selectedItems = cartData.filter(item => item.selected);
     const totalPrice = Math.floor(
-      cartData.reduce((acc, item) => acc + item.price * item.quantity, 0)
+      selectedItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
     );
-    const discounted = Math.floor(
-      cartData.reduce((acc, item) => acc + item.price * item.discount_rate * item.quantity, 0)
+    const discountedTotalPrice = Math.floor(
+      selectedItems.reduce((acc, item) => acc + discountedPrice(item), 0)
     );
-    const freeDelivery = totalPrice - discounted > FREE_DELIVERY_THRESHOLD;
-    console.log(freeDelivery);
+    const freeDelivery = totalPrice - (totalPrice - discountedTotalPrice) > FREE_DELIVERY_THRESHOLD;
+
     return (
       <main className="ItemCart">
         <div className="main-width">
@@ -201,6 +208,7 @@ class ItemCart extends Component {
                               subtractItem={this.subtractItem}
                               addItem={this.addItem}
                               deleteItem={this.deleteItem}
+                              discountedPrice={this.discountedPrice}
                               formatPrice={formatPrice}
                             />
                           );
@@ -237,7 +245,7 @@ class ItemCart extends Component {
                     </tr>
                     <tr>
                       <th>상품할인금액</th>
-                      <td>-{formatPrice(discounted)}원</td>
+                      <td>-{formatPrice(totalPrice - discountedTotalPrice)}원</td>
                     </tr>
                     <tr>
                       <th>배송비</th>
@@ -248,20 +256,20 @@ class ItemCart extends Component {
                         {freeDelivery
                           ? "무료 배송"
                           : `${formatPrice(
-                              FREE_DELIVERY_THRESHOLD - totalPrice + discounted
+                              FREE_DELIVERY_THRESHOLD - discountedTotalPrice
                             )}원 추가주문 시, 무료배송`}
                       </td>
                     </tr>
                     <tr className="final-price">
                       <th>결제예정금액</th>
                       <td>
-                        {formatPrice(totalPrice - discounted + (freeDelivery ? 0 : DELIVERY_FEE))}원
+                        {formatPrice(discountedTotalPrice + (freeDelivery ? 0 : DELIVERY_FEE))}원
                       </td>
                     </tr>
                     <tr>
                       <td colSpan={2} className="point-guide">
                         <span className="mileage-box">적립</span>구매 시
-                        {formatPrice(Math.floor((totalPrice - discounted) * 0.005))}원 적립
+                        {formatPrice(Math.floor(discountedTotalPrice * 0.005))}원 적립
                       </td>
                     </tr>
                   </tbody>

@@ -95,6 +95,9 @@
         line-height: 29px;
       }
       .priceBox {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
         padding-top: 5px;
         .price {
           font-weight: 700;
@@ -103,6 +106,7 @@
           color: $theme-color;
         }
         .originalPrice {
+          padding-top: 4px;
           color: #ccc;
           line-height: 18px;
           text-decoration: line-through;

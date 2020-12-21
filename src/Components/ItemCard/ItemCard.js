@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./ItemCard.scss";
 
+const CARDTYPE = ["ItemList", "RelatedProduct", "main"];
+
 class ItemCard extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,8 @@ class ItemCard extends Component {
   }
 
   goToDetail = () => {
-    this.props.history.push(`/ItemDetail/${this.props.id}`);
+    this.props.history.push(`/ItemDetail`);
+    // this.props.history.push(`/ItemDetail/${this.props.id}`);
   };
 
   render() {
@@ -28,9 +31,7 @@ class ItemCard extends Component {
         <div className="ItemCardContainer">
           <img src={imgUrl} alt="제품의 이미지" onClick={this.goToDetail} />
 
-          {(type === "ItemList" || type === "main") && sale && (
-            <div className="saleBox">Save {sale * 100}%</div>
-          )}
+          {type !== "RelatedProduct" && sale && <div className="saleBox">Save {sale * 100}%</div>}
           {type === "ItemList" && (
             <button id={id} className="cart" onClick={showModalBoxButton}>
               <i id={id} class="fas fa-shopping-cart " onClick={showModalBoxButton} />
@@ -40,15 +41,13 @@ class ItemCard extends Component {
             <div className="header" onClick={this.goToDetail}>
               {name}
             </div>
-            {type === "main" && sale ? (
-              <>
-                <div className="price">{price - price * sale}</div>
-                <div className="originalPrice">{price}</div>
-              </>
-            ) : type === "ItemList" && sale ? (
+            {type !== "RelatedProduct" ? (
               <div className="priceBox">
-                <span className="originalPrice">{Math.floor(price)}원</span>
-                <span className="price"> ㅡ> {Math.floor(price - price * (sale / 100))}원</span>
+                <div className="price">
+                  {type === "ItemList" && "→"}
+                  {Math.floor(price - price * (sale / 100))}원
+                </div>
+                <div className="originalPrice">{Math.floor(price)}원</div>
               </div>
             ) : (
               <div className="priceBox">

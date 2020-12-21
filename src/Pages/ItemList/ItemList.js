@@ -20,7 +20,7 @@ class ItemList extends Component {
   }
 
   componentDidMount() {
-    // fetch("http://10.168.2.67:8000/product");
+    // fetch("http://10.168.2.67:8000/product/1");
     fetch("./data/item.json")
       .then(res => res.json())
       .then(res => {
@@ -42,18 +42,19 @@ class ItemList extends Component {
 
   changingFilteringOption = e => {
     const { products } = this.state;
+    const fakeProducts = products;
 
     if (e.target.id === "낮은 가격순") {
-      products.sort(function (a, b) {
+      fakeProducts.sort(function (a, b) {
         return a.price - (a.price * a.sale) / 100 - b.price + b.price * (b.sale / 100);
       });
     } else if (e.target.id === "높은 가격순") {
-      products.sort(function (a, b) {
+      fakeProducts.sort(function (a, b) {
         return -a.price + (a.price * a.sale) / 100 + b.price - b.price * (b.sale / 100);
       });
     }
 
-    this.setState({ filteringOption: e.target.id });
+    this.setState({ products: fakeProducts, filteringOption: e.target.id });
   };
 
   showOptionBox = () => {

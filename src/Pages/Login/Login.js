@@ -30,6 +30,7 @@ class Login extends React.Component {
         if (res.ACCESS_TOKEN) {
           alert("LOGIN SUCCESS");
           localStorage.setItem("token", res.ACCESS_TOKEN);
+          this.props.history.push("/Home");
         } else {
           const { account, password } = this.state;
 

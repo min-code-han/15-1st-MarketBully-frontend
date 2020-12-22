@@ -1,0 +1,359 @@
+@import "../../Styles/common.scss";
+@import "../ItemCart/ItemCart.scss";
+
+.Payment {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+
+  main {
+    display: flex;
+    flex-direction: column;
+    width: $main-width;
+
+    .title {
+      margin-top: 55px;
+      text-align: center;
+
+      h1 {
+        font-size: 30px;
+        font-weight: 600;
+      }
+
+      h2 {
+        margin-top: 10px;
+        font-size: 14px;
+        color: $dark-gray;
+      }
+    }
+
+    .payment {
+      h1 {
+        font-size: 20px;
+        font-weight: 500;
+        padding-bottom: 15px;
+        border-bottom: 1px solid black;
+        margin-top: 60px;
+      }
+
+      .cart {
+        width: 100%;
+        tr {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid $light-gray;
+          &:last-child {
+            border-bottom: 1px solid $dark-gray;
+          }
+
+          .image {
+            width: 120px;
+
+            img {
+              width: 90px;
+              height: 115px;
+              margin: 20px 0;
+              object-fit: cover;
+            }
+          }
+
+          .item-info {
+            width: 700px;
+          }
+
+          .price {
+            width: 186px;
+          }
+
+          th {
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+          }
+
+          td {
+            height: 156px;
+            text-align: center;
+            line-height: 156px;
+            &.price {
+              text-align: right;
+              span {
+                padding-right: 60px;
+              }
+            }
+            &.item-info {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: flex-start;
+              line-height: 35px;
+              font-size: 12px;
+              span.name {
+                font-size: 16px;
+                font-weight: 600;
+              }
+            }
+          }
+        }
+      }
+
+      .orderer-info {
+        width: 100%;
+        border-bottom: 1px solid $light-gray;
+
+        th {
+          height: 50px;
+          width: 190px;
+          padding-left: 20px;
+          text-align: left;
+          line-height: 50px;
+        }
+        td {
+          width: 860px;
+          &.email-guide {
+            height: 30px;
+            color: $dark-gray;
+            font-size: 12px;
+            line-height: 30px;
+          }
+        }
+      }
+
+      .delivery-info {
+        width: 100%;
+        text-align: left;
+
+        tr {
+          border-bottom: 1px solid $light-gray;
+        }
+
+        th {
+          height: 170px;
+          width: 190px;
+          padding: 20px 0 0 20px;
+          &.place {
+            height: 140px;
+          }
+        }
+
+        td {
+          display: flex;
+          flex-direction: column;
+
+          .delivery-type {
+            width: 60px;
+            padding: 3px 4px;
+            border: 1px solid $purple-text-color;
+            margin-bottom: 10px;
+            border-radius: 100px;
+            color: $purple-text-color;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+          }
+
+          button {
+            width: 80px;
+            height: 34px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: $purple-text-color;
+            color: white;
+          }
+
+          h4 {
+            margin: 10px 0;
+            font-size: 14px;
+            color: $dark-gray;
+          }
+        }
+      }
+      .pay-core {
+        display: flex;
+        justify-content: space-between;
+
+        text-align: left;
+
+        .left {
+          width: 742px;
+          th {
+            width: 190px;
+            height: 120px;
+            padding: 20px 0 0 20px;
+          }
+          td {
+            display: flex;
+            flex-direction: column;
+            width: 552px;
+
+            select {
+              height: 33px;
+              margin: 0 20px 10px 0;
+            }
+
+            span {
+              padding: 5px 0;
+              font-size: 12px;
+            }
+
+            .mileage {
+              display: flex;
+              align-items: center;
+              input.mileage {
+                width: 162px;
+                height: 33px;
+                padding: 0 4px;
+                margin-right: 8px;
+                text-align: right;
+              }
+              input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                margin: 0 5px 0 20px;
+              }
+            }
+
+            .guide {
+              color: $dark-gray;
+            }
+          }
+          .pay-method {
+            border-bottom: 1px solid $light-gray;
+
+            th {
+              height: 60px;
+            }
+            td {
+              flex-direction: row;
+              align-items: center;
+              span {
+                font-size: 16px;
+              }
+              input {
+                margin: 0 5px 0 0;
+                width: 15px;
+                height: 15px;
+              }
+            }
+          }
+        }
+
+        .right {
+          width: 284px;
+        }
+
+        .receipt-title {
+          border: none;
+        }
+
+        .sticky-receipt {
+          position: sticky;
+          top: 25px;
+        }
+
+        .final-receipt {
+          display: flex;
+          flex-direction: column;
+          width: 284px;
+          height: 250px;
+          padding: 9px 18px 18px 20px;
+          margin-bottom: 20px;
+          border: 1px solid $light-gray;
+          background-color: #fafafa;
+
+          table {
+            tr {
+              &.final-price {
+                border-top: 1px solid $light-gray;
+              }
+            }
+
+            th,
+            td {
+              padding: 12px 0;
+            }
+
+            th {
+              text-align: left;
+            }
+
+            td {
+              text-align: right;
+
+              &.free-deliver-guide {
+                font-size: 12px;
+                color: $purple-text-color;
+              }
+
+              &.point-guide {
+                font-size: 12px;
+                .mileage-box {
+                  display: inline-block;
+                  width: 35px;
+                  padding: 3px 1px;
+                  margin-right: 3px;
+                  background-color: #febf00;
+                  border-radius: 12px;
+                  color: white;
+                  font-size: 11px;
+                  text-align: center;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .personal-info {
+        display: flex;
+        margin-top: 20px;
+        input {
+          width: 15px;
+          height: 15px;
+        }
+        .guide {
+          display: flex;
+          flex-direction: column;
+          margin-left: 6px;
+          span {
+            padding: 1px;
+            &.check {
+              margin-top: 8px;
+              font-size: 14px;
+              span {
+                color: $purple-text-color;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+
+      .pay-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 60px;
+        button.pay {
+          width: 200px;
+          height: 48px;
+          border: none;
+          margin-bottom: 20px;
+          background-color: $dark-gray;
+          cursor: default;
+          color: white;
+          &.able {
+            background-color: $purple-text-color;
+            cursor: pointer;
+          }
+        }
+        span {
+          padding: 2px 0;
+          font-size: 12px;
+          color: $dark-gray;
+        }
+      }
+    }
+  }
+}

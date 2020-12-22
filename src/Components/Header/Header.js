@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import "./Header.scss";
+import axios from "axios";
 import First from "./First";
 import Second from "./Second";
 import Third from "./Third";
-import LoginHeader from './LoginHeader'
-import ItemCard from "../ItemCard/ItemCard";
-
+import NotLoginHeader from "./NotLoginHeader";
+import LoginHeader from "./LoginHeader";
+import "./Header.scss";
 class Header extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
     this.state = {
+      isLogined: false,
+      userInfo: "",
       fix: false,
       hoverAction: false,
       subHoverAction: false,
@@ -65,18 +67,31 @@ class Header extends Component {
         },
       ],
     };
- 
+  }
 
   componentDidMount() {
+    //   if (localStorage.getItem("token")) {
+    //     this.setState({ isLogined: true });
+    //     this.getUserInformation();
+    //     return;
+    //   }
+    //   this.setState({ isLogined: false });
+
     window.addEventListener("scroll", this.handleScroll);
-    // login시 
+    // login시
     // const id = localStorage.getItem('id');
-    // id ? this.onLoing() : this.onLogOut() 
- 
+    // id ? this.onLoing() : this.onLogOut()
   }
   componentWillUnMount = () => {
     window.removeEventListener("scroll", this.handleScroll);
   };
+  // getUserInformation = async () => {
+  //   const userData = await axios({
+  //     url: USERINFO_API,
+  //     headers: { authorization: localStorage.getItem("token") },
+  //   });
+  //   this.setState({ userInfo: userData.data.message });
+  // };
 
   handleScroll = e => {
     const scrollTop = ("scroll", window.scrollY);
@@ -84,7 +99,6 @@ class Header extends Component {
   };
 
   hadnleClick = e => {
-    console.log(e);
     if (e.target.className === "gnbAllCategory") {
       this.setState({
         hoverAction: !this.state.hoverAction,
@@ -114,16 +128,22 @@ class Header extends Component {
   };
 
   render() {
-  
+    const MAPPING_OBJ = {
+      1: <First />,
+      2: <Second />,
+      3: <Third />,
+    };
+    const CATEGORY_ARR = ["Frist", "Second", "Third"];
+
+    const { isLogined, userInfo } = this.state;
     return (
       <>
         <div
           className={`${this.state.hoverAction ? "gnbOverlay" : ""}`}
           onClick={this.hadnleClick}
         ></div>
-
         <div className="header">
-        <LoginHeader />
+          {isLogined ? <LoginHeader userInfo={userInfo} /> : <NotLoginHeader />}
 
           <div className="header__logo">
             <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif"></img>
@@ -188,12 +208,5 @@ class Header extends Component {
     );
   }
 }
-
-const MAPPING_OBJ = {
-  1: <First />,
-  2: <Second />,
-  3: <Third />,
-};
-const CATEGORY_ARR = ["Frist", "Second", "Third"];
 
 export default withRouter(Header);

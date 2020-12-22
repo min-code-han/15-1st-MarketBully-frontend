@@ -28,14 +28,60 @@ class Signup extends Component {
     };
   }
 
+  signIn = () => {
+    const {
+      account,
+      password,
+      name,
+      email,
+      phoneNumber,
+      gender,
+      recommend,
+      year,
+      month,
+      day,
+      agree,
+    } = this.state;
+
+    fetch("http://10.168.2.91:8000/user/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        account: account,
+        password: password,
+        name: name,
+        email: email, // 중복확인 안되면 회원가입 노노
+        phone_number: phoneNumber,
+        gender: gender,
+        recommender: recommend, //추천인 인풋벨류
+
+        year: year,
+        month: month,
+        day: day,
+        //birth_date 데이트 로 받아야함
+        //privacy_policy_agreement
+        //sns_marketing_agreement
+        //email_marketing_agreement
+        //adress
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.message === "SUCCESS") {
+          alert("성공!");
+          this.props.history.push("/login");
+        }
+      });
+  };
+
   getValue = e => {
     const { id, value } = e.target;
     this.setState({ [id]: value });
   };
 
-  handleModal = () => {
-    this.setState({ isModalActive: !this.state.isModalActive });
-  };
+  // handleModal = () => {
+  //   this.setState({ isModalActive: !this.state.isModalActive });
+  // };
+  // 모달박스지롱
 
   openIdDetail = () => {
     this.setState({ showIdDetail: true });
@@ -447,13 +493,13 @@ class Signup extends Component {
                 </td>
               </tr>
             </table>
-            <button className="make-account" onClick={this.handleModal}>
+            <button className="make-account" onClick={this.signIn}>
               가입하기
             </button>
           </div>
         </div>
 
-        <div className={"Signup-modal " + (this.state.isModalActive ? "show" : "hide")}>
+        {/* <div className={"Signup-modal " + (this.state.isModalActive ? "show" : "hide")}>
           <div className="modal-box">
             <div className="alert">
               <p>알림메세지</p>
@@ -466,7 +512,7 @@ class Signup extends Component {
               <button onClick={this.handleModal}>확인</button>
             </div>
           </div>
-        </div>
+        </div> */}
       </>
     );
   }

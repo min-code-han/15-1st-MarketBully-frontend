@@ -15,23 +15,33 @@ class ItemList extends Component {
       clickedID: null,
       quantities: 0,
       filteringOption: "추천순",
-      categoryTesting: [],
+      categories: [],
     };
   }
 
   componentDidMount() {
-    // fetch("http://10.168.2.67:8000/product")
-    fetch("./data/item.json")
+    fetch("http://10.168.2.67:8000/product")
+      // fetch("./data/item.json")
       .then(res => res.json())
       .then(res => {
         this.setState({
-          // categoryTesting: res.categories[3].subcategory,
-          // products: res.product_list,
-          categoryTesting: FILTEROPTIONS,
-          products: res.data,
+          categories: res.categories[3].subcategory,
+          products: res.product_list,
+          // categories: FILTEROPTIONS,
+          // products: res.data,
         });
       });
   }
+
+  goToSpecificCategory = e => {
+    fetch(`http://10.168.2.67:8000/product?subcategory=${+e.target.id}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          products: res.product_list,
+        });
+      });
+  };
 
   controlQuantity = e => {
     if (e.target.name === "+") {
@@ -50,13 +60,15 @@ class ItemList extends Component {
     if (e.target.id === "낮은 가격순") {
       fakeProducts.sort(function (a, b) {
         return (
-          // a.price - a.price * a.discount_percentage - b.price + b.price * b.discount_percentage
-          a.price - a.price * a.sale - b.price + b.price * b.sale
+          a.price - a.price * a.discount_percentage - b.price + b.price * b.discount_percentage
+          // a.price - a.price * a.sale - b.price + b.price * b.sale
         );
       });
     } else if (e.target.id === "높은 가격순") {
       fakeProducts.sort(function (a, b) {
-        return -a.price + a.price * a.sale + b.price - b.price * b.sale;
+        return (
+          -a.price + a.price * a.discount_percentage + b.price - b.price * b.discount_percentage
+        );
       });
     }
 
@@ -86,7 +98,7 @@ class ItemList extends Component {
       products,
       quantities,
       filteringOption,
-      categoryTesting,
+      categories,
     } = this.state;
 
     return (
@@ -110,13 +122,16 @@ class ItemList extends Component {
           </div>
           <div className="filteringHeader">
             <ul className="typeOfCategories">
-              <li>전체보기</li>
-              {/* {categoryTesting.map(el => {
-                return <li>{el.meat}</li>;
-              })} */}
-              {categoryTesting.map(el => {
-                return <li>{el}</li>;
+              <li onClick={this.goToSpecificCategory}>전체보기</li>
+              {categories.map(el => {
+                return (
+                  <li id={el.id} onClick={this.goToSpecificCategory}>
+                    {el.name}
+                  </li>
+                );
               })}
+              {/* {categories.map(el => {
+                return <li>{el}</li>; */}
             </ul>
             <div className="selectOptions" onClick={this.showOptionBox}>
               <span className={optionBoxOnAndOff ? "selectedOption" : ""}>{filteringOption}</span>
@@ -141,10 +156,10 @@ class ItemList extends Component {
                   id={el.id}
                   name={el.name}
                   price={el.price}
-                  imgUrl={el.imgUrl}
-                  sale={el.sale}
-                  // sale={el.discount_percentage}
-                  // imgUrl={el.image_url}
+                  // imgUrl={el.imgUrl}
+                  // sale={el.sale}
+                  sale={el.discount_percentage}
+                  imgUrl={el.image_url}
                   // sale={el.discount_rate}
                   shortDescription={el.shortDescription}
                   showModalBoxButton={this.showModalBox}

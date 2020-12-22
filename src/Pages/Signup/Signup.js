@@ -82,14 +82,11 @@ class Signup extends Component {
 
   checkPwAgain = e => {
     const { password } = this.state;
-
     const { value } = e.target;
+    const comparePw = password === value;
+    console.log(comparePw);
 
-    if (password === value) {
-      this.setState({ isPwSame: true });
-    } else {
-      this.setState({ isPwSame: false });
-    }
+    this.setState({ isPwSame: comparePw });
   };
 
   validateEmail = e => {
@@ -124,12 +121,13 @@ class Signup extends Component {
 
   all = () => {
     const { agree } = this.state;
-    const agreeAll =
-      agree[0] && agree[1] && agree[2] && agree[3] && agree[4] && agree[5] && agree[6];
-    if (agreeAll) {
-      this.setState({ agree: [false, false, false, false, false, false, false] });
+
+    const confirm = agree.every(el => el === true);
+
+    if (confirm) {
+      this.setState({ agree: agree.fill(false) });
     } else {
-      this.setState({ agree: [true, true, true, true, true, true, true] });
+      this.setState({ agree: agree.fill(true) });
     }
   };
 

@@ -2,13 +2,9 @@ import React, { Component } from "react";
 import "./AsideMenu.scss";
 
 class AsideMenu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     return (
-      <aisde className="AsideMenu">
+      <aside className="AsideMenu">
         <div className="dawn-delivery">
           <p>샛별·택배</p>
           <p className="delivery">배송안내</p>
@@ -29,7 +25,7 @@ class AsideMenu extends Component {
             <img src="images/tomato.jpg" alt="tomato"></img>
           </div>
         </div>
-      </aisde>
+      </aside>
     );
   }
 }

@@ -3,12 +3,8 @@
 .ItemDetail {
   display: flex;
   justify-content: center;
-  .main-width {
-    margin-top: 100px;
-    width: $main-width;
-  }
 
-  button:hover {
-    cursor: pointer;
+  .main-width {
+    width: $main-width;
   }
 }

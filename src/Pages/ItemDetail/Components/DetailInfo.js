@@ -2,54 +2,39 @@
 import React, { Component } from "react";
 import "./DetailInfo.scss";
 
+const DETAIL_INFO_TABLE = [
+  { title: "식품의 유형", content: "상세페이지 참조" },
+  { title: "영양성분(식품위생법에 따른 표시대상에 한함)", content: "해당없음" },
+  { title: "생산자 및 소재지", content: "상세페이지 참조" },
+  { title: "유전자변형식품에 해당하는 경우의 표시", content: "해당없음" },
+  { title: "제조연월일, 유통기한 또는 품질유지기한", content: "상세페이지 참조" },
+  { title: "포장단위별 용량(중량), 수량", content: "상세페이지 참조" },
+  {
+    title: '수입식품에 해당하는 경우 "식품위생법에 따른 수입신고를" 필함 의 문구',
+    content: "해당없음",
+  },
+  { title: "원재료밍 및 함량", content: "상세페이지 참조" },
+  { title: "소비자상담 관련 전화번호", content: "마켓컬리 고객행복센터(1644-1107)" },
+];
 class DetailInfo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     return (
       <div className="DetailInfo">
         <table>
-          <tr>
-            <th>식품의 유형</th>
-            <td>상세페이지 참조</td>
-          </tr>
-          <tr>
-            <th>영양성분(식품위생법에 따른 표시대상에 한함)</th>
-            <td>해당없음</td>
-          </tr>
-          <tr>
-            <th>생산자 및 소재지</th>
-            <td>상세페이지 참조</td>
-          </tr>
-          <tr>
-            <th>유전자변형식품에 해당하는 경우의 표시</th>
-            <td>해당없음</td>
-          </tr>
-          <tr>
-            <th>제조연월일, 유통기한 또는 품질유지기한</th>
-            <td>상세페이지 참조</td>
-          </tr>
-          <tr>
-            <th>포장단위별 용량(중량), 수량</th>
-            <td>상세페이지 참조</td>
-          </tr>
-          <tr>
-            <th>수입식품에 해당하는 경우 "식품위생법에 따른 수입신고를 필함"의 문구</th>
-            <td>해당없음</td>
-          </tr>
-          <tr>
-            <th>원재료밍 및 함량</th>
-            <td>상세페이지 참조</td>
-          </tr>
-          <tr>
-            <th>소비자상담 관련 전화번호</th>
-            <td>마켓컬리 고객행복센터(1644-1107)</td>
-          </tr>
+          <tbody>
+            {DETAIL_INFO_TABLE.map((data, idx) => {
+              return (
+                <tr key={idx}>
+                  <th>{data.title}</th>
+                  <td>{data.content}</td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
         <div className="why-bully">
           <h1>WHY BULLY</h1>
+          <img alt="why bully" src="images/WHYBULLY.png" />
         </div>
         <div className="custumer-center-guide">
           <h1>고객행복센터</h1>

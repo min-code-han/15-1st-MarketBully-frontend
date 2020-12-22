@@ -3,27 +3,45 @@ import React, { Component } from "react";
 import "./ItemDescription.scss";
 
 class ItemDescription extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
+    const { name, description_image_url, content, subtitle } = this.props.itemData;
     return (
       <section className="ItemDescription">
         <main>
-          <img src="images/tomato.jpg" alt="tomato" />
-          <h2>탐스러운 붉은빛은 가진</h2>
-          <h1>무농약 토마토</h1>
+          <img src={description_image_url} alt={name} />
+          <h2>{subtitle}</h2>
+          <h1>{name}</h1>
           <hr className="solid" />
-          <p className="item-description">
-            먹기 좋게 잘라 본연의 맛 그대로 즐기기도 하고, 으깨어 끓여 파스타 소스로 만들어 먹기도
-            하고, 갈아서 주스로 마시기도 하죠. 토마토의 선명한 붉은 색은 라이코펜이라는 영양소
-            때문인데, ‘라이코펜’은 베타카로틴, 루테인과 함께 과일과 채소에 색깔을 입히는 3대
-            영양소인데요. 토마토는 라이코펜 덩어리라고 해도 과언이 아니죠. 어떻게 먹든 껍질째 먹게
-            되는 채소이니 건강하게 무농약으로 드시는 것이 좋겠죠?
-          </p>
-          <div className="bully-check-point"></div>
-          <div className="bully-tip"></div>
+          <p className="item-description">{content}</p>
+          <div className="bully-check-point">
+            <h1>Bully's Check Point</h1>
+            <div>
+              <hr />
+              <h2>
+                재료와 성분<span>Ingredients</span>
+              </h2>
+              <ul>
+                <li>마켓불리는 무항생제와 동물복지만을 고집합니다.</li>
+                <li>친환경(무농약, 유기농) 제품을 우선합니다.</li>
+              </ul>
+              <h2>
+                생산 유통 과정<span>Process</span>
+              </h2>
+              <ul>
+                <li>HACCP 인증 시설에서 도축 및 가공</li>
+                <li>산소충진포장(MAP)으로 신선함 유지</li>
+                <li>마켓 불리가 직접 유통 과정에 참여</li>
+              </ul>
+              <h2>
+                브랜드와 생산자<span>Brand & Artisan</span>
+              </h2>
+              <ul>
+                <li>마켓불리로부터 인증받은 브랜드만 입점</li>
+                <li>안전한 식품을 위해 생산자와 직접 면담</li>
+                <li>생산자와의 지속적 접촉 및 관리</li>
+              </ul>
+            </div>
+          </div>
         </main>
       </section>
     );

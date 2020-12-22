@@ -6,6 +6,7 @@
   margin-bottom: 50px;
   border-bottom: 1px solid $light-gray;
   font-size: 14px;
+
   li {
     display: flex;
     justify-content: center;
@@ -15,14 +16,17 @@
     border: 1px solid $light-gray;
     border-right: none;
     background-color: $background-gray;
+
     &:last-child {
       border-right: 1px solid $light-gray;
     }
+
     &.select {
       background-color: white;
       border-bottom: 1px solid white;
     }
   }
+
   &:hover {
     cursor: pointer;
   }

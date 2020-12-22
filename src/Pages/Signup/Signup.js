@@ -51,37 +51,33 @@ class Signup extends Component {
 
   validationId = e => {
     const { value } = e.target;
-    const txt = /^[a-z]{6,}$/;
-    const numtxt6 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/;
-    const idValidation = txt.test(value) || numtxt6.test(value);
-    this.setState({ account: value });
-    this.setState({ validateId: idValidation ? true : false });
+    const regtxt = /^[a-z]{6,}$/;
+    const regnumtxt6 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/;
+    const idValidation = regtxt.test(value) || regnumtxt6.test(value);
+    this.setState({
+      account: value,
+      validateId: idValidation,
+    });
   };
 
   validationPW = e => {
     const { value } = e.target;
     this.setState({ password: value });
-    const txt10 = /.{10,}$/;
-    const numtxt10 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{10,}$/; // 영문 + 숫자 합쳐서 10개 이상 !!!
-    const txtemoji10 = /^(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{10,}$/; // 영문 + 특수기호 합쳐서 10개 이상 !!!
-    const numemoji10 = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+]).{10,}$/; // 특수문자 + 숫자 합쳐서 10개 이상 !!!
-    const numtxtemoji10 = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{10,}$/; //영문+숫자+특수문자 10자 이상
-    const allCorrect =
-      numtxt10.test(value) ||
-      txtemoji10.test(value) ||
-      numemoji10.test(value) ||
-      numtxtemoji10.test(value);
+    const regtxt10 = /.{10,}$/;
+    const regnumtxt10 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{10,}$/; // 영문 + 숫자 합쳐서 10개 이상 !!!
+    const regtxtemoji10 = /^(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{10,}$/; // 영문 + 특수기호 합쳐서 10개 이상 !!!
+    const regnumemoji10 = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+]).{10,}$/; // 특수문자 + 숫자 합쳐서 10개 이상 !!!
+    const regnumtxtemoji10 = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{10,}$/; //영문+숫자+특수문자 10자 이상
+    const everyCondition =
+      regnumtxt10.test(value) ||
+      regtxtemoji10.test(value) ||
+      regnumemoji10.test(value) ||
+      regnumtxtemoji10.test(value);
 
-    if (txt10.test(value)) {
-      this.setState({ validatePwLength: true });
-    } else {
-      this.setState({ validatePwLength: false });
-    }
-    if (allCorrect) {
-      this.setState({ validatePw: true });
-    } else {
-      this.setState({ validatePw: false });
-    }
+    this.setState({
+      validatePwLength: regtxt10.test(value),
+      validatePw: everyCondition,
+    });
   };
 
   checkPwAgain = e => {
@@ -96,9 +92,9 @@ class Signup extends Component {
   };
 
   validateEmail = e => {
-    const emailValidation = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+    const regemailValidation = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
     const userEmail = this.state.email;
-    if (emailValidation.test(userEmail)) {
+    if (regemailValidation.test(userEmail)) {
       alert("사용 가능한 이메일 입니다");
     } else {
       alert("잘못된 이메일 형식 입니다.");
@@ -136,18 +132,17 @@ class Signup extends Component {
     }
   };
 
-  // 기능 구현중에 어려움을 겪고 있어 잠시 주석처리 하였습니다.
-  // infoAgree = () => {
-  //   const { agree } = this.state;
-  //   const selectEventMsg = agree;
-  //   const selectEventMsgAll = agree[5] && agree[6];
-  //   if (selectEventMsgAll) {
-  //     selectEventMsg[3] = true;
-  //   } else {
-  //     selectEventMsg[3] = false;
-  //   }
-  //   this.setState({ agree: selectEventMsg });
-  // };
+  infoAgree = () => {
+    const { agree } = this.state;
+    const selectEventMsg = agree;
+    const selectEventMsgAll = agree[5] && agree[6];
+    if (selectEventMsgAll) {
+      selectEventMsg[3] = true;
+    } else {
+      selectEventMsg[3] = false;
+    }
+    this.setState({ agree: selectEventMsg });
+  };
 
   render() {
     const { agree } = this.state;
@@ -458,8 +453,8 @@ class Signup extends Component {
             </button>
           </div>
         </div>
-        // 백엔드와 만난후에 필요한 부분이라 잠시 주석처리 하였습니다
-        {/* <div className={"Signup-modal " + (this.state.isModalActive ? "show" : "hide")}>
+
+        <div className={"Signup-modal " + (this.state.isModalActive ? "show" : "hide")}>
           <div className="modal-box">
             <div className="alert">
               <p>알림메세지</p>
@@ -472,7 +467,7 @@ class Signup extends Component {
               <button onClick={this.handleModal}>확인</button>
             </div>
           </div>
-        </div> */}
+        </div>
       </>
     );
   }

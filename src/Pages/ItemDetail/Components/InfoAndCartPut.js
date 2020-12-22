@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
-import {} from "../../../config";
+import { CART_API } from "../../../config";
 import "./InfoAndCartPut.scss";
 
 // key: 백엔드 데이터 키, value: 화면에 보이는 제목
@@ -21,7 +21,16 @@ class InfoAndCartPut extends Component {
   };
 
   addToCart = async () => {
-    const response = await fetch();
+    const response = await fetch(CART_API, {
+      method: "POST",
+      body: {
+        product_id: this.state.itemData.id,
+        quantity: this.state.quantity,
+      },
+    });
+    const result = await response.json();
+    await console.log(result);
+    alert("장바구니 추가 완료");
   };
 
   handleQuantity = e => {

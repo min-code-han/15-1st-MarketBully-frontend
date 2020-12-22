@@ -18,7 +18,9 @@ const MENU_COMPONENTS = {
   4: CustomerReview,
   5: ItemInquire,
 };
+
 const MENU_NAME = ["ItemDescription", "ItemImage", "DetailInfo", "CustomerReview", "ItemInquire"];
+
 const DATA_ON_LOADING = {
   id: 1,
   name: "로딩 중",
@@ -35,6 +37,7 @@ const DATA_ON_LOADING = {
   expiration_date: "",
   content: "",
 };
+
 class ItemDetail extends Component {
   constructor(props) {
     super(props);
@@ -58,9 +61,10 @@ class ItemDetail extends Component {
 
   getData = async () => {
     // 우리팀 두 번째 API + 프론트!
-    const response = await fetch("http://10.168.1.121:8000/product/1");
+    const response = await fetch("http://10.168.2.67:8000/product/1");
     const result = await response.json();
-    this.setState({ ss: result.product_detail });
+    console.log(result);
+    this.setState({ itemData: result.product_detail });
   };
 
   componentDidMount() {

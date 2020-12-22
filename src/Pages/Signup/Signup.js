@@ -24,7 +24,7 @@ class Signup extends Component {
       year: "",
       month: "",
       day: "",
-      agree: [true, true, true, true, true],
+      agree: [false, false, false, false, false, false, false],
     };
   }
 
@@ -51,15 +51,11 @@ class Signup extends Component {
 
   validationId = e => {
     const { value } = e.target;
-    this.setState({ account: value });
     const txt = /^[a-z]{6,}$/;
     const numtxt6 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/;
-    const both = txt.test(value) || numtxt6.test(value);
-    if (both) {
-      this.setState({ validateId: true });
-    } else {
-      this.setState({ validateId: false });
-    }
+    const idValidation = txt.test(value) || numtxt6.test(value);
+    this.setState({ account: value });
+    this.setState({ validateId: idValidation ? true : false });
   };
 
   validationPW = e => {
@@ -122,27 +118,36 @@ class Signup extends Component {
     this.setState({ recommend: e.target.id });
   };
 
-  // 세상에나아아ㅏ아ㅏ아아ㅏ
+  // 체크박스 전체선택 => 꼭!! 다시 공부하기!!!
   clickTerms = e => {
     const updatedAgree = this.state.agree;
-
     updatedAgree[e.target.id] = !updatedAgree[e.target.id];
-    console.log(updatedAgree);
-    console.log(updatedAgree[e.target.id]);
-    console.log([e.target.id]);
-
     this.setState({ agree: updatedAgree });
   };
 
   all = () => {
     const { agree } = this.state;
-    const agreeAll = agree[0] && agree[1] && agree[2] && agree[3] && agree[4];
+    const agreeAll =
+      agree[0] && agree[1] && agree[2] && agree[3] && agree[4] && agree[5] && agree[6];
     if (agreeAll) {
-      this.setState({ agree: [false, false, false, false, false] });
+      this.setState({ agree: [false, false, false, false, false, false, false] });
     } else {
-      this.setState({ agree: [true, true, true, true, true] });
+      this.setState({ agree: [true, true, true, true, true, true, true] });
     }
   };
+
+  // 기능 구현중에 어려움을 겪고 있어 잠시 주석처리 하였습니다.
+  // infoAgree = () => {
+  //   const { agree } = this.state;
+  //   const selectEventMsg = agree;
+  //   const selectEventMsgAll = agree[5] && agree[6];
+  //   if (selectEventMsgAll) {
+  //     selectEventMsg[3] = true;
+  //   } else {
+  //     selectEventMsg[3] = false;
+  //   }
+  //   this.setState({ agree: selectEventMsg });
+  // };
 
   render() {
     const { agree } = this.state;
@@ -411,18 +416,24 @@ class Signup extends Component {
                     </div>
                     <div className="ageree-check">
                       <label>
-                        <input id="3" type="checkbox" checked={agree[3]} onClick={clickTerms} />
+                        <input
+                          id="3"
+                          type="checkbox"
+                          checked={agree[3]}
+                          onClick={clickTerms}
+                          // onClick={this.infoAgree}
+                        />
                         무료배송, 할인쿠폰 등 혜택/정보 수신 동의
                         <span className="necessary">(선택)</span>
                       </label>
                       <div className="check-news">
                         <label className="sms">
-                          <input type="checkbox" />
+                          <input id="5" type="checkbox" checked={agree[5]} onClick={clickTerms} />
                           SMS
                         </label>
 
                         <label>
-                          <input type="checkbox" />
+                          <input id="6" type="checkbox" checked={agree[6]} onClick={clickTerms} />
                           이메일
                         </label>
                         <p className="purple-txt if-you-agree">
@@ -447,7 +458,8 @@ class Signup extends Component {
             </button>
           </div>
         </div>
-        <div className={"Signup-modal " + (this.state.isModalActive ? "show" : "hide")}>
+        // 백엔드와 만난후에 필요한 부분이라 잠시 주석처리 하였습니다
+        {/* <div className={"Signup-modal " + (this.state.isModalActive ? "show" : "hide")}>
           <div className="modal-box">
             <div className="alert">
               <p>알림메세지</p>
@@ -460,7 +472,7 @@ class Signup extends Component {
               <button onClick={this.handleModal}>확인</button>
             </div>
           </div>
-        </div>
+        </div> */}
       </>
     );
   }

@@ -82,9 +82,10 @@ class Signup extends Component {
 
   checkPwAgain = e => {
     const { password } = this.state;
-    const newPw = e.target.value;
 
-    if (password === newPw) {
+    const { value } = e.target;
+
+    if (password === value) {
       this.setState({ isPwSame: true });
     } else {
       this.setState({ isPwSame: false });

@@ -59,7 +59,6 @@ class ItemDetail extends Component {
   };
 
   getData = async () => {
-    // 우리팀 두 번째 API + 프론트!
     const id = this.props.match.params?.id;
     const response = await fetch(`${ITEM_DETAIL_API}/${id}`);
     const result = await response.json();

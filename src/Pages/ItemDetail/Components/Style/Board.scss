@@ -31,6 +31,7 @@
 
         &:hover {
           cursor: pointer;
+          font-weight: bold;
         }
       }
 
@@ -96,6 +97,14 @@
       color: white;
       font-weight: 600;
 
+      &.write {
+        &:hover {
+          background-color: white;
+          border: 1px solid $purple-text-color;
+          color: $purple-text-color;
+        }
+      }
+
       &.cancel {
         border: 1px solid $purple-text-color;
         background-color: white;
@@ -131,7 +140,11 @@
         width: 34px;
         height: 32px;
         border: none;
-        background-color: transparent;
+        background-color: white;
+
+        &.current-page {
+          background-color: $light-gray;
+        }
 
         &:hover {
           background-color: $light-gray;

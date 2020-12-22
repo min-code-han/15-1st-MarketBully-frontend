@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { REVIEW_BOARD_API } from "../../../config";
+import { REVIEW_BOARD_API, INQUIRY_BOARD_API, REVIEW_MOCK, INQUIRE_MOCK } from "../../../config";
 import "./Style/Board.scss";
 
 const BOARD_NAME = {
@@ -7,12 +7,16 @@ const BOARD_NAME = {
   5: "Inquire",
 };
 
-const PAGES = ["<", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ">"];
+const LIMIT_PER_PAGE = 7;
+const PAGES_NUM = 5;
+const INITIAL_PAGES = Array.from({ length: PAGES_NUM }, (_, i) => i + 1);
 
 class Board extends Component {
   state = {
     boardData: [],
     showForm: false,
+    currentPage: 1,
+    pages: INITIAL_PAGES,
   };
 
   postArticle = async () => {
@@ -32,32 +36,67 @@ class Board extends Component {
     }
   };
 
+  clickPage = e => {
+    this.getReviewData(e.target.id - 1);
+    this.setState({ currentPage: +e.target.id });
+  };
+
+  goPrevPage = () => {
+    const { currentPage, pages } = this.state;
+    console.log("go Prev Page");
+    if (currentPage === 1) return;
+    else if (currentPage % PAGES_NUM === 1) {
+      const newPages = pages.map(page => page - PAGES_NUM);
+      this.setState({ pages: newPages, currentPage: newPages[PAGES_NUM - 1] });
+    } else {
+      this.setState({ currentPage: currentPage - 1 });
+    }
+    this.getBoardData(currentPage - 1);
+  };
+
+  goNextPage = () => {
+    console.log("go Next Page");
+    const { currentPage, pages } = this.state;
+    if (currentPage % PAGES_NUM === 0) {
+      const newPages = pages.map(page => page + PAGES_NUM);
+      this.setState({ pages: newPages, currentPage: newPages[0] });
+    } else {
+      this.setState({ currentPage: currentPage + 1 });
+    }
+    this.getBoardData(currentPage + 1);
+  };
+
   cancelWriteForm = () => {
     this.setState({ showForm: false });
   };
 
   openBoardContent = e => {
     const { boardData } = this.state;
-    for (let i = 0; i < boardData.length; i++) {
-      if (boardData[i].id === +e.target.id) boardData[i].show = !boardData[i].show;
-    }
+    boardData.forEach(data => (data.show = data.id === +e.target.id ? !data.show : false));
     this.setState({ boardData: boardData });
   };
 
-  getReviewData = async () => {
-    const reviewDataRes = await fetch(`data/review.json`);
+  getReviewData = async (page = "") => {
+    console.log(`${REVIEW_MOCK}?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`);
+    const reviewDataRes = await fetch(
+      `${REVIEW_MOCK}?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
+    );
     const reviewData = await reviewDataRes.json();
     this.setState({ boardData: reviewData.reviewData });
   };
 
   getInquireData = async () => {
-    const inquireDataRes = await fetch(`data/inquire.json`);
+    const inquireDataRes = await fetch(INQUIRE_MOCK);
     const inquireData = await inquireDataRes.json();
     this.setState({ boardData: inquireData.inquireData });
   };
 
-  getData = async () => {
-    const response = await fetch(REVIEW_BOARD_API);
+  getBoardData = async (page = "") => {
+    const BOARD_API = this.props.menuTabID === 4 ? REVIEW_BOARD_API : INQUIRY_BOARD_API;
+    console.log(`http://HOST?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`);
+    const response = await fetch(
+      `http://HOST?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
+    );
     const data = await response.json();
     this.setState({ boardData: data.data });
   };
@@ -70,8 +109,15 @@ class Board extends Component {
 
   render() {
     const { menuTabId, showLike } = this.props;
-    const { showForm } = this.state;
-    const { showWriteForm, cancelWriteForm } = this;
+    const { showForm, boardData, currentPage, pages } = this.state;
+    const {
+      showWriteForm,
+      cancelWriteForm,
+      openBoardContent,
+      clickPage,
+      goPrevPage,
+      goNextPage,
+    } = this;
     return (
       <section className="Board">
         <div className="menu-header">
@@ -89,25 +135,24 @@ class Board extends Component {
             </tr>
           </thead>
 
-          {this.state.boardData.map(review => {
+          {boardData.map(review => {
+            const { id, title, writer, date, like, lookup, show, content } = review;
             return (
-              <tbody key={review.id}>
+              <tbody key={id}>
                 <tr>
-                  <td className="id">{review.id}</td>
-                  <td className="title" id={review.id} onClick={this.openBoardContent}>
-                    {review.title}
+                  <td className="id">{id}</td>
+                  <td className="title" id={id} onClick={openBoardContent}>
+                    {title}
                   </td>
-                  <td className="writer">{review.writer}</td>
-                  <td className="date">{review.date}</td>
-                  {showLike && <td className="like">{review.like}</td>}
-                  <td className="lookup">{review.lookup}</td>
+                  <td className="writer">{writer}</td>
+                  <td className="date">{date}</td>
+                  {showLike && <td className="like">{like}</td>}
+                  <td className="lookup">{lookup}</td>
                 </tr>
                 <tr>
-                  {true && (
-                    <td colSpan="6" className={`content ${review.show ? "show" : ""}`}>
-                      {review.show ? review.content : ""}
-                    </td>
-                  )}
+                  <td colSpan="6" className={`content ${show ? "show" : ""}`}>
+                    {show ? content : ""}
+                  </td>
                 </tr>
               </tbody>
             );
@@ -120,17 +165,31 @@ class Board extends Component {
           <button className={`cancel ${!showForm && "hide"}`} onClick={cancelWriteForm}>
             취소
           </button>
-          <button onClick={showWriteForm}>작성</button>
+          <button className="write" onClick={showWriteForm}>
+            작성
+          </button>
         </div>
         <div className="page-routing">
           <ul>
-            {PAGES.map((page, idx) => {
+            <li>
+              <button onClick={goPrevPage}>{"<"}</button>
+            </li>
+            {pages.map((page, idx) => {
               return (
                 <li key={idx}>
-                  <button>{page}</button>
+                  <button
+                    id={pages[idx]}
+                    className={currentPage === pages[idx] ? "current-page" : ""}
+                    onClick={clickPage}
+                  >
+                    {page}
+                  </button>
                 </li>
               );
             })}
+            <li>
+              <button onClick={goNextPage}>{">"}</button>
+            </li>
           </ul>
         </div>
       </section>

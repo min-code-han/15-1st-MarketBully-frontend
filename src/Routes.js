@@ -19,7 +19,7 @@ class Routes extends Component {
   render() {
     return (
       <Router>
-        <Header />
+        {/*<Header />*/}
         {aside}
 
         <Switch>

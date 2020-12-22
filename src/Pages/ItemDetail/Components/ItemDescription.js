@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
-import "./ItemDescription.scss";
+import "./Style/ItemDescription.scss";
 
 class ItemDescription extends Component {
   render() {
@@ -11,7 +11,7 @@ class ItemDescription extends Component {
           <img src={description_image_url} alt={name} />
           <h2>{subtitle}</h2>
           <h1>{name}</h1>
-          <hr className="solid" />
+          <hr />
           <p className="item-description">{content}</p>
           <div className="bully-check-point">
             <h1>Bully's Check Point</h1>

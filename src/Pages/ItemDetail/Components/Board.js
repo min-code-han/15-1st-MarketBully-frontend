@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { REVIEW_BOARD_API } from "../../../config";
-import "./Board.scss";
+import "./Style/Board.scss";
 
 const BOARD_NAME = {
   4: "Review",
@@ -67,6 +67,7 @@ class Board extends Component {
     const { getReviewData, getInquireData } = this;
     menuTabId === 4 ? getReviewData() : getInquireData();
   }
+
   render() {
     const { menuTabId, showLike } = this.props;
     const { showForm } = this.state;

@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
 import { CART_API } from "../../../config";
-import "./InfoAndCartPut.scss";
+import "./Style/InfoAndCartPut.scss";
 
 // key: 백엔드 데이터 키, value: 화면에 보이는 제목
 const INFO_TITLE = {
@@ -21,11 +21,12 @@ class InfoAndCartPut extends Component {
   };
 
   addToCart = async () => {
+    const { itemData, quantity } = this.state;
     const response = await fetch(CART_API, {
       method: "POST",
       body: {
-        product_id: this.state.itemData.id,
-        quantity: this.state.quantity,
+        product_id: itemData.id,
+        quantity: quantity,
       },
     });
     const result = await response.json();

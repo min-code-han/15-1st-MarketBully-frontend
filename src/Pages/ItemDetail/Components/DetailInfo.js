@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
-import "./DetailInfo.scss";
+import "./Style/DetailInfo.scss";
 
 const DETAIL_INFO_TABLE = [
   { title: "식품의 유형", content: "상세페이지 참조" },
@@ -16,6 +16,7 @@ const DETAIL_INFO_TABLE = [
   { title: "원재료밍 및 함량", content: "상세페이지 참조" },
   { title: "소비자상담 관련 전화번호", content: "마켓컬리 고객행복센터(1644-1107)" },
 ];
+
 class DetailInfo extends Component {
   render() {
     return (

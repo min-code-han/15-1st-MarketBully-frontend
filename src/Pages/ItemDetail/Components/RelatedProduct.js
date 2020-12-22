@@ -1,22 +1,10 @@
 import React, { Component } from "react";
+import { RELATED_PRODUCT_MOCK } from "../../../config";
 import "./RelatedProduct.scss";
 
 class RelatedProduct extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      relatedProduct: [],
-    };
-  }
-
-  componentDidMount() {
-    fetch("data/itemdata.json")
-      .then(res => res.json())
-      .then(res => this.setState({ relatedProduct: res.data }));
-  }
-
   render() {
-    const { relatedProduct } = this.state;
+    const { relatedProduct } = this.props;
     return (
       <div className="RelatedProduct">
         <div className="design-block"></div>

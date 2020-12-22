@@ -8,7 +8,7 @@ class ItemDetailMenu extends Component {
     this.state = {};
   }
   onClickMenuTab = e => {
-    this.props.changePosition(e.target.id);
+    this.props.scrollToMenu(e.target.id);
   };
 
   render() {

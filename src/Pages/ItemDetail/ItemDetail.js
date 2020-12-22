@@ -9,6 +9,7 @@ import DetailInfo from "./Components/DetailInfo";
 import CustomerReview from "./Components/CustomerReview";
 import ItemInquire from "./Components/ItemInquire";
 import ItemDetailMenu from "./Components/ItemDetailMenu";
+import { ITEM_DETAIL_API, ITEM_DETAIL_MOCK, RELATED_PRODUCT_MOCK } from "../../config";
 import "./ItemDetail.scss";
 
 const MENU_COMPONENTS = {
@@ -39,57 +40,64 @@ const DATA_ON_LOADING = {
 };
 
 class ItemDetail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      itemData: DATA_ON_LOADING,
-    };
-  }
+  state = {
+    itemData: DATA_ON_LOADING,
+    relatedProduct: [],
+  };
 
-  changePosition = id => {
+  scrollToMenu = id => {
     scroller.scrollTo(MENU_NAME[id - 1], {
       duration: 500,
       smooth: true,
     });
   };
 
-  getItemDetailData = async () => {
-    const response = await fetch(`data/itemdetail.json`);
+  getMockData = async () => {
+    const response = await fetch(ITEM_DETAIL_MOCK);
     const result = await response.json();
     this.setState({ itemData: result.itemInfo });
   };
 
   getData = async () => {
     // 우리팀 두 번째 API + 프론트!
-    const response = await fetch("http://10.168.2.67:8000/product/1");
+    const id = this.props.match.params?.id;
+    const response = await fetch(`${ITEM_DETAIL_API}/${id}`);
     const result = await response.json();
-    console.log(result);
     this.setState({ itemData: result.product_detail });
   };
 
+  getMockRelatedProduct = () => {
+    fetch(RELATED_PRODUCT_MOCK)
+      .then(res => res.json())
+      .then(res => this.setState({ relatedProduct: res.data }));
+  };
+
   componentDidMount() {
-    this.getItemDetailData();
+    /* 아래 실제 데이터와 목데이터 중 하나 선택 */
+    this.getMockData();
     //this.getData();
+
+    this.getMockRelatedProduct();
   }
 
   render() {
-    const { itemData } = this.state;
+    const { itemData, relatedProduct } = this.state;
     return (
-      <div className="ItemDetail">
+      <main className="ItemDetail">
         <div className="main-width">
           <InfoAndCartPut itemData={itemData} />
-          <RelatedProduct />
+          <RelatedProduct relatedProduct={relatedProduct} />
           {MENU_NAME.map((name, idx) => {
             const ComponentName = MENU_COMPONENTS[idx + 1];
             return (
               <div name={name} key={name}>
-                <ItemDetailMenu menuTabId={idx + 1} changePosition={this.changePosition} />
+                <ItemDetailMenu menuTabId={idx + 1} scrollToMenu={this.scrollToMenu} />
                 <ComponentName menuTabId={idx + 1} itemData={itemData} />
               </div>
             );
           })}
         </div>
-      </div>
+      </main>
     );
   }
 }

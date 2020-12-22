@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from "react";
+import {} from "../../../config";
 import "./InfoAndCartPut.scss";
 
 // key: 백엔드 데이터 키, value: 화면에 보이는 제목
@@ -19,6 +20,10 @@ class InfoAndCartPut extends Component {
     itemData: {},
   };
 
+  addToCart = async () => {
+    const response = await fetch();
+  };
+
   handleQuantity = e => {
     const QUANTITY_MIN = 1;
     const currentQuantity = this.state.quantity;
@@ -32,6 +37,7 @@ class InfoAndCartPut extends Component {
   render() {
     const { quantity } = this.state;
     const { itemData } = this.props;
+    const { addToCart } = this;
     const { price, discount_percentage, image_url, name, subtitle } = this.props.itemData;
     const mileagePercentage = 0.005;
 
@@ -117,7 +123,9 @@ class InfoAndCartPut extends Component {
                 <button className="alawys-buy">늘 사는 것</button>
               </li>
               <li>
-                <button className="put-cart">장바구니 담기</button>
+                <button className="put-cart" onClick={addToCart}>
+                  장바구니 담기
+                </button>
               </li>
             </ul>
           </div>

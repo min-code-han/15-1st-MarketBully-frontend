@@ -6,15 +6,14 @@ const BOARD_NAME = {
   4: "Review",
   5: "Inquire",
 };
+
 const PAGES = ["<", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ">"];
+
 class Board extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      boardData: [],
-      showForm: false,
-    };
-  }
+  state = {
+    boardData: [],
+    showForm: false,
+  };
 
   postArticle = async () => {
     /* 보드 종류별로 다른 API에 저장해야 한다. */
@@ -73,7 +72,7 @@ class Board extends Component {
     const { showForm } = this.state;
     const { showWriteForm, cancelWriteForm } = this;
     return (
-      <div className="Board">
+      <section className="Board">
         <div className="menu-header">
           <h1>{`${BOARD_NAME[menuTabId]} Board`}</h1>
         </div>
@@ -133,7 +132,7 @@ class Board extends Component {
             })}
           </ul>
         </div>
-      </div>
+      </section>
     );
   }
 }

@@ -13,14 +13,25 @@ class Signup extends Component {
       validatePw: false,
       validatePwLength: false,
       isPwSame: false,
+
       account: "",
       password: "",
       name: "",
       email: "",
+      phoneNumber: "",
+      gender: "",
+      recommend: "",
+      year: "",
+      month: "",
+      day: "",
+      agree: [true, true, true, true, true],
     };
   }
 
-  //this.setState({ info.account: })
+  getValue = e => {
+    const { id, value } = e.target;
+    this.setState({ [id]: value });
+  };
 
   handleModal = () => {
     this.setState({ isModalActive: !this.state.isModalActive });
@@ -88,7 +99,56 @@ class Signup extends Component {
     }
   };
 
+  validateEmail = e => {
+    const emailValidation = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+    const userEmail = this.state.email;
+    if (emailValidation.test(userEmail)) {
+      alert("사용 가능한 이메일 입니다");
+    } else {
+      alert("잘못된 이메일 형식 입니다.");
+    }
+  };
+
+  selectGender = e => {
+    const GENDER_ID = {
+      male: 0,
+      woman: 1,
+      none: 2,
+    };
+    this.setState({ gender: GENDER_ID[e.target.id] });
+  };
+
+  selectRecommend = e => {
+    this.setState({ recommend: e.target.id });
+  };
+
+  // 세상에나아아ㅏ아ㅏ아아ㅏ
+  clickTerms = e => {
+    const updatedAgree = this.state.agree;
+
+    updatedAgree[e.target.id] = !updatedAgree[e.target.id];
+    console.log(updatedAgree);
+    console.log(updatedAgree[e.target.id]);
+    console.log([e.target.id]);
+
+    this.setState({ agree: updatedAgree });
+  };
+
+  all = () => {
+    const { agree } = this.state;
+    const agreeAll = agree[0] && agree[1] && agree[2] && agree[3] && agree[4];
+    if (agreeAll) {
+      this.setState({ agree: [false, false, false, false, false] });
+    } else {
+      this.setState({ agree: [true, true, true, true, true] });
+    }
+  };
+
   render() {
+    const { agree } = this.state;
+    const { clickTerms } = this;
+    const agreeAll = agree[0] && agree[1] && agree[2] && agree[3] && agree[4];
+
     return (
       <>
         <div className="Signup">
@@ -167,10 +227,11 @@ class Signup extends Component {
                 </th>
                 <td>
                   <input
+                    id="name"
                     className="inputbox-commonstyle"
                     type="text"
                     placeholder="이름을 입력해주세요"
-                    onClick={this.getName}
+                    onChange={this.getValue}
                   />
                 </td>
               </tr>
@@ -180,11 +241,15 @@ class Signup extends Component {
                 </th>
                 <td>
                   <input
+                    id="email"
                     className="inputbox-commonstyle"
                     type="text"
                     placeholder="예:marketbully@kurly.com"
+                    onChange={this.getValue}
                   />
-                  <button className="button small-btn">중복확인</button>
+                  <button className="button small-btn" onClick={this.validateEmail}>
+                    중복확인
+                  </button>
                 </td>
               </tr>
               <tr>
@@ -193,9 +258,11 @@ class Signup extends Component {
                 </th>
                 <td>
                   <input
+                    id="phoneNumber"
                     className="inputbox-commonstyle"
                     type="text"
                     placeholder="숫자만 입력해주세요"
+                    onChange={this.getValue}
                   />
                   <button className="button gray-btn">인증번호 받기</button>
                 </td>
@@ -216,25 +283,49 @@ class Signup extends Component {
               <tr className="sex">
                 <th>성별</th>
                 <td className="fw-400">
-                  <input type="radio" id="man" name="gender" />
-                  <label htmlFor="man">남자</label>
+                  <label id="man" onClick={this.selectGender}>
+                    <input type="radio" name="gender" />
+                    남자
+                  </label>
 
-                  <input type="radio" id="woman" name="gender" />
-                  <label htmlFor="woman">여자</label>
+                  <label id="woman" onClick={this.selectGender}>
+                    <input type="radio" name="gender" />
+                    여자
+                  </label>
 
-                  <input type="radio" id="none" name="gender" />
-                  <label htmlFor="none">선택안함</label>
+                  <label id="none" onClick={this.selectGender}>
+                    <input type="radio" name="gender" />
+                    선택안함
+                  </label>
                 </td>
               </tr>
               <tr>
                 <th>생년월일</th>
                 <td>
                   <div className="birth-input-wrap">
-                    <input type="text" placeholder="YYYY" maxlength="4" />
+                    <input
+                      type="text"
+                      placeholder="YYYY"
+                      maxlength="4"
+                      id="year"
+                      onChange={this.getValue}
+                    />
                     <span>/</span>
-                    <input type="text" placeholder="MM" maxlength="2" />
+                    <input
+                      type="text"
+                      placeholder="MM"
+                      maxlength="2"
+                      id="month"
+                      onChange={this.getValue}
+                    />
                     <span>/</span>
-                    <input type="text" placeholder="DD" maxlength="2" />
+                    <input
+                      type="text"
+                      placeholder="DD"
+                      maxlength="2"
+                      id="day"
+                      onChange={this.getValue}
+                    />
                   </div>
                   <p className="guide">
                     <span className="red">x 태어난 월을 정확하게 입력해주세요.</span>
@@ -244,10 +335,16 @@ class Signup extends Component {
               <tr className="sex">
                 <th>추가입력 사항</th>
                 <td className="fw-400">
-                  <input type="radio" id="id" name="recommend" />
-                  <label htmlFor="id">추천인 아이디</label>
-                  <input type="radio" id="event" name="recommend" />
-                  <label htmlFor="event">참여 이벤트명</label>
+                  <label id="recommendId" onClick={this.selectRecommend}>
+                    <input type="radio" name="recommend" />
+                    추천인 아이디
+                  </label>
+
+                  <label id="recommendEvent" onClick={this.selectRecommend}>
+                    <input type="radio" name="recommend" />
+                    참여 이벤트명
+                  </label>
+
                   <div className="joinevent">
                     <input
                       type="text"
@@ -274,8 +371,8 @@ class Signup extends Component {
                 <td>
                   <div className="agree-txt">
                     <div className="ageree-check">
-                      <input type="checkbox" id="all" />
-                      <label htmlFor="all" className="check-all">
+                      <label className="check-all">
+                        <input type="checkbox" checked={agreeAll} onClick={this.all} />
                         전체 동의합니다
                       </label>
                       <p className="guide">
@@ -287,7 +384,7 @@ class Signup extends Component {
                     </div>
                     <div className="ageree-check">
                       <label>
-                        <input type="checkbox" />
+                        <input id="0" type="checkbox" checked={agree[0]} onClick={clickTerms} />
                         이용약관 동의<span className="necessary">(필수)</span>
                       </label>
                       <p className="purple-txt see-more">
@@ -296,7 +393,7 @@ class Signup extends Component {
                     </div>
                     <div className="ageree-check">
                       <label>
-                        <input type="checkbox" />
+                        <input id="1" type="checkbox" checked={agree[1]} onClick={clickTerms} />
                         개인정보처리방침 동의<span className="necessary">(필수)</span>
                       </label>
                       <p className="purple-txt see-more">
@@ -305,7 +402,7 @@ class Signup extends Component {
                     </div>
                     <div className="ageree-check">
                       <label>
-                        <input type="checkbox" />
+                        <input id="2" type="checkbox" checked={agree[2]} onClick={clickTerms} />
                         개인정보처리방침 동의<span className="necessary">(필수)</span>
                       </label>
                       <p className="purple-txt see-more">
@@ -314,7 +411,7 @@ class Signup extends Component {
                     </div>
                     <div className="ageree-check">
                       <label>
-                        <input type="checkbox" />
+                        <input id="3" type="checkbox" checked={agree[3]} onClick={clickTerms} />
                         무료배송, 할인쿠폰 등 혜택/정보 수신 동의
                         <span className="necessary">(선택)</span>
                       </label>
@@ -337,7 +434,7 @@ class Signup extends Component {
                     </div>
                     <div className="ageree-check">
                       <label>
-                        <input type="checkbox" />
+                        <input id="4" type="checkbox" checked={agree[4]} onClick={clickTerms} />
                         본인은 만 14세 이상입니다.<span className="necessary">(필수)</span>
                       </label>
                     </div>

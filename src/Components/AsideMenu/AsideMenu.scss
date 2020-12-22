@@ -7,6 +7,9 @@
   width: 80px;
   height: 500px;
   margin: 30vh 0;
+  @media screen and (max-width: 1300px) {
+    display: none;
+  }
 
   .dawn-delivery {
     height: 120px;
@@ -17,9 +20,10 @@
       text-align: center;
       font-size: 14px;
       color: white;
-      letter-spacing: 1px;
+      letter-spacing: 0px;
       &.delivery {
-        letter-spacing: 2px;
+        padding-left: 1px;
+        letter-spacing: 1px;
       }
     }
   }

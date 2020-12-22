@@ -1,0 +1,130 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "무농약 토마토",
+      "shortDescription": "친환경으로 재배한 신선한 무농약 토마토",
+      "imgUrl": "https://images.unsplash.com/photo-1558818498-28c1e002b655?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80",
+      "price": 7650,
+      "sale": 30,
+      "sellUnit": "1개",
+      "weight": "1kg",
+      "deliveryType": "샛별배송/택배배송",
+      "originCountry": "국산",
+      "packageType": "냉장/종이포장",
+      "allergyInfo": [
+        "소고기 함유",
+        "본 제품은 돼지고기를 사용한 제품과 같은 제조시설에서 제조했습니다."
+      ],
+      "shelfLife": "수령일 포함 4일 이상 남은 상품을 보내드립니다."
+    },
+    {
+      "id": 2,
+      "name": "신선한 냉장 돼지고기",
+      "shortDescription": "이건 못참을걸?",
+      "imgUrl": "https://images.unsplash.com/photo-1606851685679-2a35cfdd62d6?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2551&q=80",
+      "price": 18200,
+      "sale": null,
+      "sellUnit": "1개",
+      "weight": "1kg",
+      "deliveryType": "샛별배송/택배배송",
+      "originCountry": "국산",
+      "packageType": "냉장/종이포장",
+      "allergyInfo": [
+        "소고기 함유",
+        "본 제품은 돼지고기를 사용한 제품과 같은 제조시설에서 제조했습니다."
+      ],
+      "shelfLife": "수령일 포함 4일 이상 남은 상품을 보내드립니다."
+    },
+    {
+      "id": 3,
+      "name": "양 베이컨",
+      "shortDescription": "양고기로 만든 특별한 베이컨",
+      "imgUrl": "https://images.unsplash.com/photo-1606851094291-6efae152bb87?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80",
+      "price": 28190,
+      "sale": 10,
+      "sellUnit": "1개",
+      "weight": "1kg",
+      "deliveryType": "샛별배송/택배배송",
+      "originCountry": "국산",
+      "packageType": "냉장/종이포장",
+      "allergyInfo": [
+        "소고기 함유",
+        "본 제품은 돼지고기를 사용한 제품과 같은 제조시설에서 제조했습니다."
+      ],
+      "shelfLife": "수령일 포함 4일 이상 남은 상품을 보내드립니다."
+    },
+    {
+      "id": 4,
+      "name": "[마켓불리] 달걀",
+      "shortDescription": "마켓불리에서 추천하는 달걀",
+      "imgUrl": "https://images.unsplash.com/photo-1587109371363-6158150c3715?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80",
+      "price": 4000,
+      "sale": null,
+      "sellUnit": "1개",
+      "weight": "1kg",
+      "deliveryType": "샛별배송/택배배송",
+      "originCountry": "국산",
+      "packageType": "냉장/종이포장",
+      "allergyInfo": [
+        "소고기 함유",
+        "본 제품은 돼지고기를 사용한 제품과 같은 제조시설에서 제조했습니다."
+      ],
+      "shelfLife": "수령일 포함 4일 이상 남은 상품을 보내드립니다."
+    },
+    {
+      "id": 5,
+      "name": "동물복지 신선한 달걀",
+      "shortDescription": "동물복지 인증 달걀, 난각번호 1번",
+      "imgUrl": "https://images.unsplash.com/photo-1516448620398-c5f44bf9f441?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2547&q=80",
+      "price": 7650,
+      "sale": 30,
+      "sellUnit": "1개",
+      "weight": "1kg",
+      "deliveryType": "샛별배송/택배배송",
+      "originCountry": "국산",
+      "packageType": "냉장/종이포장",
+      "allergyInfo": [
+        "소고기 함유",
+        "본 제품은 돼지고기를 사용한 제품과 같은 제조시설에서 제조했습니다."
+      ],
+      "shelfLife": "수령일 포함 4일 이상 남은 상품을 보내드립니다."
+    },
+    {
+      "id": 6,
+      "name": "치킨은 진리",
+      "shortDescription": "맛있게 구워 식탁에 오릅니다: 국산 치킨",
+      "imgUrl": "https://images.unsplash.com/photo-1501200291289-c5a76c232e5f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80",
+      "price": 20000,
+      "sale": 20,
+      "sellUnit": "1개",
+      "weight": "1kg",
+      "deliveryType": "샛별배송/택배배송",
+      "originCountry": "국산",
+      "packageType": "냉장/종이포장",
+      "allergyInfo": [
+        "소고기 함유",
+        "본 제품은 돼지고기를 사용한 제품과 같은 제조시설에서 제조했습니다."
+      ],
+      "shelfLife": "수령일 포함 4일 이상 남은 상품을 보내드립니다."
+    },
+    {
+      "id": 7,
+      "name": "[마켓불리] 한우",
+      "shortDescription": "우리나라 소고기가 제일 맛있지롱",
+      "imgUrl": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1275&q=80",
+      "price": 52000,
+      "sale": 30,
+      "sellUnit": "1개",
+      "weight": "1kg",
+      "deliveryType": "샛별배송/택배배송",
+      "originCountry": "국산",
+      "packageType": "냉장/종이포장",
+      "allergyInfo": [
+        "소고기 함유",
+        "본 제품은 돼지고기를 사용한 제품과 같은 제조시설에서 제조했습니다."
+      ],
+      "shelfLife": "수령일 포함 4일 이상 남은 상품을 보내드립니다."
+    }
+  ]
+}

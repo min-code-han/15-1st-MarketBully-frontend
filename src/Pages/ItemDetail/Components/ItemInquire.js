@@ -10,7 +10,7 @@ class ItemInquire extends Component {
   render() {
     return (
       <div className="ItemInquire">
-        <Board name={this.props.name} />
+        <Board menuTabId={this.props.menuTabId} showLike={false} />
       </div>
     );
   }

@@ -7,6 +7,7 @@ import Third from "./Third";
 import NotLoginHeader from "./NotLoginHeader";
 import LoginHeader from "./LoginHeader";
 import "./Header.scss";
+
 class Header extends Component {
   constructor(props) {
     super(props);

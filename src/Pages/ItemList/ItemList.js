@@ -20,13 +20,14 @@ class ItemList extends Component {
   }
 
   componentDidMount() {
-    // fetch("http://10.168.2.67:8000/product/1");
+    // fetch("http://10.168.2.67:8000/product")
     fetch("./data/item.json")
       .then(res => res.json())
       .then(res => {
         this.setState({
+          // categoryTesting: res.categories[3].subcategory,
           // products: res.product_list,
-          categoryTesting: res.category,
+          categoryTesting: FILTEROPTIONS,
           products: res.data,
         });
       });
@@ -36,7 +37,9 @@ class ItemList extends Component {
     if (e.target.name === "+") {
       this.setState({ quantities: this.state.quantities + 1 });
     } else {
-      this.setState({ quantities: this.state.quantities - 1 });
+      if (this.state.quantities > 1) {
+        this.setState({ quantities: this.state.quantities - 1 });
+      }
     }
   };
 
@@ -46,11 +49,14 @@ class ItemList extends Component {
 
     if (e.target.id === "낮은 가격순") {
       fakeProducts.sort(function (a, b) {
-        return a.price - (a.price * a.sale) / 100 - b.price + b.price * (b.sale / 100);
+        return (
+          // a.price - a.price * a.discount_percentage - b.price + b.price * b.discount_percentage
+          a.price - a.price * a.sale - b.price + b.price * b.sale
+        );
       });
     } else if (e.target.id === "높은 가격순") {
       fakeProducts.sort(function (a, b) {
-        return -a.price + (a.price * a.sale) / 100 + b.price - b.price * (b.sale / 100);
+        return -a.price + a.price * a.sale + b.price - b.price * b.sale;
       });
     }
 
@@ -88,6 +94,7 @@ class ItemList extends Component {
         <ItemListModal
           name={clickedID && products.find(el => el.id === +clickedID).name}
           price={clickedID && products.find(el => el.id === +clickedID).price}
+          sale={clickedID && products.find(el => el.id === +clickedID).discount_percentage}
           clickedID={clickedID}
           isModalBoxOnOrOff={isModalBoxOn}
           ModalBoxClose={this.showModalBox}
@@ -97,20 +104,23 @@ class ItemList extends Component {
         <header>
           <div className="categoryHeader">
             <span className="meatIcon">
-              <i class="fas fa-bacon fa-2x" />
+              <i className="fas fa-bacon fa-2x" />
             </span>
             <span className="category">정육 · 계란</span>
           </div>
           <div className="filteringHeader">
             <ul className="typeOfCategories">
               <li>전체보기</li>
-              {categoryTesting.map(el => {
+              {/* {categoryTesting.map(el => {
                 return <li>{el.meat}</li>;
+              })} */}
+              {categoryTesting.map(el => {
+                return <li>{el}</li>;
               })}
             </ul>
             <div className="selectOptions" onClick={this.showOptionBox}>
               <span className={optionBoxOnAndOff ? "selectedOption" : ""}>{filteringOption}</span>
-              <i class="fas fa-chevron-down" />
+              <i className="fas fa-chevron-down" />
               <ul className={optionBoxOnAndOff ? "optionList" : "optionListNone"}>
                 {FILTEROPTIONS.map(el => {
                   return (

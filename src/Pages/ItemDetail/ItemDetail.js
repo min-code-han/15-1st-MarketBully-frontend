@@ -58,14 +58,14 @@ class ItemDetail extends Component {
 
   getData = async () => {
     // 우리팀 두 번째 API + 프론트!
-    const response = await fetch("http://10.168.1.121:8000/product/1");
+    const response = await fetch(`http://10.168.2.67:8000/product/${this.props.match.params.id}`);
     const result = await response.json();
-    this.setState({ ss: result.product_detail });
+    this.setState({ itemData: result.product_detail });
   };
 
   componentDidMount() {
-    this.getItemDetailData();
-    //this.getData();
+    //this.getItemDetailData();
+    this.getData();
   }
 
   render() {

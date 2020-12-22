@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./ItemCard.scss";
 
-const CARDTYPE = ["ItemList", "RelatedProduct", "main"];
-
 class ItemCard extends Component {
   constructor(props) {
     super(props);
@@ -11,8 +9,8 @@ class ItemCard extends Component {
   }
 
   goToDetail = () => {
-    this.props.history.push(`/ItemDetail`);
-    // this.props.history.push(`/ItemDetail/${this.props.id}`);
+    // this.props.history.push(`/ItemDetail`);
+    this.props.history.push(`/ItemDetail/${this.props.id}`);
   };
 
   render() {
@@ -31,7 +29,9 @@ class ItemCard extends Component {
         <div className="ItemCardContainer">
           <img src={imgUrl} alt="제품의 이미지" onClick={this.goToDetail} />
 
-          {type !== "RelatedProduct" && sale && <div className="saleBox">Save {sale * 100}%</div>}
+          {type !== "RelatedProduct" && sale !== 0 && (
+            <div className="saleBox">Save {sale * 100}%</div>
+          )}
           {type === "ItemList" && (
             <button id={id} className="cart" onClick={showModalBoxButton}>
               <i id={id} class="fas fa-shopping-cart " onClick={showModalBoxButton} />
@@ -45,7 +45,7 @@ class ItemCard extends Component {
               <div className="priceBox">
                 <div className="price">
                   {type === "ItemList" && "→"}
-                  {Math.floor(price - price * (sale / 100))}원
+                  {Math.floor(price - price * sale)}원
                 </div>
                 <div className="originalPrice">{Math.floor(price)}원</div>
               </div>

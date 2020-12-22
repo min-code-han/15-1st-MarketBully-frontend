@@ -1,13 +1,11 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-	"editor.tabSize": 2,
+  "editor.tabSize": 2,
   "editor.formatOnSave": true,
-	"editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
+  "[javascript]": {
+    "editor.formatOnSave": true
   },
-	"javascript.format.enable": false,
-  "prettier.eslintIntegration": true,
-	"prettier.disableLanguages": ["js"],
-	"eslint.alwaysShowStatus": true,
-	"files.autoSave": "onFocusChange"
+  "eslint.alwaysShowStatus": true,
+  "prettier.disableLanguages": ["js"],
+  "prettier.endOfLine": "auto"
 }

@@ -1,0 +1,49 @@
+@import "../../../Styles/common.scss";
+
+.RelatedProduct {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 30px 0 50px;
+
+  .design-block {
+    height: 5px;
+    width: 20px;
+    background-color: black;
+  }
+
+  h1 {
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .related-items {
+    display: flex;
+    overflow: auto;
+    margin: 0 30px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card {
+      min-width: 178px;
+      height: 320px;
+      margin-right: 10px;
+      border: 1px solid $light-gray;
+
+      p {
+        padding: 5px 7px 2px;
+      }
+
+      img {
+        width: 178px;
+        height: 230px;
+        object-fit: cover;
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+.NotLogin {
+  display: flex;
+  justify-content: flex-end;
+  height: 45px;
+  padding: 15px 3px;
+  font-size: 12px;
+  z-index: 999;
+  & > li a {
+    border-right: 1px solid #dadada;
+    text-decoration: none;
+    color: #333333;
+    padding: 0 18px 0 18px;
+    cursor: pointer;
+
+    &.deliverNone {
+      border-right: none;
+    }
+  }
+
+  & > li:nth-child(1) {
+    height: inherit;
+    position: relative;
+
+    a {
+      padding-left: 30px;
+      position: relative;
+
+      text-decoration: none;
+      .uesrInfoMenu {
+        background: #fff;
+        width: 130px;
+        position: absolute;
+        top: 25px;
+        left: -30px;
+        border: 1px solid #dadada;
+        z-index: 999;
+        color: #000;
+        ul {
+          text-align: center;
+          li {
+            padding: 8px 5px;
+          }
+        }
+      }
+    }
+  }
+
+  & > li:nth-child(3) {
+    height: inherit;
+    position: relative;
+    .servicMenu {
+      position: absolute;
+      width: 130px;
+      background: #fff;
+      position: absolute;
+      top: 25px;
+      left: 10px;
+      z-index: 999;
+      border: 1px solid #dadada;
+      color: #000;
+      ul {
+        text-align: center;
+        li {
+          padding: 8px 5px;
+        }
+      }
+    }
+  }
+
+  .ServiceCenter {
+    margin-right: 8px;
+    position: relative;
+  }
+  .ServiceCenter::before {
+    position: absolute;
+    padding-right: 1px;
+    font-family: "Font Awesome 5 Free";
+    content: "\f0dd";
+    font-weight: 700;
+    font-size: 17px;
+    top: 30%;
+    transform: translate(0, -50%);
+    right: 5px;
+  }
+  &:last-child {
+    border: none;
+  }
+}

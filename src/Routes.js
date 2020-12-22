@@ -28,6 +28,7 @@ class Routes extends Component {
           <Route exact path="/Login" component={Login}></Route>
           <Route exact path="/ItemList" component={ItemList}></Route>
           <Route exact path="/ItemDetail" component={ItemDetail}></Route>
+          <Route exact path="/ItemDetail/:id" component={ItemDetail}></Route>
           <Route exact path="/ItemCart" component={ItemCart}></Route>
           <Route exact path="/Payment" component={Payment}></Route>
           <Route component={NotFound} />

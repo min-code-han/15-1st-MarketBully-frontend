@@ -16,7 +16,7 @@ class Login extends React.Component {
 
   Signin = e => {
     e.preventDefault();
-    console.log("dadsa");
+
     fetch("http://10.168.2.91:8000/user/signin", {
       method: "POST",
       body: JSON.stringify({
@@ -28,12 +28,13 @@ class Login extends React.Component {
       .then(res => {
         console.log(res);
         if (res.ACCESS_TOKEN) {
-          alert("LOGIN SUCESS");
+          alert("LOGIN SUCCESS");
+          localStorage.setItem("token", res.ACCESS_TOKEN);
+          this.props.history.push("/Home");
         } else {
           const { account, password } = this.state;
 
           const txt = /^[A-Za-z]{6,}$/; // 알파벳 6자이상 !!!
-
           const numtxt6 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/; // 영문 + 숫자 합쳐서 6개 이상 !!!
 
           const numtxt10 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{10,}$/; // 영문 + 숫자 합쳐서 10개 이상 !!!
@@ -60,41 +61,43 @@ class Login extends React.Component {
   render() {
     return (
       <div className="Login">
-        <div className="section-login">
-          <h1 className="title">로그인</h1>
-          <form>
-            <input
-              type="text"
-              placeholder="아이디를 입력해주세요"
-              id="account"
-              className="id box"
-              onChange={this.handleValue}
-            />
-            <input
-              type="password"
-              placeholder="비밀번호를 입력해주세요"
-              id="password"
-              className="password box"
-              onChange={this.handleValue}
-            />
-            <div className="check-and-find">
-              <div className="checkbox-wrap">
-                <label>
-                  <input type="checkbox" />
-                  보안접속
-                </label>
+        <div className="mainWidth">
+          <div className="section-login">
+            <h1 className="title">로그인</h1>
+            <form>
+              <input
+                type="text"
+                placeholder="아이디를 입력해주세요"
+                id="account"
+                className="id box"
+                onChange={this.handleValue}
+              />
+              <input
+                type="password"
+                placeholder="비밀번호를 입력해주세요"
+                id="password"
+                className="password box"
+                onChange={this.handleValue}
+              />
+              <div className="check-and-find">
+                <div className="checkbox-wrap">
+                  <label>
+                    <input type="checkbox" />
+                    보안접속
+                  </label>
+                </div>
+                <div className="find-account">
+                  <p>아이디 찾기</p>
+                  <div />
+                  <p>비밀번호 찾기</p>
+                </div>
               </div>
-              <div className="find-account">
-                <p>아이디 찾기</p>
-                <div />
-                <p>비밀번호 찾기</p>
-              </div>
-            </div>
-            <button className="login box" onClick={this.Signin}>
-              로그인
-            </button>
-            <div className="login-to-assign">회원가입</div>
-          </form>
+              <button className="login box" onClick={this.Signin}>
+                로그인
+              </button>
+              <div className="login-to-assign">회원가입</div>
+            </form>
+          </div>
         </div>
       </div>
     );

@@ -30,44 +30,6 @@ class Signup extends Component {
     };
   }
 
-  signIn = () => {
-    console.log("왜!");
-    const {
-      account,
-      password,
-      name,
-      email,
-      phoneNumber,
-      adress,
-      gender,
-      recommend,
-      agree,
-    } = this.state;
-
-    fetch("http://10.168.2.91:8000/user/signup", {
-      method: "POST",
-      body: JSON.stringify({
-        account: account,
-        password: password,
-        name: name,
-        email: email,
-        phone_number: phoneNumber,
-        adress: adress,
-        gender: gender,
-        recommender: recommend,
-        privacy_policy_agreement: agree,
-      }),
-    })
-      .then(res => res.json())
-      .then(res => {
-        if (res.messege === "SUCCESS") {
-          alert("성공!");
-        } else {
-          alert("제발");
-        }
-      });
-  };
-
   getValue = e => {
     const { id, value } = e.target;
     this.setState({ [id]: value });
@@ -125,7 +87,6 @@ class Signup extends Component {
     const { password } = this.state;
     const { value } = e.target;
     const comparePw = password === value;
-    console.log(comparePw);
 
     this.setState({ isPwSame: comparePw });
   };
@@ -142,11 +103,13 @@ class Signup extends Component {
 
   selectGender = e => {
     const GENDER_ID = {
-      male: 0,
+      man: 0,
       woman: 1,
       none: 2,
     };
+
     this.setState({ gender: GENDER_ID[e.target.id] });
+    console.log(GENDER_ID[e.target.id]);
   };
 
   selectRecommend = e => {
@@ -155,15 +118,15 @@ class Signup extends Component {
 
   // 체크박스 전체선택 => 꼭!! 다시 공부하기!!!
   clickTerms = e => {
-    const updatedAgree = this.state.agree;
-    updatedAgree[e.target.id] = !updatedAgree[e.target.id];
-    this.setState({ agree: updatedAgree });
+    const { agree } = this.state;
+    agree[e.target.id] = !agree[e.target.id];
+    this.setState({ agree: agree });
   };
 
   all = () => {
     const { agree } = this.state;
 
-    const confirm = agree.every(el => el === true);
+    const confirm = agree.every(el => el);
 
     if (confirm) {
       this.setState({ agree: agree.fill(false) });
@@ -182,6 +145,34 @@ class Signup extends Component {
       selectEventMsg[3] = false;
     }
     this.setState({ agree: selectEventMsg });
+  };
+
+  signIn = () => {
+    const { account, password, name, email, phoneNumber, adress, gender } = this.state;
+
+    fetch("http://10.168.2.91:8000/user/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        account: account,
+        password: password,
+        name: name,
+        email: email,
+        phone_number: phoneNumber,
+        address: adress,
+        terms_and_condition: true,
+        gender_id: gender,
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(gender);
+        if (res.message === "SUCCESS") {
+          alert("회원가입 성공");
+          this.props.history.push("/Login");
+        } else {
+          alert("");
+        }
+      });
   };
 
   render() {
@@ -301,7 +292,7 @@ class Signup extends Component {
                     id="phoneNumber"
                     className="inputbox-commonstyle"
                     type="text"
-                    placeholder="숫자만 입력해주세요"
+                    placeholder="000-0000-0000"
                     onChange={this.getValue}
                   />
                   <button className="button gray-btn">인증번호 받기</button>
@@ -328,17 +319,17 @@ class Signup extends Component {
                 <th>성별</th>
                 <td className="fw-400">
                   <label id="man" onClick={this.selectGender}>
-                    <input type="radio" name="gender" />
+                    <input id="man" type="radio" name="gender" />
                     남자
                   </label>
 
                   <label id="woman" onClick={this.selectGender}>
-                    <input type="radio" name="gender" />
+                    <input id="woman" type="radio" name="gender" />
                     여자
                   </label>
 
                   <label id="none" onClick={this.selectGender}>
-                    <input type="radio" name="gender" />
+                    <input id="none" type="radio" name="gender" />
                     선택안함
                   </label>
                 </td>

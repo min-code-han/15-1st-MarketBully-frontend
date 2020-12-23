@@ -1,5 +1,6 @@
 import React from "react";
 import "./Login.scss";
+import { Link } from "react-router-dom";
 
 class Login extends React.Component {
   constructor(props) {
@@ -95,7 +96,9 @@ class Login extends React.Component {
               <button className="login box" onClick={this.Signin}>
                 로그인
               </button>
-              <div className="login-to-assign">회원가입</div>
+              <Link to="/Signup" className="login-to-assign">
+                회원가입
+              </Link>
             </form>
           </div>
         </div>

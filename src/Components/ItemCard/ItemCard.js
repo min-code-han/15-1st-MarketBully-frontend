@@ -46,13 +46,13 @@ class ItemCard extends Component {
               <div className="priceBox">
                 <div className="price">
                   {type === "ItemList" && "→"}
-                  {Math.floor(price - price * sale)}원
+                  {Math.floor(price - price * sale).toLocaleString("en")}원
                 </div>
-                <div className="originalPrice">{Math.floor(price)}원</div>
+                <div className="originalPrice">{Math.floor(price).toLocaleString("en")}원</div>
               </div>
             ) : (
               <div className="priceBox">
-                <div className="price">{Math.floor(price)}원</div>
+                <div className="price">{Math.floor(price).toLocaleString("en")}원</div>
               </div>
             )}
           </div>

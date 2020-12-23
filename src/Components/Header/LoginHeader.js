@@ -28,7 +28,7 @@ class LoginHeader extends Component {
     const userInfo = "김찬영";
     return (
       <>
-        <ul className="headerMenu Login">
+        <ul className="headerMenu headerMenuLogin">
           <li
             className="headerMenuList"
             onMouseEnter={this.onMouseHover}

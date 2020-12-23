@@ -53,14 +53,8 @@ class Signup extends Component {
         phone_number: phoneNumber,
         gender: gender,
         recommender: recommend, //추천인 인풋벨류
-
-        year: year,
-        month: month,
-        day: day,
-        //birth_date 데이트 로 받아야함
-        //privacy_policy_agreement
-        //sns_marketing_agreement
-        //email_marketing_agreement
+        birth_date: year - month - day,
+        privacy_policy_agreement: agree,
         //adress
       }),
     })
@@ -187,6 +181,15 @@ class Signup extends Component {
       selectEventMsg[3] = false;
     }
     this.setState({ agree: selectEventMsg });
+  };
+
+  searchAdress = () => {
+    new daum.Postcode({
+      oncomplete: function (data) {
+        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+        // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+      },
+    }).open();
   };
 
   render() {
@@ -317,7 +320,7 @@ class Signup extends Component {
                   주소<i className="sub">*</i>
                 </th>
                 <td>
-                  <button className="big-btn">
+                  <button className="big-btn" onClick={this.searchAdress}>
                     <i class="fas fa-search"></i>주소검색
                   </button>
                   <p className="guide">

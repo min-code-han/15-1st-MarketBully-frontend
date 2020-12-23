@@ -86,7 +86,7 @@ class NavBar extends Component {
       1: <First categoryAll={categoryAll[0]} />,
       2: <Second categoryAll={categoryAll[1]} />,
       3: <Third categoryAll={categoryAll[2]} />,
-      4: <Four categoryAll={categoryAll[3]} />,
+      4: <Four AllRemove={this.props.AllRemove} categoryAll={categoryAll[3]} />,
       5: <Five categoryAll={categoryAll[4]} />,
       6: <Six categoryAll={categoryAll[5]} />,
     };

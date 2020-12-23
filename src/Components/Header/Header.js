@@ -70,6 +70,13 @@ class Header extends Component {
     this.setState({ userInfo: userData.data.message });
   };
 
+  AllRemove = () => {
+    this.setState({
+      hoverAction: false,
+      subHoverAction: false,
+    });
+  };
+
   subMenuMoues = currentID => {
     this.setState({
       subHoverAction: true,
@@ -92,7 +99,7 @@ class Header extends Component {
     });
   };
   gotoMain = () => {
-    this.props.history.push("/");
+    this.props.history.push("/Home");
   };
   render() {
     console.log(this.state.hoverAction);
@@ -118,6 +125,7 @@ class Header extends Component {
           </div>
 
           <NavBar
+            AllRemove={this.AllRemove}
             currentID={this.state.currentID}
             subMenuClickItem={this.subMenuClickItem}
             subMenuMoues={this.subMenuMoues}

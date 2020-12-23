@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 class Four extends Component {
   gotoDetail = e => {
+    this.props.AllRemove();
     this.props.history.push("/ItemList");
   };
 

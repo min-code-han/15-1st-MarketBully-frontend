@@ -19,10 +19,7 @@ class AsideMenu extends Component {
         <div className="recently-seen-item">
           <h2>최근 본 상품</h2>
           <div className="recent-items">
-            <img src="images/tomato.jpg" alt="tomato"></img>
-            <img src="images/tomato.jpg" alt="tomato"></img>
-            <img src="images/tomato.jpg" alt="tomato"></img>
-            <img src="images/tomato.jpg" alt="tomato"></img>
+            <img src="/images/marketbully.jpg" alt="marketbully" />
           </div>
         </div>
       </aside>

@@ -6,6 +6,10 @@ const BOARD_NAME = {
   4: "Review",
   5: "Inquire",
 };
+const API_NAME = {
+  Review: REVIEW_BOARD_API,
+  Inquire: INQUIRY_BOARD_API,
+};
 
 const LIMIT_PER_PAGE = 4;
 const PAGES_NUM = 3;
@@ -45,13 +49,13 @@ class Board extends Component {
     const { currentPage, pages } = this.state;
     console.log("go Prev Page");
     if (currentPage === 1) return;
-    else if (currentPage % PAGES_NUM === 1) {
+    if (currentPage % PAGES_NUM === 1) {
       const newPages = pages.map(page => page - PAGES_NUM);
       this.setState({ pages: newPages, currentPage: newPages[PAGES_NUM - 1] });
-    } else {
-      this.setState({ currentPage: currentPage - 1 });
+      return;
     }
-    this.getBoardData(currentPage - 1);
+    this.setState({ currentPage: currentPage - 1 });
+    this.getBoardData(currentPage - 2);
   };
 
   goNextPage = () => {
@@ -63,7 +67,7 @@ class Board extends Component {
     } else {
       this.setState({ currentPage: currentPage + 1 });
     }
-    this.getBoardData(currentPage + 1);
+    this.getBoardData(currentPage);
   };
 
   cancelWriteForm = () => {
@@ -76,7 +80,7 @@ class Board extends Component {
     this.setState({ boardData: boardData });
   };
 
-  getReviewData = async (page = "") => {
+  getReviewMockData = async (page = "") => {
     console.log(`${REVIEW_MOCK}?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`);
     const reviewDataRes = await fetch(
       `${REVIEW_MOCK}?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
@@ -85,33 +89,33 @@ class Board extends Component {
     this.setState({ boardData: reviewData.reviewData });
   };
 
-  getInquireData = async () => {
+  getInquireMockData = async () => {
     const inquireDataRes = await fetch(INQUIRE_MOCK);
     const inquireData = await inquireDataRes.json();
     this.setState({ boardData: inquireData.inquireData });
   };
 
   getBoardData = async (page = "") => {
-    const BOARD_API = this.props.menuTabID === 4 ? REVIEW_BOARD_API : INQUIRY_BOARD_API;
-    console.log(
-      `http://10.168.2.97:8000/board/review/page/1?limit=${LIMIT_PER_PAGE}&offset=${
-        page * LIMIT_PER_PAGE
-      }`
-    );
-    const response = await fetch(
-      `http://10.168.2.97:8000/board/review/page/1?limit=${LIMIT_PER_PAGE}&offset=${
-        page * LIMIT_PER_PAGE
-      }`
-    );
-    const data = await response.json();
-    this.setState({ boardData: data.review_list });
-    console.log(data);
+    const boardName = BOARD_NAME[this.props.menuTabId];
+    const API = API_NAME[boardName];
+
+    try {
+      console.log(
+        `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
+      );
+      const response = await fetch(
+        `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
+      );
+      const data = await response.json();
+      this.setState({ boardData: data.review_list });
+    } catch {
+      console.log("catch");
+      boardName === "Review" ? this.getReviewMockData() : this.getInquireMockData();
+    }
   };
 
   componentDidMount() {
-    const { menuTabId } = this.props;
-    const { getReviewData, getBoardData, getInquireData } = this;
-    menuTabId === 4 ? getBoardData() : getInquireData();
+    this.getBoardData();
   }
 
   render() {

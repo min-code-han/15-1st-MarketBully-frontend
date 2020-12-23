@@ -9,7 +9,12 @@ import DetailInfo from "./Components/DetailInfo";
 import CustomerReview from "./Components/CustomerReview";
 import ItemInquire from "./Components/ItemInquire";
 import ItemDetailMenu from "./Components/ItemDetailMenu";
-import { ITEM_DETAIL_API, ITEM_DETAIL_MOCK, RELATED_PRODUCT_MOCK } from "../../config";
+import {
+  ITEM_DETAIL_API,
+  RELATED_PRODUCT_API,
+  ITEM_DETAIL_MOCK,
+  RELATED_PRODUCT_MOCK,
+} from "../../config";
 import "./ItemDetail.scss";
 
 const MENU_COMPONENTS = {
@@ -58,25 +63,34 @@ class ItemDetail extends Component {
     this.setState({ itemData: result.itemInfo });
   };
 
-  getData = async () => {
-    const id = this.props.match.params?.id;
-    const response = await fetch(`${ITEM_DETAIL_API}/${id}`);
-    const result = await response.json();
-    this.setState({ itemData: result.product_detail });
+  getItemData = async () => {
+    try {
+      const id = this.props.match.params?.id;
+      const response = await fetch(`${ITEM_DETAIL_API}/${id}`);
+      const result = await response.json();
+      this.setState({ itemData: result.product_detail });
+    } catch {
+      this.getMockData();
+    }
   };
 
-  getMockRelatedProduct = () => {
-    fetch(RELATED_PRODUCT_MOCK)
-      .then(res => res.json())
-      .then(res => this.setState({ relatedProduct: res.data }));
+  getRelatedProduct = async () => {
+    try {
+      const response = await fetch(RELATED_PRODUCT_API + `relatedProduct/loveu`);
+      // const data = await response.json();
+      // this.setState({ relatedProduct: data.data });
+    } catch {
+      console.log("catch");
+      const response = await fetch("data/itemdata.json");
+      const data = await response.json();
+      console.log("data", data.data);
+      this.setState({ relatedProduct: data.data });
+    }
   };
 
   componentDidMount() {
-    /* 아래 실제 데이터와 목데이터 중 하나 선택 */
-    this.getMockData();
-    //this.getData();
-
-    this.getMockRelatedProduct();
+    this.getItemData();
+    this.getRelatedProduct();
   }
 
   render() {

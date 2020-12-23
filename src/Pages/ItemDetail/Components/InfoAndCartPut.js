@@ -21,17 +21,20 @@ class InfoAndCartPut extends Component {
   };
 
   addToCart = async () => {
-    const { itemData, quantity } = this.state;
-    const response = await fetch(CART_API, {
-      method: "POST",
-      body: {
-        product_id: itemData.id,
-        quantity: quantity,
-      },
-    });
-    const result = await response.json();
-    await console.log(result);
-    alert("장바구니 추가 완료");
+    try {
+      const { itemData, quantity } = this.state;
+      const response = await fetch(CART_API, {
+        method: "POST",
+        body: {
+          product_id: itemData.id,
+          quantity: quantity,
+        },
+      });
+      const result = await response.json();
+      alert("장바구니 추가 완료", result.MESSAGE);
+    } catch {
+      alert("장바구니 추가 실패.");
+    }
   };
 
   handleQuantity = e => {
@@ -47,7 +50,7 @@ class InfoAndCartPut extends Component {
   render() {
     const { quantity } = this.state;
     const { itemData } = this.props;
-    const { addToCart } = this;
+    const { addToCart, handleQuantity } = this;
     const { price, discount_percentage, image_url, name, subtitle } = this.props.itemData;
     const mileagePercentage = 0.005;
 
@@ -72,11 +75,11 @@ class InfoAndCartPut extends Component {
                 <span>{discountedPrice.toLocaleString()}</span>
                 <div className="unit">원</div>
                 <span className="sale-percentage">
-                  {!(discount_percentage === 0) && `${discount_percentage * 100}%`}
+                  {discount_percentage !== 0 && `${discount_percentage * 100}%`}
                 </span>
               </div>
               <span className="nosale-price">
-                {!(discount_percentage === 0) && (
+                {discount_percentage !== 0 && (
                   <>
                     <span className="price">{price.toLocaleString()}원</span>
                     <i className="far fa-question-circle"></i>
@@ -87,7 +90,7 @@ class InfoAndCartPut extends Component {
             <div className="point-guide">
               <span className="member-class">일반 0.5%</span>
               <span className="point-save">
-                {`개당 ${Math.ceil(discountedPrice * 0.005).toLocaleString()}원 적립`}
+                {`개당 ${Math.ceil(discountedPrice * mileagePercentage).toLocaleString()}원 적립`}
               </span>
             </div>
             <ul className="item-info-list">
@@ -96,17 +99,17 @@ class InfoAndCartPut extends Component {
                 return (
                   <li key={data[0]}>
                     <p className="title">{INFO_TITLE[data[0]]}</p>
-                    <p className="content">{data[1]}</p>
+                    <p className="content">{data[0] === "weight" ? `${+data[1]}g` : data[1]}</p>
                   </li>
                 );
               })}
               <li className="buy-quantity">
                 <span className="title">구매수량</span>
-                <button className="subtract" onClick={this.handleQuantity}>
+                <button className="subtract" onClick={handleQuantity}>
                   -
                 </button>
-                <input value={this.state.quantity} disabled />
-                <button className="add" onClick={this.handleQuantity}>
+                <input value={quantity} disabled />
+                <button className="add" onClick={handleQuantity}>
                   +
                 </button>
               </li>

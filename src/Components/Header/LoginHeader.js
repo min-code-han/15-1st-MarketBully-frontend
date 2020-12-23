@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./LoginHeader.scss";
-
+import NotLoginHeader from "./NotLoginHeader";
 class LoginHeader extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +11,10 @@ class LoginHeader extends Component {
     };
   }
 
+  Logout = () => {
+    localStorage.removeItem("token");
+    this.props.handleLoginChanged();
+  };
   onMouseHover = () => {
     this.setState({ infoHover: !this.state.infoHover });
   };
@@ -42,7 +46,7 @@ class LoginHeader extends Component {
                     <li>적립금</li>
                     <li>쿠폰</li>
                     <li>개인 정보 수정</li>
-                    <li>로그아웃</li>
+                    <li onClick={this.Logout}>로그아웃</li>
                   </ul>
                 </div>
               ) : null}
@@ -77,4 +81,4 @@ class LoginHeader extends Component {
   }
 }
 
-export default LoginHeader;
+export default withRouter(LoginHeader);

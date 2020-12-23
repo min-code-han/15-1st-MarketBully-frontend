@@ -16,7 +16,7 @@ class Login extends React.Component {
 
   Signin = e => {
     e.preventDefault();
-    console.log("dadsa");
+
     fetch("http://10.168.2.91:8000/user/signin", {
       method: "POST",
       body: JSON.stringify({
@@ -29,6 +29,7 @@ class Login extends React.Component {
         console.log(res);
         if (res.ACCESS_TOKEN) {
           alert("LOGIN SUCESS HYUN-JOO ❤️ MINA");
+          localStorage.setItem("token", res.ACCESS_TOKEN);
         } else {
           const { account, password } = this.state;
 

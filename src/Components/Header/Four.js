@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-export default class Third extends Component {
+import { withRouter } from "react-router-dom";
+class Third extends Component {
+  gotoDetail = () => {
+    this.props.history.push("/ItemList");
+  };
+
   render() {
     const { categoryAll } = this.props;
     const categorySub = categoryAll && categoryAll.subcategories.map(e => e.name);
@@ -11,7 +15,7 @@ export default class Third extends Component {
         <div>
           <ul>
             {categorySub22?.map((subcategoryName, index) => {
-              return <li>{subcategoryName}</li>;
+              return <li onClick={this.gotoDetail}>{subcategoryName}</li>;
             })}
           </ul>{" "}
         </div>
@@ -19,3 +23,4 @@ export default class Third extends Component {
     );
   }
 }
+export default withRouter(Third);

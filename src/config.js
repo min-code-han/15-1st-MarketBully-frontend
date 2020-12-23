@@ -9,7 +9,7 @@ export const INQUIRE_MOCK = "data/inquire.json";
 /*----------------------------------------------------------------
   실제 API 주소
 ----------------------------------------------------------------*/
-export const REVIEW_BOARD_API = "http://호스트/reviewboard";
+export const REVIEW_BOARD_API = "/board/review/page"; // review/board/32?limit=7&offset=7
 export const INQUIRY_BOARD_API = "http://호스트/inquiryboard";
 export const CART_API = "http://호스트/order/carts";
 export const ITEM_DETAIL_API = "http://호스트/product";

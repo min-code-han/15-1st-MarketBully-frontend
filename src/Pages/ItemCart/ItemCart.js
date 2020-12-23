@@ -6,33 +6,28 @@ import "./ItemCart.scss";
 
 const FREE_DELIVERY_THRESHOLD = 40000;
 const DELIVERY_FEE = 3000;
-class ItemCart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cartData: [],
-      packingType: [
-        {
-          nameEng: "frozen",
-          nameKor: "냉동 상품",
-          show: true,
-        },
-        {
-          nameEng: "cold",
-          nameKor: "냉장 상품",
-          show: true,
-        },
-        {
-          nameEng: "room",
-          nameKor: "상온 상품",
-          show: true,
-        },
-      ],
-    };
-  }
+const PACKING_TYPE = [
+  {
+    nameEng: "frozen",
+    nameKor: "냉동 상품",
+    show: true,
+  },
+  {
+    nameEng: "cold",
+    nameKor: "냉장 상품",
+    show: true,
+  },
+  {
+    nameEng: "room",
+    nameKor: "상온 상품",
+    show: true,
+  },
+];
 
-  formatPrice = price => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+class ItemCart extends Component {
+  state = {
+    cartData: [],
+    packingType: PACKING_TYPE,
   };
 
   discountedPrice = ({ price, discount_rate, quantity }) => {
@@ -163,7 +158,17 @@ class ItemCart extends Component {
 
   render() {
     const { cartData, packingType } = this.state;
-    const { formatPrice, discountedPrice } = this;
+    const {
+      discountedPrice,
+      clickOrder,
+      selectAll,
+      deleteSelected,
+      clickShowButton,
+      selectItem,
+      subtractItem,
+      addItem,
+      deleteItem,
+    } = this;
     const selectedAll = cartData.reduce((result, item) => (result = result && item.selected), true);
     const selectedItems = cartData.filter(item => item.selected);
     const totalPrice = Math.floor(
@@ -183,33 +188,28 @@ class ItemCart extends Component {
               <div className="top-select-box">
                 <i
                   className={`fa-check-circle ${selectedAll ? "fas purple" : "far"}`}
-                  onClick={this.selectAll}
+                  onClick={selectAll}
                 />
                 <button>전체선택</button>
-                <button onClick={this.deleteSelected}>선택삭제</button>
+                <button onClick={deleteSelected}>선택삭제</button>
               </div>
               <div className="cart">
                 <div className="items-in-cart">
                   {packingType.map((type, idx) => {
                     return (
                       <ul key={idx}>
-                        <CartTitleCard
-                          key={idx}
-                          type={type}
-                          clickShowButton={this.clickShowButton}
-                        />
+                        <CartTitleCard key={idx} type={type} clickShowButton={clickShowButton} />
                         {cartData.map(item => {
                           return (
                             <CartItemCard
                               key={item.id}
                               type={type}
                               item={item}
-                              selectItem={this.selectItem}
-                              subtractItem={this.subtractItem}
-                              addItem={this.addItem}
-                              deleteItem={this.deleteItem}
-                              discountedPrice={this.discountedPrice}
-                              formatPrice={formatPrice}
+                              selectItem={selectItem}
+                              subtractItem={subtractItem}
+                              addItem={addItem}
+                              deleteItem={deleteItem}
+                              discountedPrice={discountedPrice}
                             />
                           );
                         })}
@@ -241,41 +241,44 @@ class ItemCart extends Component {
                   <tbody>
                     <tr>
                       <th>상품금액</th>
-                      <td>{formatPrice(totalPrice)}원</td>
+                      <td>{totalPrice.toLocaleString()}원</td>
                     </tr>
                     <tr>
                       <th>상품할인금액</th>
-                      <td>-{formatPrice(totalPrice - discountedTotalPrice)}원</td>
+                      <td>-{(totalPrice - discountedTotalPrice).toLocaleString()}원</td>
                     </tr>
                     <tr>
                       <th>배송비</th>
-                      <td>{freeDelivery ? "0원" : `+${formatPrice(DELIVERY_FEE)}원`}</td>
+                      <td>{freeDelivery ? "0원" : `+${DELIVERY_FEE.toLocaleString()}원`}</td>
                     </tr>
                     <tr>
                       <td colSpan={2} className="free-deliver-guide">
                         {freeDelivery
                           ? "무료 배송"
-                          : `${formatPrice(
+                          : `${(
                               FREE_DELIVERY_THRESHOLD - discountedTotalPrice
-                            )}원 추가주문 시, 무료배송`}
+                            ).toLocaleString()}원 추가주문 시, 무료배송`}
                       </td>
                     </tr>
                     <tr className="final-price">
                       <th>결제예정금액</th>
                       <td>
-                        {formatPrice(discountedTotalPrice + (freeDelivery ? 0 : DELIVERY_FEE))}원
+                        {(
+                          discountedTotalPrice + (freeDelivery ? 0 : DELIVERY_FEE)
+                        ).toLocaleString()}
+                        원
                       </td>
                     </tr>
                     <tr>
                       <td colSpan={2} className="point-guide">
                         <span className="mileage-box">적립</span>구매 시
-                        {formatPrice(Math.floor(discountedTotalPrice * 0.005))}원 적립
+                        {Math.floor(discountedTotalPrice * 0.005).toLocaleString()}원 적립
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <button onClick={this.clickOrder}>주문하기</button>
+              <button onClick={clickOrder}>주문하기</button>
 
               <ul className="notice">
                 <li>· 쿠폰/적립금은 주문서에서 사용 가능합니다.</li>

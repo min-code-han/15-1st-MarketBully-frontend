@@ -7,8 +7,8 @@ const BOARD_NAME = {
   5: "Inquire",
 };
 
-const LIMIT_PER_PAGE = 7;
-const PAGES_NUM = 5;
+const LIMIT_PER_PAGE = 4;
+const PAGES_NUM = 3;
 const INITIAL_PAGES = Array.from({ length: PAGES_NUM }, (_, i) => i + 1);
 
 class Board extends Component {
@@ -21,7 +21,7 @@ class Board extends Component {
 
   postArticle = async () => {
     /* 보드 종류별로 다른 API에 저장해야 한다. */
-    const response = await fetch(REVIEW_BOARD_API);
+    const response = await fetch(`http://HOST/review/board/1`);
     const result = await response.json();
     await console.log(result);
   };
@@ -37,7 +37,7 @@ class Board extends Component {
   };
 
   clickPage = e => {
-    this.getReviewData(e.target.id - 1);
+    this.getBoardData(e.target.id - 1);
     this.setState({ currentPage: +e.target.id });
   };
 
@@ -93,18 +93,25 @@ class Board extends Component {
 
   getBoardData = async (page = "") => {
     const BOARD_API = this.props.menuTabID === 4 ? REVIEW_BOARD_API : INQUIRY_BOARD_API;
-    console.log(`http://HOST?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`);
+    console.log(
+      `http://10.168.2.97:8000/board/review/page/1?limit=${LIMIT_PER_PAGE}&offset=${
+        page * LIMIT_PER_PAGE
+      }`
+    );
     const response = await fetch(
-      `http://HOST?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
+      `http://10.168.2.97:8000/board/review/page/1?limit=${LIMIT_PER_PAGE}&offset=${
+        page * LIMIT_PER_PAGE
+      }`
     );
     const data = await response.json();
-    this.setState({ boardData: data.data });
+    this.setState({ boardData: data.review_list });
+    console.log(data);
   };
 
   componentDidMount() {
     const { menuTabId } = this.props;
-    const { getReviewData, getInquireData } = this;
-    menuTabId === 4 ? getReviewData() : getInquireData();
+    const { getReviewData, getBoardData, getInquireData } = this;
+    menuTabId === 4 ? getBoardData() : getInquireData();
   }
 
   render() {
@@ -136,7 +143,7 @@ class Board extends Component {
           </thead>
 
           {boardData.map(review => {
-            const { id, title, writer, date, like, lookup, show, content } = review;
+            const { id, title, writer, date, like, lookup, show, contents } = review;
             return (
               <tbody key={id}>
                 <tr>
@@ -151,7 +158,7 @@ class Board extends Component {
                 </tr>
                 <tr>
                   <td colSpan="6" className={`content ${show ? "show" : ""}`}>
-                    {show ? content : ""}
+                    {show ? contents : ""}
                   </td>
                 </tr>
               </tbody>

@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "돼지고기",
+      "filterName": "meat"
+    },
+    {
+      "id": 2,
+      "name": "소고기",
+      "filterName": "meat"
+    },
+    {
+      "id": 3,
+      "name": "양고기",
+      "filterName": "sss"
+    },
+    {
+      "id": 4,
+      "name": "계란",
+      "filterName": "sss"
+    }
+  ]
+}

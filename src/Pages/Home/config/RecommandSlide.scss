@@ -1,0 +1,87 @@
+.goods {
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 2rem;
+  .goods__header {
+    display: flex;
+    justify-content: center;
+    padding: 79px 0 35px;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .goods__container {
+    width: 1050px;
+    margin: 0 auto;
+    &:hover .slick-next,
+    &:hover .slick-prev {
+      opacity: 1 !important;
+    }
+
+    .slick-initialized {
+      width: inherit;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+      font-size: 52px;
+      color: #000000;
+      display: none;
+    }
+    .slick-prev {
+      background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png");
+      padding: 5%;
+      transform: rotate(180deg);
+      background-repeat: no-repeat;
+      left: -7% !important;
+      top: 22% !important;
+      z-index: 1;
+      transition: all 0.4s !important;
+      opacity: 0 !important;
+    }
+
+    .slick-next {
+      background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png");
+      padding: 5%;
+      background-repeat: no-repeat;
+      right: -6% !important;
+      top: 40% !important;
+      z-index: 1;
+      transition: all 0.4s !important;
+      opacity: 0 !important;
+    }
+    img {
+      width: 250px;
+      height: 370px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .recommand__container {
+      height: 506px;
+      overflow: hidden;
+    }
+
+    .recommand__desc {
+      margin-top: 5px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      font-weight: 700;
+      color: #000000;
+    }
+    .recommand__desc {
+      & .savePrice {
+        text-decoration: line-through;
+        color: #dbdbdb;
+      }
+      .recommand__link {
+        text-decoration: none;
+        color: #000000;
+
+        & span {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

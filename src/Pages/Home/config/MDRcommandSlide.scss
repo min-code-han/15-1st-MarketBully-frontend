@@ -1,0 +1,107 @@
+.mdRcommandContainer {
+  margin-bottom: 8rem;
+  display: flex;
+  flex-direction: column;
+  .mdRcommandHader {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+  }
+  .mdRcommandMenu {
+    width: 1050px;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 6rem;
+    .mdRcommandBtn {
+      padding: 10px 14px;
+      border-radius: 15px;
+      outline: none;
+      border: none;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+    .mdRcommandBtn:hover {
+      color: #5f0080;
+    }
+  }
+  .RcommandSlideContainer {
+    width: 1050px;
+    margin: 0 auto;
+    .slick-initialized {
+      width: inherit;
+    }
+
+    .slider:not(.slick-initialized) .slide:not(:first-of-type) {
+      display: none;
+    }
+    .slick-prev:before,
+    .slick-next:before {
+      font-size: 52px;
+      color: #000000;
+      display: none;
+    }
+    .slick-prev {
+      background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png");
+      padding: 5%;
+      transform: rotate(180deg);
+      background-repeat: no-repeat;
+      left: -7% !important;
+      top: 20% !important;
+
+      z-index: 1;
+    }
+
+    .slick-next {
+      background: url("https://res.kurly.com/pc/service/main/1908/btn_next_default.png");
+      padding: 5%;
+      background-repeat: no-repeat;
+      right: -6% !important;
+      top: calc(90px + 20%) !important;
+      z-index: 1;
+    }
+
+    .MDRcommanCard {
+      width: 250px;
+      height: 500px;
+
+      .MDLink {
+        display: block;
+        width: 250px;
+        text-decoration: none;
+        img {
+          width: 100%;
+          height: 320px;
+          object-fit: cover;
+          border-radius: 12px;
+        }
+      }
+      .recommand__desc {
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: flex-start;
+        padding: 5px;
+        line-height: 20px;
+        letter-spacing: 1.2px;
+        height: calc(100% - 320px);
+        a {
+          text-decoration: none;
+          color: #000000;
+          p {
+            padding-top: 5px;
+            &:nth-child(1) {
+              margin-bottom: 2px;
+            }
+          }
+        }
+        .save {
+          text-decoration: line-through;
+          color: #dbdbdb;
+        }
+      }
+    }
+  }
+}

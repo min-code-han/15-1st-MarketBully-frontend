@@ -1,0 +1,99 @@
+@import "../../../Styles/common.scss";
+.year__end__container {
+  padding-top: 5rem;
+  height: 608px;
+  width: $main-width;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  .year__end__left {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50%;
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: rgb(95, 0, 128);
+      position: relative;
+    }
+    h2::after {
+      position: absolute;
+      content: "ㅡ";
+      left: 0;
+      top: 40px;
+    }
+
+    span:nth-child(2) {
+      margin-top: 20px;
+      font-weight: 600;
+    }
+    span:last-child::before {
+      font-family: "Font Awesome\ 5 Free";
+      content: "\f017";
+      margin-right: 5px;
+    }
+    span:last-child {
+      margin-top: 30px;
+      opacity: 0.4;
+    }
+  }
+
+  .yaer__end__right {
+    width: 694px;
+    .year__end__image {
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 338px;
+        object-fit: cover;
+        transition: all 0.4s;
+      }
+      img:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .year__desc {
+      height: 100px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      > span:first-child {
+        font-weight: 700;
+        font-size: 18px;
+      }
+      span:nth-child(2) {
+        font-size: 18px;
+      }
+      > span:nth-child(3) {
+        font-size: 22px;
+      }
+      .yaer__price {
+        display: flex;
+        align-items: center;
+        position: relative;
+        span:nth-child(1) {
+          font-size: 24px;
+        }
+        span:nth-child(2) {
+          margin-left: 10px;
+          color: #dbdbdb;
+          text-decoration: line-through;
+        }
+        span:last-child {
+          color: rgb(95, 0, 128);
+          font-weight: 700;
+          font-size: 32px;
+          bottom: 1px;
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+  }
+}

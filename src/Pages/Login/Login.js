@@ -1,5 +1,6 @@
 import React from "react";
 import "./Login.scss";
+import { Link } from "react-router-dom";
 
 class Login extends React.Component {
   constructor(props) {
@@ -28,6 +29,8 @@ class Login extends React.Component {
       .then(res => {
         console.log(res);
         if (res.ACCESS_TOKEN) {
+          alert("LOGIN SUCESS HYUN-JOO ❤️ MINA");
+          localStorage.setItem("token", res.ACCESS_TOKEN);
           alert("LOGIN SUCCESS");
           localStorage.setItem("token", res.ACCESS_TOKEN);
           this.props.history.push("/Home");
@@ -95,7 +98,9 @@ class Login extends React.Component {
               <button className="login box" onClick={this.Signin}>
                 로그인
               </button>
-              <div className="login-to-assign">회원가입</div>
+              <Link to="/Signup" className="login-to-assign">
+                회원가입
+              </Link>
             </form>
           </div>
         </div>

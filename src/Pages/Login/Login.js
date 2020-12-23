@@ -28,13 +28,12 @@ class Login extends React.Component {
       .then(res => {
         console.log(res);
         if (res.ACCESS_TOKEN) {
-          alert("LOGIN SUCESS HYUN-JOO ❤️ MINA");
+          alert("LOGIN SUCESS");
         } else {
           const { account, password } = this.state;
 
-          const num = /^[0-9]{1,}$/; //숫자 하나 이상
           const txt = /^[A-Za-z]{6,}$/; // 알파벳 6자이상 !!!
-          const emoji = /^[!@#$%^&*()_+]{1,}$/; //특수문자 하나이상
+
           const numtxt6 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/; // 영문 + 숫자 합쳐서 6개 이상 !!!
 
           const numtxt10 = /^(?=.*[0-9])(?=.*[a-zA-Z]).{10,}$/; // 영문 + 숫자 합쳐서 10개 이상 !!!

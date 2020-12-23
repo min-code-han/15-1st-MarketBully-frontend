@@ -19,27 +19,28 @@ class Signup extends Component {
       name: "",
       email: "",
       phoneNumber: "",
+      adress: "",
       gender: "",
       recommend: "",
       year: "",
       month: "",
       day: "",
+      birthDate: "",
       agree: [false, false, false, false, false, false, false],
     };
   }
 
   signIn = () => {
+    console.log("왜!");
     const {
       account,
       password,
       name,
       email,
       phoneNumber,
+      adress,
       gender,
       recommend,
-      year,
-      month,
-      day,
       agree,
     } = this.state;
 
@@ -49,20 +50,20 @@ class Signup extends Component {
         account: account,
         password: password,
         name: name,
-        email: email, // 중복확인 안되면 회원가입 노노
+        email: email,
         phone_number: phoneNumber,
+        adress: adress,
         gender: gender,
-        recommender: recommend, //추천인 인풋벨류
-        birth_date: year - month - day,
+        recommender: recommend,
         privacy_policy_agreement: agree,
-        //adress
       }),
     })
       .then(res => res.json())
       .then(res => {
-        if (res.message === "SUCCESS") {
+        if (res.messege === "SUCCESS") {
           alert("성공!");
-          this.props.history.push("/login");
+        } else {
+          alert("제발");
         }
       });
   };
@@ -181,15 +182,6 @@ class Signup extends Component {
       selectEventMsg[3] = false;
     }
     this.setState({ agree: selectEventMsg });
-  };
-
-  searchAdress = () => {
-    new daum.Postcode({
-      oncomplete: function (data) {
-        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-        // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-      },
-    }).open();
   };
 
   render() {
@@ -320,9 +312,13 @@ class Signup extends Component {
                   주소<i className="sub">*</i>
                 </th>
                 <td>
-                  <button className="big-btn" onClick={this.searchAdress}>
-                    <i class="fas fa-search"></i>주소검색
-                  </button>
+                  <input
+                    id="adress"
+                    className="inputbox-commonstyle"
+                    type="text"
+                    placeholder="주소를 입력해주세요"
+                    onChange={this.getValue}
+                  />
                   <p className="guide">
                     <span>배송지에 따라 상품 정보가 달라질 수 있습니다.</span>
                   </p>
@@ -395,9 +391,11 @@ class Signup extends Component {
 
                   <div className="joinevent">
                     <input
+                      id="recommend"
                       type="text"
                       placeholder="참여 이벤트명을 입력해주세요"
                       className="inputbox-commonstyle mt-24"
+                      onChange={this.getValue}
                     />
                     <div className="event-txt">
                       <p className="guide">

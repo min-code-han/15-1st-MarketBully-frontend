@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import First from "./First";
 import Second from "./Second";
 import Third from "./Third";
@@ -75,6 +75,10 @@ class NavBar extends Component {
       });
     }
   };
+  gotoCart = () => {
+    this.props.history.push("/ItemCart");
+  };
+
   render() {
     const { categoryAll } = this.state;
 
@@ -127,7 +131,7 @@ class NavBar extends Component {
         <div className="gnb__search">
           <input />
         </div>
-        <div className="gnb__cart">
+        <div className="gnb__cart" onClick={this.gotoCart}>
           <img src="https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png"></img>
         </div>
 
@@ -163,4 +167,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default withRouter(NavBar);

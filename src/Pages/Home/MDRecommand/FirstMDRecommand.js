@@ -10,7 +10,6 @@ class FirstMDRecommand extends Component {
 
   goToDetail = e => {
     this.props.history.push(`/ItemDetail/${e.currentTarget.id}`);
-    console.log("아이디 :", e.currentTarget.id);
   };
 
   render() {
@@ -20,6 +19,7 @@ class FirstMDRecommand extends Component {
       slidesToShow: 4,
       slidesToScroll: 4,
     };
+
     const { filtering } = this.props;
     console.log(filtering);
     return (
@@ -33,13 +33,15 @@ class FirstMDRecommand extends Component {
                   <img src={data.image_url} alt={data.subcategory_name}></img>
                 </Link>
                 <div className="recommand__desc">
-                  <Link className="recommand__link" to="/">
+                  <Link className="recommand__link">
                     <p>{data.name}</p>
                   </Link>
-                  <p>{data.price}</p>
-                  <p>{data.discount_percentage}</p>
-
-                  <span className="savePrice">{data.savePrice}</span>
+                  <span>{Math.floor(data.price).toLocaleString("en")}</span>
+                  <span className="save">
+                    {Math.floor(data.price - data.price * data.discount_percentage).toLocaleString(
+                      "en"
+                    )}
+                  </span>
                 </div>
               </div>
             );

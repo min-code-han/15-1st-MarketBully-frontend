@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 import "../config/MDRcommandSlide.scss";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 class SecondMDRecommand extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+  goToDetail = e => {
+    this.props.history.push(`/ItemDetail/${e.currentTarget.id}`);
+  };
   render() {
     const settings = {
       infinite: false,
@@ -22,17 +25,20 @@ class SecondMDRecommand extends Component {
         <Slider {...settings}>
           {filtering?.map(data => {
             return (
-              <div className="MDRcommanCard">
-                <Link className="MDLink" to="/">
+              <div key={data.id} id={data.id} className="MDRcommanCard" onClick={this.goToDetail}>
+                <Link className="MDLink">
                   <img src={data.image_url} alt={data.subcategory_name}></img>
                 </Link>
                 <div className="recommand__desc">
-                  <Link className="recommand__link" to="/">
+                  <Link className="recommand__link">
                     <p>{data.name}</p>
                   </Link>
-                  <span>{Math.floor(data.price)}</span>
-                  <p>{data.discount_percentage}</p>
-                  <span className="savePrice">{data.savePrice}</span>
+                  <span>{Math.floor(data.price).toLocaleString("en")}</span>
+                  <span className="save">
+                    {Math.floor(data.price - data.price * data.discount_percentage).toLocaleString(
+                      "en"
+                    )}
+                  </span>
                 </div>
               </div>
             );
@@ -43,4 +49,4 @@ class SecondMDRecommand extends Component {
   }
 }
 
-export default SecondMDRecommand;
+export default withRouter(SecondMDRecommand);

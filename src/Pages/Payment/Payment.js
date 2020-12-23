@@ -5,15 +5,11 @@ const FREE_DELIVERY_THRESHOLD = 40000;
 const DELIVERY_FEE = 3000;
 const MILEAGE_PERCENTAGE = 0.005;
 class Payment extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      cartData: [],
-      payType: "",
-      agreeTerms: false,
-    };
-  }
+  state = {
+    cartData: [],
+    payType: "",
+    agreeTerms: false,
+  };
 
   formatPrice = price => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -41,7 +37,7 @@ class Payment extends Component {
   };
 
   getMockData = async () => {
-    const response = await fetch("data/cartdata.json");
+    const response = await fetch("http://10.168.2.97:8000/order/cart");
     const data = await response.json();
     const selectedItems = data.items_in_cart.filter(item => item.selected);
 
@@ -52,8 +48,17 @@ class Payment extends Component {
       : alert("장바구니 불러오기 실패!");
   };
 
+  getData = async () => {
+    const response = await fetch("/data/cartdata.json");
+    const data = await response.json();
+    const selectedItems = data.items_in_cart.filter(item => item.selected);
+
+    this.setState({ cartData: selectedItems });
+  };
+
   componentDidMount() {
     this.getMockData();
+    //this.getData();
   }
 
   render() {
@@ -93,12 +98,12 @@ class Payment extends Component {
                       </td>
                       <td className="item-info">
                         <span className="name">{item.name}</span>
-                        <span>{`${item.quantity}개 / 개 당 ${formatPrice(
-                          priceEach(item)
-                        )}원`}</span>
+                        <span>{`${item.quantity}개 / 개 당 ${priceEach(
+                          item
+                        ).toLocaleString()}원`}</span>
                       </td>
                       <td className="price">
-                        <span>{`${formatPrice(itemPrice(item))} 원`}</span>
+                        <span>{`${itemPrice(item).toLocaleString()} 원`}</span>
                       </td>
                     </tr>
                   );
@@ -225,38 +230,40 @@ class Payment extends Component {
                       <tbody>
                         <tr>
                           <th>상품금액</th>
-                          <td>{`${formatPrice(totalPrice)} 원`}</td>
+                          <td>{`${totalPrice.toLocaleString()} 원`}</td>
                         </tr>
                         <tr>
                           <th>상품할인금액</th>
-                          <td>{`- ${formatPrice(totalPrice - discountedTotalPrice)} 원`}</td>
+                          <td>{`- ${(totalPrice - discountedTotalPrice).toLocaleString()} 원`}</td>
                         </tr>
                         <tr>
                           <th>배송비</th>
-                          <td>{freeDelivery ? "0원" : `+${formatPrice(DELIVERY_FEE)}원`}</td>
+                          <td>{freeDelivery ? "0원" : `+${DELIVERY_FEE.toLocaleString()}원`}</td>
                         </tr>
                         <tr>
                           <td colSpan={2} className="free-deliver-guide">
                             {freeDelivery
                               ? "무료 배송"
-                              : `${formatPrice(
+                              : `${(
                                   FREE_DELIVERY_THRESHOLD - discountedTotalPrice
-                                )}원 추가주문 시, 무료배송`}
+                                ).toLocaleString()}원 추가주문 시, 무료배송`}
                           </td>
                         </tr>
                         <tr className="final-price">
                           <th>결제예정금액</th>
                           <td>
-                            {formatPrice(discountedTotalPrice + (freeDelivery ? 0 : DELIVERY_FEE))}
+                            {(
+                              discountedTotalPrice + (freeDelivery ? 0 : DELIVERY_FEE)
+                            ).toLocaleString()}
                             원
                           </td>
                         </tr>
                         <tr>
                           <td colSpan={2} className="point-guide">
                             <span className="mileage-box">적립</span>
-                            {`구매 시 ${formatPrice(
-                              Math.floor(discountedTotalPrice * MILEAGE_PERCENTAGE)
-                            )} 원 적립 (${MILEAGE_PERCENTAGE * 100}%)`}
+                            {`구매 시 ${Math.floor(
+                              discountedTotalPrice * MILEAGE_PERCENTAGE
+                            ).toLocaleString()} 원 적립 (${MILEAGE_PERCENTAGE * 100}%)`}
                           </td>
                         </tr>
                       </tbody>

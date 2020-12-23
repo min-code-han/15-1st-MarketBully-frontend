@@ -2,6 +2,8 @@
 import React, { Component } from "react";
 import CartTitleCard from "./Components/CartTitleCard";
 import CartItemCard from "./Components/CartItemCard";
+import { CART_API } from "../../config";
+import { fetchWithTimeout } from "../../utils";
 import "./ItemCart.scss";
 
 const FREE_DELIVERY_THRESHOLD = 40000;
@@ -48,14 +50,23 @@ class ItemCart extends Component {
     this.setState({ cartData: cartData });
   };
 
-  selectItem = e => {
-    const { cartData } = this.state;
+  selectItem = async e => {
     const id = e.target.id;
-    cartData.map(item => {
-      if (+id === item.id) item.selected = !item.selected;
-      return item;
+    const className = e.target.className;
+
+    if (className === "fa-check-circle fas purple") console.log("지금은 보라색입니다.");
+
+    const response = await fetch(`http://10.168.2.97:8000${CART_API}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        cart_item_id: id,
+        select: className === "fa-check-circle fas purple" ? "False" : "True",
+      }),
     });
-    this.setState({ cartData: cartData });
+    const data = await response.json();
+    await console.log(data);
+
+    this.getCartData();
   };
 
   clickShowButton = e => {
@@ -69,7 +80,7 @@ class ItemCart extends Component {
   };
 
   deleteItem = e => {
-    fetch("http://10.168.1.160:8000/order/cart", {
+    fetch("http://10.168.2.97:8000/order/cart", {
       method: "DELETE",
       body: JSON.stringify({
         cart_item_id: e.target.id,
@@ -77,7 +88,7 @@ class ItemCart extends Component {
     })
       .then(res => res.status)
       .then(status => {
-        status === 204 ? this.getData() : alert("상품 삭제를 실패하였습니다.");
+        status === 204 ? this.getCartData() : alert("상품 삭제를 실패하였습니다.");
       });
   };
 
@@ -86,7 +97,7 @@ class ItemCart extends Component {
     const itemsToDelete = cartData.filter(item => item.selected);
     const idsToDelete = itemsToDelete.map(item => item.id);
     for (let idx in idsToDelete) {
-      const response = await fetch("http://10.168.1.160:8000/order/cart", {
+      const response = await fetch("http://10.168.2.97:8000/order/cart", {
         method: "DELETE",
         body: JSON.stringify({
           cart_item_id: idsToDelete[idx],
@@ -98,12 +109,12 @@ class ItemCart extends Component {
           : console.log("상품 삭제를 실패하였습니다.");
       await console.log(status);
     }
-    const response = await this.getData();
+    const response = await this.getCartData();
     console.log(response);
   };
 
   addItem = e => {
-    fetch("http://10.168.1.160:8000/order/cart", {
+    fetch("http://10.168.2.97:8000/order/cart", {
       method: "PATCH",
       body: JSON.stringify({
         cart_item_id: e.target.id,
@@ -112,12 +123,12 @@ class ItemCart extends Component {
     })
       .then(res => res.json())
       .then(result => {
-        result.MESSAGE === "SUCCESS" ? this.getData() : console.log("실패!");
+        result.MESSAGE === "SUCCESS" ? this.getCartData() : console.log("실패!");
       });
   };
 
   subtractItem = e => {
-    fetch("http://10.168.1.160:8000/order/cart", {
+    fetch("http://10.168.2.97:8000/order/cart", {
       method: "PATCH",
       body: JSON.stringify({
         cart_item_id: e.target.id,
@@ -126,33 +137,67 @@ class ItemCart extends Component {
     })
       .then(res => res.json())
       .then(result => {
-        result.MESSAGE === "SUCCESS" ? this.getData() : console.log("실패!");
+        result.MESSAGE === "SUCCESS" ? this.getCartData() : console.log("실패!");
       });
   };
 
-  getCartData = async () => {
-    const response = await fetch(`data/cartdata.json`);
-    const data = await response.json();
-    this.setState({ cartData: data.items_in_cart });
+  updateCartSelection = () => {
+    console.log("update Cart Selection");
+    this.state.cartData.forEach(item => {
+      !item.selected &&
+        fetch(`http://10.168.2.97:8000${CART_API}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            cart_item_id: item.id,
+            select: "False",
+          }),
+        })
+          .then(res => res.json())
+          .then(result => console.log(result));
+    });
+    this.state.cartData.forEach(item => {
+      item.selected &&
+        fetch(`http://10.168.2.97:8000${CART_API}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            cart_item_id: item.id,
+            select: "True",
+          }),
+        })
+          .then(res => res.json())
+          .then(result => console.log(result));
+    });
   };
 
-  getData = async () => {
-    // 2020.12.18 오후 3시 20분, 마켓컬리 백엔드와 프론트의 역사적인 만남이 이루어진 코드
-    // 역사적인 첫 API 주소: http://10.168.1.160:8000/order/cart
-    const response = await fetch(`http://10.168.1.160:8000/order/cart`);
-    const data = await response.json();
-    this.setState({ cartData: data.items_in_cart });
+  getCartData = async () => {
+    console.log("get!!!!!");
+    try {
+      const response = await fetch(`http://10.168.2.97:8000/order/cart`);
+      const data = await response.json();
+      this.setState({ cartData: data.items_in_cart });
+      console.log("콘솔!", data.items_in_cart);
+    } catch {
+      const response = await fetch(`data/cartdata.json`);
+      const data = await response.json();
+      let cartData = data.items_in_cart;
+      cartData = cartData.map(data => {
+        data.selected = true;
+        return data;
+      });
+
+      this.setState({ cartData: cartData });
+    }
   };
 
   componentDidMount() {
-    // getCartData()는 mockData사용하는 코드
     this.getCartData();
-    // 실제 서버 통신시 사용할 함수 아래에!
-    // this.getData();
   }
 
   clickOrder = () => {
     /* 결제 페이지로 이동 및 최종 주문 정보 전달 */
+    /******** 백엔드에게 selected 정보 업데이트 하는 코드 작성 필요!!! **********/
+    this.updateCartSelection();
+
     this.props.history.push("/Payment");
   };
 
@@ -190,7 +235,7 @@ class ItemCart extends Component {
                   className={`fa-check-circle ${selectedAll ? "fas purple" : "far"}`}
                   onClick={selectAll}
                 />
-                <button>전체선택</button>
+                <button onClick={selectAll}>전체선택</button>
                 <button onClick={deleteSelected}>선택삭제</button>
               </div>
               <div className="cart">
@@ -221,10 +266,10 @@ class ItemCart extends Component {
               <div className="bottom-select-box">
                 <i
                   className={`fa-check-circle ${selectedAll ? "fas purple" : "far"}`}
-                  onClick={this.selectAll}
+                  onClick={selectAll}
                 />
-                <button>전체선택</button>
-                <button onClick={this.deleteSelected}>선택삭제</button>
+                <button onClick={selectAll}>전체선택</button>
+                <button onClick={deleteSelected}>선택삭제</button>
               </div>
             </div>
             <div className="cart-result">

@@ -23,7 +23,7 @@ class Footer extends Component {
   render() {
     return (
       <footer className="Footer">
-        <img className="logo" src="images/marketbully.png" alt="marketbully logo" />
+        <img className="logo" src="/images/marketbully.png" alt="marketbully logo" />
         <div className="frontend">
           <h2>Frontend Members</h2>
           <ul>

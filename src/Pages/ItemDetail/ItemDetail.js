@@ -15,6 +15,7 @@ import {
   ITEM_DETAIL_MOCK,
   RELATED_PRODUCT_MOCK,
 } from "../../config";
+import { fetchWithTimeout } from "../../utils";
 import "./ItemDetail.scss";
 
 const MENU_COMPONENTS = {
@@ -69,32 +70,39 @@ class ItemDetail extends Component {
       const response = await fetch(`${ITEM_DETAIL_API}/${id}`);
       const result = await response.json();
       this.setState({ itemData: result.product_detail });
+      this.getRelatedProduct(result.product_detail.subcategory_id);
     } catch {
       this.getMockData();
     }
   };
 
-  getRelatedProduct = async () => {
+  getRelatedProduct = async id => {
     try {
-      const response = await fetch(RELATED_PRODUCT_API + `relatedProduct/loveu`);
-      // const data = await response.json();
-      // this.setState({ relatedProduct: data.data });
+      const response = await fetch(`${RELATED_PRODUCT_API}?subcategory=${id}`);
+      const data = await response.json();
+      this.setState({ relatedProduct: data.product_list });
     } catch {
-      console.log("catch");
       const response = await fetch("data/itemdata.json");
       const data = await response.json();
-      console.log("data", data.data);
+
       this.setState({ relatedProduct: data.data });
     }
   };
 
   componentDidMount() {
     this.getItemData();
-    this.getRelatedProduct();
+    //this.getRelatedProduct();
+  }
+
+  componentDidUpdate(prevProps, _) {
+    console.log(prevProps.match.params.id);
+    console.log(this.props.match.params.id);
+    if (prevProps.match.params.id !== this.props.match.params.id) this.getItemData();
   }
 
   render() {
     const { itemData, relatedProduct } = this.state;
+    console.log("채훈 바보");
     return (
       <main className="ItemDetail">
         <div className="main-width">

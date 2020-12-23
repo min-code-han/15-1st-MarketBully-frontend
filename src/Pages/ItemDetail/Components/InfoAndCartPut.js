@@ -12,6 +12,7 @@ const INFO_TITLE = {
   packaging_type: "포장타입",
   expiration_date: "유통기한",
   allergy: "알레르기 정보",
+  notice: "안내사항",
 };
 
 class InfoAndCartPut extends Component {

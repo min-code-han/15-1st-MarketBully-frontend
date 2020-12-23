@@ -7,7 +7,7 @@ class CartTitleCard extends Component {
     return (
       <li className={`CartTitleCard ${type.nameEng}`}>
         <div>
-          <img alt={`${nameEng}`} src={`images/${nameEng}.svg`} />
+          <img alt={`${nameEng}`} src={`/images/${nameEng}.svg`} />
           <h2>{nameKor}</h2>
         </div>
         <i

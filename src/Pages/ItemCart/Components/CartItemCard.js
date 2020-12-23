@@ -44,7 +44,7 @@ class CartItemCard extends Component {
             onClick={deleteItem}
             id={item.id}
             className="delete"
-            src="images/cancel.svg"
+            src="/images/cancel.svg"
             alt="delete"
           />
         </li>

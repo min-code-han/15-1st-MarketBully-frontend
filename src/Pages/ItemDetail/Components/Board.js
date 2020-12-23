@@ -23,11 +23,25 @@ class Board extends Component {
     pages: INITIAL_PAGES,
   };
 
+  fetchWithTimeout = async (resource, options) => {
+    const { timeout = 8000 } = options;
+
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+
+    const response = await fetch(resource, {
+      ...options,
+      signal: controller.signal,
+    });
+    clearTimeout(id);
+
+    return response;
+  };
+
   postArticle = async () => {
     /* 보드 종류별로 다른 API에 저장해야 한다. */
     const response = await fetch(`http://HOST/review/board/1`);
     const result = await response.json();
-    await console.log(result);
   };
 
   showWriteForm = () => {
@@ -75,6 +89,7 @@ class Board extends Component {
   };
 
   openBoardContent = e => {
+    /* 비밀 글은 보지 못하게 하려면 여기서 처리해야 함 */
     const { boardData } = this.state;
     boardData.forEach(data => (data.show = data.id === +e.target.id ? !data.show : false));
     this.setState({ boardData: boardData });
@@ -100,11 +115,9 @@ class Board extends Component {
     const API = API_NAME[boardName];
 
     try {
-      console.log(
-        `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
-      );
-      const response = await fetch(
-        `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
+      const response = await this.fetchWithTimeout(
+        `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`,
+        { timeout: 6000 }
       );
       const data = await response.json();
       this.setState({ boardData: data.review_list });

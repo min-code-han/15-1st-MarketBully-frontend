@@ -103,9 +103,9 @@ class Signup extends Component {
 
   selectGender = e => {
     const GENDER_ID = {
-      man: 0,
-      woman: 1,
-      none: 2,
+      man: 1,
+      woman: 2,
+      none: 3,
     };
 
     this.setState({ gender: GENDER_ID[e.target.id] });

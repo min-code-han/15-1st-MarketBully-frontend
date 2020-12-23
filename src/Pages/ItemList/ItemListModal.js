@@ -9,7 +9,7 @@ class ItemListModal extends Component {
 
   sendInfoToCart = () => {
     this.props.quantities !== 0 &&
-      fetch(" http://10.168.2.97:8000/order/cart", {
+      fetch("http://10.168.2.97:8000/order/cart", {
         method: "POST",
         body: JSON.stringify({
           product_id: this.props.clickedID,

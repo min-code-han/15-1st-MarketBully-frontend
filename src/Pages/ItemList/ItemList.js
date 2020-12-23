@@ -47,6 +47,7 @@ class ItemList extends Component {
 
   componentDidMount() {
     fetch("http://10.168.2.67:8000/product")
+      // fetch(`http://10.168.2.67:8000/product?subcategory=20`)
       .then(res => res.json())
       .then(res => {
         this.setState({

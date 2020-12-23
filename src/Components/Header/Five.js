@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-
-export default class First extends Component {
+export default class Third extends Component {
   render() {
     const { categoryAll } = this.props;
     const categorySub = categoryAll && categoryAll.subcategories.map(e => e.name);
@@ -8,11 +7,13 @@ export default class First extends Component {
 
     return (
       <div>
-        <ul>
-          {categorySub22?.map((subcategoryName, index) => {
-            return <li>{subcategoryName}</li>;
-          })}
-        </ul>{" "}
+        <div>
+          <ul>
+            {categorySub22?.map((subcategoryName, index) => {
+              return <li>{subcategoryName}</li>;
+            })}
+          </ul>{" "}
+        </div>
       </div>
     );
   }

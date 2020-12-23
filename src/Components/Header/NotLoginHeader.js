@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import LoginHeader from "./LoginHeader";
 import "./NotLoginHeader.scss";
+
 class NotLoginHeader extends Component {
   constructor(props) {
     super(props);
@@ -49,4 +51,4 @@ class NotLoginHeader extends Component {
   }
 }
 
-export default NotLoginHeader;
+export default withRouter(NotLoginHeader);

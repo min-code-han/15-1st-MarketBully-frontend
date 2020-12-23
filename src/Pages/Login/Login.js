@@ -28,6 +28,8 @@ class Login extends React.Component {
       .then(res => {
         console.log(res);
         if (res.ACCESS_TOKEN) {
+          alert("LOGIN SUCESS HYUN-JOO ❤️ MINA");
+          localStorage.setItem("token", res.ACCESS_TOKEN);
           alert("LOGIN SUCCESS");
           localStorage.setItem("token", res.ACCESS_TOKEN);
           this.props.history.push("/Home");

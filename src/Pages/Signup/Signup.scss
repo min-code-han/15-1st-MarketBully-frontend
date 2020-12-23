@@ -1,0 +1,304 @@
+@import "../../Styles/common.scss";
+
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Signup {
+  width: 100%;
+  margin: 200px 0;
+  z-index: 0;
+
+  input {
+    margin-right: 12px;
+  }
+
+  i.sub {
+    color: #ee6a7b;
+  }
+  button {
+    border: 1px solid $main-color;
+    background: none;
+    line-height: 44px;
+    border-radius: 3px;
+    color: $main-color;
+    font-weight: 600;
+  }
+  .small-btn {
+    width: 120px;
+  }
+  .gray-btn {
+    width: 120px;
+    border: 1px solid #c7bfbf;
+    color: #c7bfbf;
+  }
+
+  .mt-24 {
+    margin-top: 24px;
+  }
+
+  .big-btn {
+    margin-right: 10px;
+    padding: 0 14px;
+    width: 332px;
+    height: 48px;
+    i {
+      margin-right: 10px;
+    }
+  }
+
+  .guide {
+    display: none;
+    padding-top: 10px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #666;
+
+    .red {
+      color: #b3130b;
+    }
+
+    span {
+      display: block;
+    }
+
+    span.true {
+      color: #0f851a;
+    }
+
+    span.false {
+      color: #b3130b;
+    }
+  }
+
+  .guide.show {
+    display: block;
+  }
+
+  .signup-wrap {
+    margin: 0 auto;
+    margin-top: 64px;
+    width: 640px;
+
+    h1 {
+      font-weight: 900;
+      font-size: 30px;
+      color: #333;
+      text-align: center;
+      line-height: 40px;
+    }
+    h1 + p {
+      padding: 23px 0 10px;
+      border-bottom: 2px solid black;
+      font-size: 12px;
+      color: #666;
+      line-height: 17px;
+      text-align: right;
+    }
+
+    table.info {
+      width: 100%;
+
+      th {
+        width: 159px;
+        padding: 20px 0 0 20px;
+        text-align: left;
+        font-size: 14px;
+        color: black;
+      }
+      td {
+        padding: 19px 0 10px 0;
+
+        .inputbox-commonstyle {
+          margin-right: 10px;
+          padding: 0 14px;
+          width: 332px;
+          height: 48px;
+          border: 1px solid #c7bfbf;
+          border-radius: 3px;
+        }
+        .inputbox-commonstyle::placeholder {
+          color: #c7bfbf;
+        }
+
+        .birth-input-wrap {
+          width: 332px;
+          height: 48px;
+          border: 1px solid #c7bfbf;
+          border-radius: 3px;
+
+          input {
+            width: 25%;
+            height: 100%;
+            border: none;
+            text-align: center;
+          }
+          input::placeholder {
+            color: #c7bfbf;
+          }
+          span {
+            margin: 0 5px;
+            color: #c7bfbf;
+          }
+        }
+      }
+      td.fw-400 label {
+        margin-right: 73px;
+        font-weight: 400;
+        font-size: 14px;
+
+        input {
+          margin-right: 12px;
+        }
+      }
+    }
+
+    .sms {
+      margin-right: 20px;
+    }
+    .under-line {
+      margin: 30px 0 5px 0;
+      width: 100%;
+      height: 1px;
+      background-color: black;
+    }
+  }
+  .agree {
+    width: 100%;
+    border-bottom: 1px solid $light-gray;
+    .purple-txt {
+      color: $main-color;
+    }
+    th {
+      width: 159px;
+      font-size: 14px;
+      text-align: left;
+    }
+    td {
+      padding: 19px 0 10px 0;
+      color: #414141;
+      font-size: 15px;
+
+      label.check-all {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .ageree-check {
+        padding: 9px 0;
+
+        .necessary {
+          color: #999;
+          margin-left: 4px;
+        }
+        .see-more {
+          float: right;
+          .see-more-ico {
+            margin-left: 10px;
+          }
+        }
+        .if-you-agree {
+          font-size: 12px;
+          line-height: 15px;
+          margin-top: 15px;
+
+          .detail {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-left: 1px solid $dark-gray;
+            border-bottom: 1px solid $dark-gray;
+            margin-right: 10px;
+          }
+        }
+        .check-news {
+          padding-top: 14px;
+        }
+      }
+      .ageree-check:last-child {
+        padding-bottom: 26px;
+      }
+    }
+  }
+  .make-account {
+    display: block;
+    margin: 0 auto;
+    margin-top: 40px;
+    width: 240px;
+    height: 56px;
+    font-size: 16px;
+    line-height: 54px;
+    background-color: $main-color;
+    color: #fff;
+  }
+}
+
+.Signup-modal.hide {
+  display: none;
+}
+.Signup-modal.show {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1100;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  .modal-box {
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 490px;
+    height: 300px;
+    text-align: center;
+
+    button {
+      background: none;
+      border: none;
+    }
+
+    .alert {
+      margin: 0 auto;
+      width: 90%;
+      height: 20%;
+      border-bottom: 1px solid $dark-gray;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+        font-size: 16px;
+        font-weight: bold;
+        color: $purple-text-color;
+      }
+    }
+
+    .alert + p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 14px;
+      height: 50%;
+    }
+
+    .modal-btn {
+      height: 30%;
+      background-color: $light-gray;
+      @include center;
+
+      button {
+        width: 150px;
+        height: 45px;
+        background-color: $main-color;
+        border-radius: 5px;
+        color: white;
+      }
+    }
+  }
+}

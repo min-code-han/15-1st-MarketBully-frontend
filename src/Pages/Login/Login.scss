@@ -1,13 +1,17 @@
 @import "../../Styles/common.scss";
 
 .Login {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 500px;
+  margin: 200px 0;
 
   .section-login {
-    width: 340px;
-    margin: 0 auto;
-    margin-top: 90px;
-    margin-bottom: 300px;
+    width: 350px;
+
+    // margin: 0 auto;
+    // margin-top: 90px;
+    // margin-bottom: 300px;
 
     .title {
       font-size: 20px;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ItemListModal from "./ItemListModal";
+
 import ItemCard from "../../Components/ItemCard/ItemCard";
 import "./ItemList.scss";
 
@@ -15,32 +16,63 @@ class ItemList extends Component {
       clickedID: null,
       quantities: 0,
       filteringOption: "추천순",
-      categories: [],
+      categories: [
+        {
+          id: 18,
+          name: "소고기",
+        },
+        {
+          id: 19,
+          name: "돼지고기",
+        },
+        {
+          id: 20,
+          name: "계란류",
+        },
+        {
+          id: 21,
+          name: "닭, 오리고기",
+        },
+        {
+          id: 22,
+          name: "양념육, 돈까스",
+        },
+        {
+          id: 23,
+          name: "양고기",
+        },
+      ],
     };
   }
 
   componentDidMount() {
     fetch("http://10.168.2.67:8000/product")
-      // fetch("./data/item.json")
       .then(res => res.json())
       .then(res => {
         this.setState({
-          categories: res.categories[3].subcategory,
           products: res.product_list,
-          // categories: FILTEROPTIONS,
-          // products: res.data,
         });
       });
   }
 
   goToSpecificCategory = e => {
-    fetch(`http://10.168.2.67:8000/product?subcategory=${+e.target.id}`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          products: res.product_list,
+    if (+e.target.id === 0) {
+      fetch("http://10.168.2.67:8000/product")
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            products: res.product_list,
+          });
         });
-      });
+    } else {
+      fetch(`http://10.168.2.67:8000/product?subcategory=${+e.target.id}`)
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            products: res.product_list,
+          });
+        });
+    }
   };
 
   controlQuantity = e => {
@@ -61,13 +93,12 @@ class ItemList extends Component {
       fakeProducts.sort(function (a, b) {
         return (
           a.price - a.price * a.discount_percentage - b.price + b.price * b.discount_percentage
-          // a.price - a.price * a.sale - b.price + b.price * b.sale
         );
       });
     } else if (e.target.id === "높은 가격순") {
       fakeProducts.sort(function (a, b) {
         return (
-          -a.price + a.price * a.discount_percentage + b.price - b.price * b.discount_percentage
+          +b.price - b.price * b.discount_percentage - a.price + a.price * a.discount_percentage
         );
       });
     }
@@ -76,6 +107,7 @@ class ItemList extends Component {
   };
 
   showOptionBox = () => {
+    console.log("showOptionBox activated");
     this.setState({
       optionBoxOnAndOff: !this.state.optionBoxOnAndOff,
     });
@@ -100,7 +132,6 @@ class ItemList extends Component {
       filteringOption,
       categories,
     } = this.state;
-
     return (
       <div className="ItemList">
         <ItemListModal
@@ -122,7 +153,9 @@ class ItemList extends Component {
           </div>
           <div className="filteringHeader">
             <ul className="typeOfCategories">
-              <li onClick={this.goToSpecificCategory}>전체보기</li>
+              <li id={0} onClick={this.goToSpecificCategory}>
+                전체보기
+              </li>
               {categories.map(el => {
                 return (
                   <li id={el.id} onClick={this.goToSpecificCategory}>
@@ -130,8 +163,6 @@ class ItemList extends Component {
                   </li>
                 );
               })}
-              {/* {categories.map(el => {
-                return <li>{el}</li>; */}
             </ul>
             <div className="selectOptions" onClick={this.showOptionBox}>
               <span className={optionBoxOnAndOff ? "selectedOption" : ""}>{filteringOption}</span>
@@ -156,11 +187,8 @@ class ItemList extends Component {
                   id={el.id}
                   name={el.name}
                   price={el.price}
-                  // imgUrl={el.imgUrl}
-                  // sale={el.sale}
                   sale={el.discount_percentage}
                   imgUrl={el.image_url}
-                  // sale={el.discount_rate}
                   shortDescription={el.shortDescription}
                   showModalBoxButton={this.showModalBox}
                   type={"ItemList"}

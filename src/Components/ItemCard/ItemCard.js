@@ -24,12 +24,13 @@ class ItemCard extends Component {
       showModalBoxButton,
       type,
     } = this.props;
+
     return (
       <div className={`ItemCard ${type}`}>
         <div className="ItemCardContainer">
           <img src={imgUrl} alt="제품의 이미지" onClick={this.goToDetail} />
 
-          {type !== "RelatedProduct" && sale !== 0 && (
+          {type !== "RelatedProduct" && sale !== "0.00" && (
             <div className="saleBox">Save {sale * 100}%</div>
           )}
           {type === "ItemList" && (

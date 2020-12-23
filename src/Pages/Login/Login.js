@@ -28,7 +28,7 @@ class Login extends React.Component {
       .then(res => {
         console.log(res);
         if (res.ACCESS_TOKEN) {
-          alert("LOGIN SUCESS HYUN-JOO ❤️ MINA");
+          alert("LOGIN SUCESS");
         } else {
           const { account, password } = this.state;
 

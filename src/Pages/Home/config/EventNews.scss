@@ -47,9 +47,10 @@
               height: 338px;
               object-fit: cover;
               transition: all 0.4s;
+              border-radius: 12px;
             }
             img:hover {
-              transform: scale(1.2);
+              transform: scale(1.1);
             }
             .eventDesc {
               height: 70px;

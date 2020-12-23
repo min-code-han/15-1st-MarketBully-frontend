@@ -11,6 +11,10 @@
   .goods__container {
     width: 1050px;
     margin: 0 auto;
+    &:hover .slick-next,
+    &:hover .slick-prev {
+      opacity: 1 !important;
+    }
 
     .slick-initialized {
       width: inherit;
@@ -30,6 +34,8 @@
       left: -7% !important;
       top: 22% !important;
       z-index: 1;
+      transition: all 0.4s !important;
+      opacity: 0 !important;
     }
 
     .slick-next {
@@ -39,10 +45,13 @@
       right: -6% !important;
       top: 40% !important;
       z-index: 1;
+      transition: all 0.4s !important;
+      opacity: 0 !important;
     }
     img {
       width: 250px;
       height: 370px;
+      border-radius: 12px;
       object-fit: cover;
     }
 

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-import "./config/MDRcommandSlide.scss";
+import "../config/MDRcommandSlide.scss";
 import { Link } from "react-router-dom";
-class FourMDRecommand extends Component {
+class ThirdMDRecommand extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -27,10 +27,11 @@ class FourMDRecommand extends Component {
                 </Link>
                 <div className="recommand__desc">
                   <Link className="recommand__link" to="/">
-                    <span>{data.companyName}</span>
-                    <span>{data.productName}</span>{" "}
+                    <p>{data.name}</p>
+                    <p>{data.subtitle}</p>
                   </Link>
                   <span>{data.price}</span>
+                  <p>{data.discount_percentage}</p>
                   <span className="savePrice">{data.savePrice}</span>
                 </div>
               </div>
@@ -41,4 +42,5 @@ class FourMDRecommand extends Component {
     );
   }
 }
-export default FourMDRecommand;
+
+export default ThirdMDRecommand;

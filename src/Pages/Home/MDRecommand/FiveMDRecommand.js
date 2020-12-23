@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-import "./config/MDRcommandSlide.scss";
+import "../config/MDRcommandSlide.scss";
 import { Link } from "react-router-dom";
-class SixMDRecommand extends Component {
+class FiveMDRecommand extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -15,8 +15,6 @@ class SixMDRecommand extends Component {
       slidesToScroll: 4,
     };
     const { filtering } = this.props;
-    console.log(filtering);
-    const aa = filtering?.filter(e => console.log(e));
     return (
       <div>
         <Slider {...settings}>
@@ -28,10 +26,11 @@ class SixMDRecommand extends Component {
                 </Link>
                 <div className="recommand__desc">
                   <Link className="recommand__link" to="/">
-                    <span>{data.companyName}</span>
-                    <span>{data.productName}</span>{" "}
+                    <p>{data.name}</p>
                   </Link>
-                  <span>{data.price}</span>
+                  <span>{Math.floor(data.price)}</span>
+                  <p>{data.discount_percentage}</p>
+
                   <span className="savePrice">{data.savePrice}</span>
                 </div>
               </div>
@@ -42,4 +41,4 @@ class SixMDRecommand extends Component {
     );
   }
 }
-export default SixMDRecommand;
+export default FiveMDRecommand;

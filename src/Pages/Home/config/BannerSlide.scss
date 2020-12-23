@@ -1,11 +1,19 @@
 .home__mainBanner {
+  &:hover .slick-next,
+  &:hover .slick-prev {
+    opacity: 1 !important;
+  }
   .slick-prev {
+    transition: all 0.4s !important;
+    opacity: 0 !important;
     left: 10% !important;
     top: 45% !important;
     z-index: 1;
   }
 
   .slick-next {
+    transition: all 0.4s !important;
+    opacity: 0 !important;
     right: 15% !important;
     top: 45% !important;
     z-index: 1;

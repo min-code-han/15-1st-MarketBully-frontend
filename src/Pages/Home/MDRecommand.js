@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import FirstMDRecommand from "./FirstMDRecommand";
-import SecondMDRecommand from "./SecondMDRecommand";
-import ThirdMDRecommand from "./ThirdMDRecommand";
-import FourMDRecommand from "./FourMDRecommand";
-import FiveMDRecommand from "./FiveMDRecommand";
-import SixMDRecommand from "./SixMDRecommand";
-import InitialMDRecomman from "./InitialMDRecomman";
+import FirstMDRecommand from "./MDRecommand/FirstMDRecommand";
+import SecondMDRecommand from "./MDRecommand/SecondMDRecommand";
+import ThirdMDRecommand from "./MDRecommand/ThirdMDRecommand";
+import FourMDRecommand from "./MDRecommand/FourMDRecommand";
+import FiveMDRecommand from "./MDRecommand/FiveMDRecommand";
+import SixMDRecommand from "./MDRecommand/SixMDRecommand";
+import InitialMDRecomman from "./MDRecommand/InitialMDRecomman";
 import "./config/MDRcommandSlide.scss";
 
 class MDRecommand extends Component {
@@ -24,7 +24,7 @@ class MDRecommand extends Component {
   };
 
   componentDidMount = () => {
-    fetch("http://10.168.2.67:8000/product/index/md-choice")
+    fetch("http://10.168.2.67:8000/product/md-choice")
       .then(res => res.json())
       .then(res => {
         if (res.message) {
@@ -43,7 +43,7 @@ class MDRecommand extends Component {
     const filtering = this.state.data.filter(data => {
       return data.subcategory_name.includes(name);
     });
-    console.log(filtering, name);
+
     this.setState({ filtering: filtering, mode: true });
   };
 
@@ -81,7 +81,6 @@ class MDRecommand extends Component {
               {data}
             </button>
           ))}{" "}
-          :
         </div>
         {this.state.mode ? (
           <div className="RcommandSlideContainer">{MAPPING_Slide[currentId]} </div>

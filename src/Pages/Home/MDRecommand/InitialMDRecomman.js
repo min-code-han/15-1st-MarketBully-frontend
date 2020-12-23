@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-import "./config/MDRcommandSlide.scss";
+import "../config/MDRcommandSlide.scss";
 import { Link } from "react-router-dom";
 class InitialMDRecomman extends Component {
   constructor(props) {
@@ -27,11 +27,10 @@ class InitialMDRecomman extends Component {
                 </Link>
                 <div className="recommand__desc">
                   <Link className="recommand__link" to="/">
-                    <span>{data.companyName}</span>
-                    <span>{data.productName}</span>{" "}
+                    <p>{data.name}</p>
                   </Link>
-                  <span>{data.price}</span>
-                  <span className="savePrice">{data.savePrice}</span>
+                  <p>{data.price}</p>
+                  <p className="save">{data.discount_percentage}</p>
                 </div>
               </div>
             );

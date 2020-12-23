@@ -1,0 +1,74 @@
+@import "../../../Styles/common.scss";
+.eventNews {
+  background-color: #f7f7f7;
+  margin-bottom: 4rem;
+  .eventNewsWrap {
+    width: $main-width;
+    margin: 0 auto;
+
+    .eventHeader {
+      width: 1050px;
+      text-align: center;
+      padding: 79px 0 35px;
+      font-size: 34px;
+      font-weight: 700;
+      opacity: 0.7;
+      a {
+        text-decoration: none;
+        h2 {
+          color: #000000;
+          position: relative;
+        }
+        h2::after {
+          position: absolute;
+          content: "\f054";
+          font-family: "Font Awesome\ 5 Free";
+          margin-left: 10px;
+          top: 50%;
+          transform: translate(0, -40%);
+        }
+      }
+    }
+    .eventNewsList {
+      ul {
+        display: flex;
+        li {
+          list-style: none;
+          margin-right: 15px;
+          height: 538px;
+          a {
+            text-decoration: none;
+            color: #000000;
+            .eventImage {
+              overflow: hidden;
+            }
+            .eventImage img {
+              width: 338px;
+              height: 338px;
+              object-fit: cover;
+              transition: all 0.4s;
+              border-radius: 12px;
+            }
+            img:hover {
+              transform: scale(1.1);
+            }
+            .eventDesc {
+              height: 70px;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-evenly;
+              align-items: center;
+              color: #000000;
+              span:nth-child(1) {
+                font-weight: 700;
+              }
+              span:last-child {
+                opacity: 0.7;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

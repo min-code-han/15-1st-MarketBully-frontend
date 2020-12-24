@@ -9,13 +9,7 @@ class ItemDetailMenu extends Component {
 
   render() {
     const { menuTabId, reviewNum, InquireNum } = this.props;
-    const MENU_NAME = [
-      `상품설명`,
-      `상품이미지`,
-      `상세정보`,
-      `고객후기 (${reviewNum || "0"})`,
-      `상품문의 (${InquireNum || "0"})`,
-    ];
+    const MENU_NAME = [`상품설명`, `상품이미지`, `상세정보`, `고객후기`, `상품문의`];
 
     return (
       <ul className="ItemDetailMenu">

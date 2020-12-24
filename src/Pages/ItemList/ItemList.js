@@ -46,8 +46,7 @@ class ItemList extends Component {
   }
 
   componentDidMount() {
-    fetch("http://10.168.2.67:8000/product")
-      // fetch(`http://10.168.2.67:8000/product?subcategory=20`)
+    fetch("http://192.168.43.34:8000/product")
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -58,7 +57,7 @@ class ItemList extends Component {
 
   goToSpecificCategory = e => {
     if (+e.target.id === 0) {
-      fetch("http://10.168.2.67:8000/product")
+      fetch("http://192.168.43.34:8000/product")
         .then(res => res.json())
         .then(res => {
           this.setState({
@@ -66,7 +65,7 @@ class ItemList extends Component {
           });
         });
     } else {
-      fetch(`http://10.168.2.67:8000/product?subcategory=${+e.target.id}`)
+      fetch(`http://192.168.43.34:8000/product?subcategory=${+e.target.id}`)
         .then(res => res.json())
         .then(res => {
           this.setState({

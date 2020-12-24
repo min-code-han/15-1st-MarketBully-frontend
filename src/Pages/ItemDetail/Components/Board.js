@@ -11,13 +11,23 @@ const API_NAME = {
   Inquire: INQUIRY_BOARD_API,
 };
 
-const LIMIT_PER_PAGE = 4;
-const PAGES_NUM = 3;
+const LIMIT_PER_PAGE = 5;
+const PAGES_NUM = 5;
 const INITIAL_PAGES = Array.from({ length: PAGES_NUM }, (_, i) => i + 1);
 
 class Board extends Component {
   state = {
-    boardData: [],
+    boardData: [
+      {
+        id: 1,
+        title: "",
+        contents: "",
+        help_count: 0,
+        hit_count: 0,
+        image_url: "",
+        created_at: "2020-12-24T04:35:29.323Z",
+      },
+    ],
     showForm: false,
     currentPage: 1,
     pages: INITIAL_PAGES,
@@ -66,6 +76,7 @@ class Board extends Component {
     if (currentPage % PAGES_NUM === 1) {
       const newPages = pages.map(page => page - PAGES_NUM);
       this.setState({ pages: newPages, currentPage: newPages[PAGES_NUM - 1] });
+      this.getBoardData(currentPage - 2);
       return;
     }
     this.setState({ currentPage: currentPage - 1 });
@@ -112,15 +123,26 @@ class Board extends Component {
     const API = API_NAME[boardName];
     console.log(
       "주소 " +
-        `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
+        `http://192.168.43.34:8000/board/review/product/${
+          this.props.paramsid
+        }?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
     );
     try {
-      const response = await this.fetchWithTimeout(
-        `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`,
-        { timeout: 6000 }
-      );
-      const data = await response.json();
-      this.setState({ boardData: data.review_list });
+      fetch(
+        boardName === "Review"
+          ? `http://192.168.43.34:8000/board/review/product/3?limit=${LIMIT_PER_PAGE}&offset=${
+              page * LIMIT_PER_PAGE
+            }`
+          : `http://192.168.43.34:8000/board/question/product/3?limit=${LIMIT_PER_PAGE}&offset=${
+              page * LIMIT_PER_PAGE
+            }`
+      )
+        .then(response => response.json())
+        .then(data => {
+          this.setState({
+            boardData: boardName === "Review" ? data.review_list : data.question_list,
+          });
+        });
     } catch {
       boardName === "Review" ? this.getReviewMockData() : this.getInquireMockData();
     }
@@ -141,6 +163,7 @@ class Board extends Component {
       goPrevPage,
       goNextPage,
     } = this;
+    console.log(boardData);
     return (
       <section className="Board">
         <div className="menu-header">
@@ -154,12 +177,12 @@ class Board extends Component {
               <th className="writer">작성자</th>
               <th className="date">작성일</th>
               {showLike && <th className="like">도움</th>}
-              <th className="lookup">조회</th>
+              {showLike && <th className="lookup">조회</th>}
             </tr>
           </thead>
 
           {boardData.map(review => {
-            const { id, title, writer, date, like, lookup, show, contents } = review;
+            const { id, title, writer, created_at, help_count, hit_count, show, contents } = review;
             return (
               <tbody key={id}>
                 <tr>
@@ -168,13 +191,13 @@ class Board extends Component {
                     {title}
                   </td>
                   <td className="writer">{writer}</td>
-                  <td className="date">{date}</td>
-                  {showLike && <td className="like">{like}</td>}
-                  <td className="lookup">{lookup}</td>
+                  <td className="date">{created_at.split("T")[0]}</td>
+                  {showLike && <td className="like">{help_count}</td>}
+                  {showLike && <td className="lookup">{hit_count}</td>}
                 </tr>
                 <tr>
-                  <td colSpan="6" className={`content ${show ? "show" : ""}`}>
-                    {show ? contents : ""}
+                  <td colSpan="6" className={`content ${!show ? "show" : ""}`}>
+                    {!show ? contents : ""}
                   </td>
                 </tr>
               </tbody>

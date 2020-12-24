@@ -23,7 +23,7 @@ export default class SimpleSlider extends React.Component {
       slidesToScroll: 1,
       arrows: true,
       autoplay: true,
-      autoplaySpeed: 4000,
+      autoplaySpeed: 2000,
     };
     return (
       <Slide {...settings}>

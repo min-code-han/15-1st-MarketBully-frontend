@@ -114,9 +114,7 @@ class NavBar extends Component {
       <div className={`gnb ${this.state.fix ? "fix" : ""}`}>
         <ul>
           <li onClick={this.props.hadleClick}>
-            <Link className="gnbAllCategory" to="/">
-              전체 카테고리
-            </Link>
+            <Link className="gnbAllCategory">전체 카테고리</Link>
           </li>
 
           {this.state.gnbCategorydata.map(data => {

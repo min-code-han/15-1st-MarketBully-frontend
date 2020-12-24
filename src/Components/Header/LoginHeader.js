@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "./LoginHeader.scss";
-import NotLoginHeader from "./NotLoginHeader";
 class LoginHeader extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +11,7 @@ class LoginHeader extends Component {
   }
 
   Logout = () => {
+    console.log(this.props);
     localStorage.removeItem("token");
     this.props.handleLoginChanged();
   };

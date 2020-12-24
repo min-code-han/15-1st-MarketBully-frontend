@@ -20,8 +20,8 @@
   .gnbInnerBox {
     z-index: 100;
     position: absolute;
-    left: 0px;
-    top: 100%;
+    top: 120%;
+    left: 350px;
     width: 210px;
     background: #f7f7f7;
     transition: all 0.3s;
@@ -29,8 +29,8 @@
     &.hoverd {
       opacity: 1;
       position: absolute;
-      left: 220px;
       top: 100%;
+      left: 560px;
       width: 210px;
       background: #f7f7f7;
     }
@@ -48,14 +48,15 @@
   .gnb__subMenu {
     display: none;
     position: absolute;
-    left: 10px;
-    top: 100%;
+    top: 120%;
+    left: 350px;
     width: 210px;
     background: #ffffff;
     z-index: 100;
     &.hoverd {
       display: block;
       top: 100%;
+      left: 350px;
     }
 
     ul {
@@ -94,6 +95,7 @@
   }
   & > ul {
     display: flex;
+    height: 56px;
 
     & > li:nth-child(1)::before {
       font-family: "Font Awesome 5 Free";

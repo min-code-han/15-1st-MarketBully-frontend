@@ -1,20 +1,20 @@
 .gnb {
+  width: 100vw;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   position: relative;
   height: 56px;
-  width: 1050px;
-  margin: 0 auto;
 
   &.fix {
-    width: 1050px;
-    margin: 0 auto;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 10px 0;
-
     position: fixed;
     z-index: 1000;
     background: #fff;
-    align-items: center;
   }
 
   .gnbInnerBox {
@@ -167,7 +167,7 @@
       transform: translate(0, -40%);
       font-family: "Font Awesome 5 Free";
       font-weight: 600;
-      font-size: 16px;
+      font-size: 20px;
       content: "\f002";
       cursor: pointer;
       opacity: 0.7;
@@ -183,6 +183,7 @@
   }
 }
 .gnb__cart {
+  margin-left: 10px;
   width: 36px;
   height: 36px;
   cursor: pointer;

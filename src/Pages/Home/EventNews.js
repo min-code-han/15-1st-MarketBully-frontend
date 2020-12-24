@@ -17,7 +17,7 @@ class EventNews extends Component {
               <li>
                 <Link to="/">
                   <div className="eventImage">
-                    <img src="./images/스테이크.jpg" />
+                    <img src="images/스테이크.jpg" />
                   </div>
                   <div className="eventDesc">
                     <span>창화당 최대 20% 할인</span>
@@ -28,7 +28,7 @@ class EventNews extends Component {
               <li>
                 <Link to="/">
                   <div className="eventImage">
-                    <img src="./images/스테이크.jpg" />
+                    <img src="images/스테이크.jpg" />
                   </div>
                   <div className="eventDesc">
                     <span>창화당 최대 20% 할인</span>
@@ -39,7 +39,7 @@ class EventNews extends Component {
               <li>
                 <Link to="/">
                   <div className="eventImage">
-                    <img src="./images/스테이크.jpg" />
+                    <img src="images/스테이크.jpg" />
                   </div>
                   <div className="eventDesc">
                     <span>창화당 최대 20% 할인</span>

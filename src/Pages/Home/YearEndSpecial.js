@@ -19,7 +19,7 @@ class YearEndSpecial extends Component {
             <Link style={{ textDecoration: "none", color: "#000", overflow: "hidden" }} to="/">
               {" "}
               <div className="year__end__image">
-                <img src="./images/스테이크.jpg" alt="meat"></img>
+                <img src="images/스테이크.jpg" alt="meat"></img>
               </div>
               <div className="year__desc">
                 <span>[더플랜] 찹쌀 등심 탕수육 (소스포함)</span>

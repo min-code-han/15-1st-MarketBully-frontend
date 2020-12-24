@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import LoginHeader from "./LoginHeader";
 import "./NotLoginHeader.scss";
 
 class NotLoginHeader extends Component {

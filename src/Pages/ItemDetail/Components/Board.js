@@ -96,10 +96,7 @@ class Board extends Component {
   };
 
   getReviewMockData = async (page = "") => {
-    console.log(`${REVIEW_MOCK}?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`);
-    const reviewDataRes = await fetch(
-      `${REVIEW_MOCK}?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
-    );
+    const reviewDataRes = await fetch(REVIEW_MOCK);
     const reviewData = await reviewDataRes.json();
     this.setState({ boardData: reviewData.reviewData });
   };
@@ -113,7 +110,10 @@ class Board extends Component {
   getBoardData = async (page = "") => {
     const boardName = BOARD_NAME[this.props.menuTabId];
     const API = API_NAME[boardName];
-
+    console.log(
+      "주소 " +
+        `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
+    );
     try {
       const response = await this.fetchWithTimeout(
         `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`,
@@ -122,7 +122,6 @@ class Board extends Component {
       const data = await response.json();
       this.setState({ boardData: data.review_list });
     } catch {
-      console.log("catch");
       boardName === "Review" ? this.getReviewMockData() : this.getInquireMockData();
     }
   };

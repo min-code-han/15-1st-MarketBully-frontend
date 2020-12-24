@@ -54,8 +54,6 @@ class ItemCart extends Component {
     const id = e.target.id;
     const className = e.target.className;
 
-    if (className === "fa-check-circle fas purple") console.log("지금은 보라색입니다.");
-
     const response = await fetch(`http://10.168.2.97:8000${CART_API}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -64,8 +62,6 @@ class ItemCart extends Component {
       }),
     });
     const data = await response.json();
-    await console.log(data);
-
     this.getCartData();
   };
 
@@ -142,7 +138,6 @@ class ItemCart extends Component {
   };
 
   updateCartSelection = () => {
-    console.log("update Cart Selection");
     this.state.cartData.forEach(item => {
       !item.selected &&
         fetch(`http://10.168.2.97:8000${CART_API}`, {
@@ -170,12 +165,10 @@ class ItemCart extends Component {
   };
 
   getCartData = async () => {
-    console.log("get!!!!!");
     try {
       const response = await fetch(`http://10.168.2.97:8000/order/cart`);
       const data = await response.json();
       this.setState({ cartData: data.items_in_cart });
-      console.log("콘솔!", data.items_in_cart);
     } catch {
       const response = await fetch(`data/cartdata.json`);
       const data = await response.json();
@@ -194,10 +187,6 @@ class ItemCart extends Component {
   }
 
   clickOrder = () => {
-    /* 결제 페이지로 이동 및 최종 주문 정보 전달 */
-    /******** 백엔드에게 selected 정보 업데이트 하는 코드 작성 필요!!! **********/
-    this.updateCartSelection();
-
     this.props.history.push("/Payment");
   };
 

@@ -9,12 +9,7 @@ import DetailInfo from "./Components/DetailInfo";
 import CustomerReview from "./Components/CustomerReview";
 import ItemInquire from "./Components/ItemInquire";
 import ItemDetailMenu from "./Components/ItemDetailMenu";
-import {
-  ITEM_DETAIL_API,
-  RELATED_PRODUCT_API,
-  ITEM_DETAIL_MOCK,
-  RELATED_PRODUCT_MOCK,
-} from "../../config";
+import { ITEM_DETAIL_API, RELATED_PRODUCT_API, ITEM_DETAIL_MOCK } from "../../config";
 import { fetchWithTimeout } from "../../utils";
 import "./ItemDetail.scss";
 
@@ -91,18 +86,14 @@ class ItemDetail extends Component {
 
   componentDidMount() {
     this.getItemData();
-    //this.getRelatedProduct();
   }
 
   componentDidUpdate(prevProps, _) {
-    console.log(prevProps.match.params.id);
-    console.log(this.props.match.params.id);
     if (prevProps.match.params.id !== this.props.match.params.id) this.getItemData();
   }
 
   render() {
     const { itemData, relatedProduct } = this.state;
-    console.log("채훈 바보");
     return (
       <main className="ItemDetail">
         <div className="main-width">

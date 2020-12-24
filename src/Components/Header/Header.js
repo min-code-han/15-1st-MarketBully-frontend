@@ -121,7 +121,7 @@ class Header extends Component {
           )}
           <div className="header__logo">
             <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif"></img>
-            <img src="./images/marketbully.jpg" onClick={this.gotoMain}></img>
+            <img src="/images/marketbully.jpg" onClick={this.gotoMain}></img>
           </div>
 
           <NavBar

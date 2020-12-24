@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { fetchWithTimeout } from "../../utils";
 import "./Payment.scss";
 
 const FREE_DELIVERY_THRESHOLD = 40000;
@@ -9,10 +10,6 @@ class Payment extends Component {
     cartData: [],
     payType: "",
     agreeTerms: false,
-  };
-
-  formatPrice = price => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   itemPrice = ({ price, discount_rate, quantity }) => {
@@ -36,34 +33,33 @@ class Payment extends Component {
     this.props.history.push("/Home");
   };
 
-  getMockData = async () => {
-    const response = await fetch("http://10.168.2.97:8000/order/cart");
-    const data = await response.json();
-    const selectedItems = data.items_in_cart.filter(item => item.selected);
-
-    !selectedItems[0] && alert("빈 장바구니로 결제할 수 없습니다.");
-
-    data.MESSAGE === "SUCCESS"
-      ? this.setState({ cartData: selectedItems })
-      : alert("장바구니 불러오기 실패!");
-  };
-
   getData = async () => {
-    const response = await fetch("/data/cartdata.json");
-    const data = await response.json();
-    const selectedItems = data.items_in_cart.filter(item => item.selected);
+    try {
+      const response = await fetchWithTimeout("http://10.168.2.97:8000/order/cart");
+      const data = await response.json();
+      const selectedItems = data.items_in_cart.filter(item => item.selected);
 
-    this.setState({ cartData: selectedItems });
+      !selectedItems[0] && alert("빈 장바구니로 결제할 수 없습니다.");
+
+      data.MESSAGE === "SUCCESS"
+        ? this.setState({ cartData: selectedItems })
+        : alert("장바구니 불러오기 실패!");
+    } catch {
+      const response = await fetch("/data/cartdata.json");
+      const data = await response.json();
+      const selectedItems = data.items_in_cart.filter(item => item.selected);
+
+      this.setState({ cartData: selectedItems });
+    }
   };
 
   componentDidMount() {
-    this.getMockData();
-    //this.getData();
+    this.getData();
   }
 
   render() {
     const { cartData, payType, agreeTerms } = this.state;
-    const { formatPrice, priceEach, itemPrice, getPayType, toggleAgree, goPay } = this;
+    const { priceEach, itemPrice, getPayType, toggleAgree, goPay } = this;
     const totalPrice = Math.floor(
       cartData.reduce((acc, item) => acc + item.price * item.quantity, 0)
     );

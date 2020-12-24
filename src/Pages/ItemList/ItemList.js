@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ItemListModal from "./ItemListModal";
+
 import ItemCard from "../../Components/ItemCard/ItemCard";
 import "./ItemList.scss";
 
@@ -15,28 +16,73 @@ class ItemList extends Component {
       clickedID: null,
       quantities: 0,
       filteringOption: "추천순",
-      categoryTesting: [],
+      categories: [
+        {
+          id: 18,
+          name: "소고기",
+        },
+        {
+          id: 19,
+          name: "돼지고기",
+        },
+        {
+          id: 20,
+          name: "계란류",
+        },
+        {
+          id: 21,
+          name: "닭, 오리고기",
+        },
+        {
+          id: 22,
+          name: "양념육, 돈까스",
+        },
+        {
+          id: 23,
+          name: "양고기",
+        },
+      ],
     };
   }
 
   componentDidMount() {
-    // fetch("http://10.168.2.67:8000/product/1");
-    fetch("./data/item.json")
+    fetch("http://10.168.2.67:8000/product")
+      // fetch(`http://10.168.2.67:8000/product?subcategory=20`)
       .then(res => res.json())
       .then(res => {
         this.setState({
-          // products: res.product_list,
-          categoryTesting: res.category,
-          products: res.data,
+          products: res.product_list,
         });
       });
   }
+
+  goToSpecificCategory = e => {
+    if (+e.target.id === 0) {
+      fetch("http://10.168.2.67:8000/product")
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            products: res.product_list,
+          });
+        });
+    } else {
+      fetch(`http://10.168.2.67:8000/product?subcategory=${+e.target.id}`)
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            products: res.product_list,
+          });
+        });
+    }
+  };
 
   controlQuantity = e => {
     if (e.target.name === "+") {
       this.setState({ quantities: this.state.quantities + 1 });
     } else {
-      this.setState({ quantities: this.state.quantities - 1 });
+      if (this.state.quantities > 1) {
+        this.setState({ quantities: this.state.quantities - 1 });
+      }
     }
   };
 
@@ -46,11 +92,15 @@ class ItemList extends Component {
 
     if (e.target.id === "낮은 가격순") {
       fakeProducts.sort(function (a, b) {
-        return a.price - (a.price * a.sale) / 100 - b.price + b.price * (b.sale / 100);
+        return (
+          a.price - a.price * a.discount_percentage - b.price + b.price * b.discount_percentage
+        );
       });
     } else if (e.target.id === "높은 가격순") {
       fakeProducts.sort(function (a, b) {
-        return -a.price + (a.price * a.sale) / 100 + b.price - b.price * (b.sale / 100);
+        return (
+          +b.price - b.price * b.discount_percentage - a.price + a.price * a.discount_percentage
+        );
       });
     }
 
@@ -58,6 +108,7 @@ class ItemList extends Component {
   };
 
   showOptionBox = () => {
+    console.log("showOptionBox activated");
     this.setState({
       optionBoxOnAndOff: !this.state.optionBoxOnAndOff,
     });
@@ -80,14 +131,14 @@ class ItemList extends Component {
       products,
       quantities,
       filteringOption,
-      categoryTesting,
+      categories,
     } = this.state;
-
     return (
       <div className="ItemList">
         <ItemListModal
           name={clickedID && products.find(el => el.id === +clickedID).name}
           price={clickedID && products.find(el => el.id === +clickedID).price}
+          sale={clickedID && products.find(el => el.id === +clickedID).discount_percentage}
           clickedID={clickedID}
           isModalBoxOnOrOff={isModalBoxOn}
           ModalBoxClose={this.showModalBox}
@@ -97,20 +148,26 @@ class ItemList extends Component {
         <header>
           <div className="categoryHeader">
             <span className="meatIcon">
-              <i class="fas fa-bacon fa-2x" />
+              <i className="fas fa-bacon fa-2x" />
             </span>
             <span className="category">정육 · 계란</span>
           </div>
           <div className="filteringHeader">
             <ul className="typeOfCategories">
-              <li>전체보기</li>
-              {categoryTesting.map(el => {
-                return <li>{el.meat}</li>;
+              <li id={0} onClick={this.goToSpecificCategory}>
+                전체보기
+              </li>
+              {categories.map(el => {
+                return (
+                  <li id={el.id} onClick={this.goToSpecificCategory}>
+                    {el.name}
+                  </li>
+                );
               })}
             </ul>
             <div className="selectOptions" onClick={this.showOptionBox}>
               <span className={optionBoxOnAndOff ? "selectedOption" : ""}>{filteringOption}</span>
-              <i class="fas fa-chevron-down" />
+              <i className="fas fa-chevron-down" />
               <ul className={optionBoxOnAndOff ? "optionList" : "optionListNone"}>
                 {FILTEROPTIONS.map(el => {
                   return (
@@ -131,11 +188,8 @@ class ItemList extends Component {
                   id={el.id}
                   name={el.name}
                   price={el.price}
-                  imgUrl={el.imgUrl}
-                  sale={el.sale}
-                  // sale={el.discount_percentage}
-                  // imgUrl={el.image_url}
-                  // sale={el.discount_rate}
+                  sale={el.discount_percentage}
+                  imgUrl={el.image_url}
                   shortDescription={el.shortDescription}
                   showModalBoxButton={this.showModalBox}
                   type={"ItemList"}

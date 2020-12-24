@@ -41,7 +41,6 @@ class Header extends Component {
   handleLoginChanged = () => {
     if (localStorage.getItem("token")) {
       this.setState({ isLogined: true });
-      this.getUserInformation();
       return;
     } else {
       this.setState({ isLogined: false });
@@ -50,8 +49,8 @@ class Header extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("token")) {
+      console.log("hi");
       this.setState({ isLogined: true });
-      this.getUserInformation();
       return;
     } else {
       this.setState({ isLogined: false });
@@ -62,13 +61,18 @@ class Header extends Component {
   componentWillUnMount = () => {
     window.removeEventListener("scroll", this.handleScroll);
   };
-  getUserInformation = async () => {
-    const userData = await axios({
-      url: "http://10.168.2.91:8000/user/signin",
-      headers: { authorization: localStorage.getItem("token") },
-    });
-    this.setState({ userInfo: userData.data.message });
-  };
+
+  componentDidUpdate(prePros, preveState) {
+    console.log("props : ", prePros, "prevState :", preveState);
+    if (this.state.isLogined === false) {
+      if (localStorage.getItem("token")) {
+        console.log("hi");
+        this.setState({ isLogined: true });
+
+        return;
+      }
+    }
+  }
 
   AllRemove = () => {
     this.setState({
@@ -102,7 +106,7 @@ class Header extends Component {
     this.props.history.push("/Home");
   };
   render() {
-    console.log(this.state.hoverAction);
+    console.log("state : ", this.state);
     const { isLogined } = this.state;
     return (
       <>
@@ -121,7 +125,7 @@ class Header extends Component {
           )}
           <div className="header__logo">
             <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif"></img>
-            <img src="./images/marketbully.jpg" onClick={this.gotoMain}></img>
+            <img src="/images/marketbully.jpg" onClick={this.gotoMain}></img>
           </div>
 
           <NavBar

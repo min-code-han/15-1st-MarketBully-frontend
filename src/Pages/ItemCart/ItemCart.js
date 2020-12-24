@@ -186,6 +186,10 @@ class ItemCart extends Component {
     this.getCartData();
   }
 
+  componentDidUpdate(prevProps, _) {
+    window.scrollTo(0, 0);
+  }
+
   clickOrder = () => {
     this.props.history.push("/Payment");
   };

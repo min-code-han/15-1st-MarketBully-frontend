@@ -29,6 +29,9 @@
         display: flex;
         justify-content: flex-start;
         list-style: none;
+        &:hover {
+          cursor: pointer;
+        }
 
         li {
           margin: 0;
@@ -39,8 +42,8 @@
           border-bottom: 1px solid #ddd;
           color: #333333;
           &:hover {
-            color: $theme-color;
             border-bottom: 1px solid $theme-color;
+            color: $theme-color;
           }
         }
       }

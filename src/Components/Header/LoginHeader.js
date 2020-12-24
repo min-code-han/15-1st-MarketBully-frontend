@@ -25,7 +25,7 @@ class LoginHeader extends Component {
   };
 
   render() {
-    const userInfo = "김찬영";
+    const userInfo = "반갑습니다 회원";
     return (
       <>
         <ul className="headerMenu headerMenuLogin">

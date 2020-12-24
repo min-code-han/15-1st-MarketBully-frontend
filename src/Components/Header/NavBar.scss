@@ -18,16 +18,16 @@
   }
 
   .gnbInnerBox {
-    z-index: 100;
+    display: none;
     position: absolute;
     top: 120%;
     left: 350px;
     width: 210px;
     background: #f7f7f7;
-    transition: all 0.3s;
-    opacity: 0;
+
     &.hoverd {
-      opacity: 1;
+      display: block;
+      z-index: 100;
       position: absolute;
       top: 100%;
       left: 560px;
@@ -52,8 +52,8 @@
     left: 350px;
     width: 210px;
     background: #ffffff;
-    z-index: 100;
     &.hoverd {
+      z-index: 100;
       display: block;
       top: 100%;
       left: 350px;

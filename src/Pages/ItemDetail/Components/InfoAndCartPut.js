@@ -76,13 +76,13 @@ class InfoAndCartPut extends Component {
                 <span>{discountedPrice.toLocaleString()}</span>
                 <div className="unit">원</div>
                 <span className="sale-percentage">
-                  {discount_percentage !== 0.0 && `${discount_percentage * 100}%`}
+                  {discount_percentage !== "0.00" && `${discount_percentage * 100}%`}
                 </span>
               </div>
               <span className="nosale-price">
-                {discount_percentage !== 0 && (
+                {discount_percentage !== "0.00" && (
                   <>
-                    <span className="price">{price.toLocaleString()}원</span>
+                    <span className="price">{(+price).toLocaleString()}원</span>
                     <i className="far fa-question-circle"></i>
                   </>
                 )}

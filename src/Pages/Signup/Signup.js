@@ -170,7 +170,7 @@ class Signup extends Component {
           alert("회원가입 성공");
           this.props.history.push("/Login");
         } else {
-          alert("");
+          alert("필수사항을 입력해주세요!");
         }
       });
   };
@@ -218,7 +218,7 @@ class Signup extends Component {
                 <td>
                   <input
                     className="inputbox-commonstyle"
-                    type="text"
+                    type="password"
                     placeholder="비밀번호를 입력해주세요"
                     onClick={this.openPwDetail}
                     onKeyUp={this.validationPW}
@@ -240,7 +240,7 @@ class Signup extends Component {
                 <td>
                   <input
                     className="inputbox-commonstyle"
-                    type="text"
+                    type="password"
                     placeholder="비밀번호를 한번더 입력해주세요"
                     onClick={this.openCheckPwDetail}
                     onKeyUp={this.checkPwAgain}

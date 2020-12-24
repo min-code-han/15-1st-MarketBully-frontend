@@ -90,6 +90,7 @@ class ItemDetail extends Component {
 
   componentDidUpdate(prevProps, _) {
     if (prevProps.match.params.id !== this.props.match.params.id) this.getItemData();
+    window.scrollTo(0, 0);
   }
 
   render() {

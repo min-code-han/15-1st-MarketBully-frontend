@@ -166,7 +166,7 @@ class ItemCart extends Component {
 
   getCartData = async () => {
     try {
-      const response = await fetch(`http://10.168.2.97:8000/order/cart`);
+      const response = await fetchWithTimeout(`http://10.168.2.97:8000/order/cart`);
       const data = await response.json();
       this.setState({ cartData: data.items_in_cart });
     } catch {

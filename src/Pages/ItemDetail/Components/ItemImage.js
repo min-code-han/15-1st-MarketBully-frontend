@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./ItemImage.scss";
+import "./Style/ItemImage.scss";
 
 class ItemImage extends Component {
   constructor(props) {

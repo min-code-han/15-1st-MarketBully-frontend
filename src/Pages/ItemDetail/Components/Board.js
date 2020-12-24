@@ -1,48 +1,148 @@
 import React, { Component } from "react";
-import "./Board.scss";
+import { REVIEW_BOARD_API, INQUIRY_BOARD_API, REVIEW_MOCK, INQUIRE_MOCK } from "../../../config";
+import "./Style/Board.scss";
 
 const BOARD_NAME = {
   4: "Review",
   5: "Inquire",
 };
-const PAGES = ["<", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ">"];
+const API_NAME = {
+  Review: REVIEW_BOARD_API,
+  Inquire: INQUIRY_BOARD_API,
+};
+
+const LIMIT_PER_PAGE = 4;
+const PAGES_NUM = 3;
+const INITIAL_PAGES = Array.from({ length: PAGES_NUM }, (_, i) => i + 1);
+
 class Board extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      boardData: [],
-    };
-  }
+  state = {
+    boardData: [],
+    showForm: false,
+    currentPage: 1,
+    pages: INITIAL_PAGES,
+  };
+
+  fetchWithTimeout = async (resource, options) => {
+    const { timeout = 8000 } = options;
+
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+
+    const response = await fetch(resource, {
+      ...options,
+      signal: controller.signal,
+    });
+    clearTimeout(id);
+
+    return response;
+  };
+
+  postArticle = async () => {
+    /* 보드 종류별로 다른 API에 저장해야 한다. */
+    const response = await fetch(`http://HOST/review/board/1`);
+    const result = await response.json();
+  };
+
+  showWriteForm = () => {
+    const { showForm } = this.state;
+    if (showForm) {
+      this.setState({ showForm: false });
+      this.postArticle();
+    } else {
+      this.setState({ showForm: true });
+    }
+  };
+
+  clickPage = e => {
+    this.getBoardData(e.target.id - 1);
+    this.setState({ currentPage: +e.target.id });
+  };
+
+  goPrevPage = () => {
+    const { currentPage, pages } = this.state;
+    console.log("go Prev Page");
+    if (currentPage === 1) return;
+    if (currentPage % PAGES_NUM === 1) {
+      const newPages = pages.map(page => page - PAGES_NUM);
+      this.setState({ pages: newPages, currentPage: newPages[PAGES_NUM - 1] });
+      return;
+    }
+    this.setState({ currentPage: currentPage - 1 });
+    this.getBoardData(currentPage - 2);
+  };
+
+  goNextPage = () => {
+    console.log("go Next Page");
+    const { currentPage, pages } = this.state;
+    if (currentPage % PAGES_NUM === 0) {
+      const newPages = pages.map(page => page + PAGES_NUM);
+      this.setState({ pages: newPages, currentPage: newPages[0] });
+    } else {
+      this.setState({ currentPage: currentPage + 1 });
+    }
+    this.getBoardData(currentPage);
+  };
+
+  cancelWriteForm = () => {
+    this.setState({ showForm: false });
+  };
 
   openBoardContent = e => {
+    /* 비밀 글은 보지 못하게 하려면 여기서 처리해야 함 */
     const { boardData } = this.state;
-    for (let i = 0; i < boardData.length; i++) {
-      if (boardData[i].id === +e.target.id) boardData[i].show = !boardData[i].show;
-    }
+    boardData.forEach(data => (data.show = data.id === +e.target.id ? !data.show : false));
     this.setState({ boardData: boardData });
   };
 
-  getReviewData = async () => {
-    const reviewDataRes = await fetch(`data/review.json`);
+  getReviewMockData = async (page = "") => {
+    const reviewDataRes = await fetch(REVIEW_MOCK);
     const reviewData = await reviewDataRes.json();
     this.setState({ boardData: reviewData.reviewData });
   };
 
-  getInquireData = async () => {
-    const inquireDataRes = await fetch(`data/inquire.json`);
+  getInquireMockData = async () => {
+    const inquireDataRes = await fetch(INQUIRE_MOCK);
     const inquireData = await inquireDataRes.json();
     this.setState({ boardData: inquireData.inquireData });
   };
 
+  getBoardData = async (page = "") => {
+    const boardName = BOARD_NAME[this.props.menuTabId];
+    const API = API_NAME[boardName];
+    console.log(
+      "주소 " +
+        `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
+    );
+    try {
+      const response = await this.fetchWithTimeout(
+        `http://10.168.2.97:8000${API}/1?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`,
+        { timeout: 6000 }
+      );
+      const data = await response.json();
+      this.setState({ boardData: data.review_list });
+    } catch {
+      boardName === "Review" ? this.getReviewMockData() : this.getInquireMockData();
+    }
+  };
+
   componentDidMount() {
-    const { menuTabId } = this.props;
-    const { getReviewData, getInquireData } = this;
-    menuTabId === 4 ? getReviewData() : getInquireData();
+    this.getBoardData();
   }
+
   render() {
     const { menuTabId, showLike } = this.props;
+    const { showForm, boardData, currentPage, pages } = this.state;
+    const {
+      showWriteForm,
+      cancelWriteForm,
+      openBoardContent,
+      clickPage,
+      goPrevPage,
+      goNextPage,
+    } = this;
     return (
-      <div className="Board">
+      <section className="Board">
         <div className="menu-header">
           <h1>{`${BOARD_NAME[menuTabId]} Board`}</h1>
         </div>
@@ -58,45 +158,64 @@ class Board extends Component {
             </tr>
           </thead>
 
-          {this.state.boardData.map(review => {
+          {boardData.map(review => {
+            const { id, title, writer, date, like, lookup, show, contents } = review;
             return (
-              <tbody key={review.id}>
+              <tbody key={id}>
                 <tr>
-                  <td className="id">{review.id}</td>
-                  <td className="title" id={review.id} onClick={this.openBoardContent}>
-                    {review.title}
+                  <td className="id">{id}</td>
+                  <td className="title" id={id} onClick={openBoardContent}>
+                    {title}
                   </td>
-                  <td className="writer">{review.writer}</td>
-                  <td className="date">{review.date}</td>
-                  {showLike && <td className="like">{review.like}</td>}
-                  <td className="lookup">{review.lookup}</td>
+                  <td className="writer">{writer}</td>
+                  <td className="date">{date}</td>
+                  {showLike && <td className="like">{like}</td>}
+                  <td className="lookup">{lookup}</td>
                 </tr>
                 <tr>
-                  {true && (
-                    <td colSpan="6" className={`content ${review.show ? "show" : ""}`}>
-                      {review.show ? review.content : ""}
-                    </td>
-                  )}
+                  <td colSpan="6" className={`content ${show ? "show" : ""}`}>
+                    {show ? contents : ""}
+                  </td>
                 </tr>
               </tbody>
             );
           })}
         </table>
+        <div className={`textarea ${!showForm && "hide"}`}>
+          <textarea defaultValue="갓원희 찬양해!" />
+        </div>
         <div className="button-box">
-          <button>작성</button>
+          <button className={`cancel ${!showForm && "hide"}`} onClick={cancelWriteForm}>
+            취소
+          </button>
+          <button className="write" onClick={showWriteForm}>
+            작성
+          </button>
         </div>
         <div className="page-routing">
           <ul>
-            {PAGES.map((page, idx) => {
+            <li>
+              <button onClick={goPrevPage}>{"<"}</button>
+            </li>
+            {pages.map((page, idx) => {
               return (
                 <li key={idx}>
-                  <button>{page}</button>
+                  <button
+                    id={pages[idx]}
+                    className={currentPage === pages[idx] ? "current-page" : ""}
+                    onClick={clickPage}
+                  >
+                    {page}
+                  </button>
                 </li>
               );
             })}
+            <li>
+              <button onClick={goNextPage}>{">"}</button>
+            </li>
           </ul>
         </div>
-      </div>
+      </section>
     );
   }
 }

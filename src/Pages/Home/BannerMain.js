@@ -10,7 +10,7 @@ class BannerMain extends Component {
     return (
       <div className="bnrMain">
         <Link to="/">
-          <img src="./images/new.png" alt="yearEventBanner" />
+          <img src="images/new.png" alt="yearEventBanner" />
         </Link>
       </div>
     );

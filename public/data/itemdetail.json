@@ -1,7 +1,7 @@
 {
   "itemInfo": {
     "id": 1,
-    "name": "신선한 냉장 돼지고기",
+    "name": "백엔드 통신에 실패해서 나타난 목데이터",
     "subtitle": "동물복지 무항생제 냉장 돼지고기",
     "image_url": "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1275&q=80",
     "description_image_url": "https://images.unsplash.com/photo-1560883389-3bd36d16d021?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80",
@@ -9,7 +9,7 @@
     "price": 17000,
     "discount_percentage": 0.45,
     "sellUnit": "1개",
-    "weight": "200g",
+    "weight": 200.0,
     "delivery_type": "샛별배송/택배배송",
     "origin": "국산",
     "packaging_type": "냉장/종이포장",

@@ -3,16 +3,17 @@ import React, { Component } from "react";
 class CartTitleCard extends Component {
   render() {
     const { type, clickShowButton } = this.props;
+    const { nameEng, nameKor, show } = type;
     return (
       <li className={`CartTitleCard ${type.nameEng}`}>
         <div>
-          <img alt={`${type.nameEng}`} src={`images/${type.nameEng}.svg`} />
-          <h2>{type.nameKor}</h2>
+          <img alt={`${nameEng}`} src={`/images/${nameEng}.svg`} />
+          <h2>{nameKor}</h2>
         </div>
         <i
-          id={`${type.nameEng}`}
+          id={`${nameEng}`}
           onClick={clickShowButton}
-          className={`fas fa-chevron-${type.show ? "up" : "down"}`}
+          className={`fas fa-chevron-${show ? "up" : "down"}`}
         />
       </li>
     );

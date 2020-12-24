@@ -2,37 +2,34 @@
 import React, { Component } from "react";
 import CartTitleCard from "./Components/CartTitleCard";
 import CartItemCard from "./Components/CartItemCard";
+import { CART_API } from "../../config";
+import { fetchWithTimeout } from "../../utils";
 import "./ItemCart.scss";
 
 const FREE_DELIVERY_THRESHOLD = 40000;
 const DELIVERY_FEE = 3000;
-class ItemCart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cartData: [],
-      packingType: [
-        {
-          nameEng: "frozen",
-          nameKor: "냉동 상품",
-          show: true,
-        },
-        {
-          nameEng: "cold",
-          nameKor: "냉장 상품",
-          show: true,
-        },
-        {
-          nameEng: "room",
-          nameKor: "상온 상품",
-          show: true,
-        },
-      ],
-    };
-  }
+const PACKING_TYPE = [
+  {
+    nameEng: "frozen",
+    nameKor: "냉동 상품",
+    show: true,
+  },
+  {
+    nameEng: "cold",
+    nameKor: "냉장 상품",
+    show: true,
+  },
+  {
+    nameEng: "room",
+    nameKor: "상온 상품",
+    show: true,
+  },
+];
 
-  formatPrice = price => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+class ItemCart extends Component {
+  state = {
+    cartData: [],
+    packingType: PACKING_TYPE,
   };
 
   discountedPrice = ({ price, discount_rate, quantity }) => {
@@ -53,14 +50,19 @@ class ItemCart extends Component {
     this.setState({ cartData: cartData });
   };
 
-  selectItem = e => {
-    const { cartData } = this.state;
+  selectItem = async e => {
     const id = e.target.id;
-    cartData.map(item => {
-      if (+id === item.id) item.selected = !item.selected;
-      return item;
+    const className = e.target.className;
+
+    const response = await fetch(`http://10.168.2.97:8000${CART_API}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        cart_item_id: id,
+        select: className === "fa-check-circle fas purple" ? "False" : "True",
+      }),
     });
-    this.setState({ cartData: cartData });
+    const data = await response.json();
+    this.getCartData();
   };
 
   clickShowButton = e => {
@@ -74,7 +76,7 @@ class ItemCart extends Component {
   };
 
   deleteItem = e => {
-    fetch("http://10.168.1.160:8000/order/cart", {
+    fetch("http://10.168.2.97:8000/order/cart", {
       method: "DELETE",
       body: JSON.stringify({
         cart_item_id: e.target.id,
@@ -82,7 +84,7 @@ class ItemCart extends Component {
     })
       .then(res => res.status)
       .then(status => {
-        status === 204 ? this.getData() : alert("상품 삭제를 실패하였습니다.");
+        status === 204 ? this.getCartData() : alert("상품 삭제를 실패하였습니다.");
       });
   };
 
@@ -91,7 +93,7 @@ class ItemCart extends Component {
     const itemsToDelete = cartData.filter(item => item.selected);
     const idsToDelete = itemsToDelete.map(item => item.id);
     for (let idx in idsToDelete) {
-      const response = await fetch("http://10.168.1.160:8000/order/cart", {
+      const response = await fetch("http://10.168.2.97:8000/order/cart", {
         method: "DELETE",
         body: JSON.stringify({
           cart_item_id: idsToDelete[idx],
@@ -103,12 +105,12 @@ class ItemCart extends Component {
           : console.log("상품 삭제를 실패하였습니다.");
       await console.log(status);
     }
-    const response = await this.getData();
+    const response = await this.getCartData();
     console.log(response);
   };
 
   addItem = e => {
-    fetch("http://10.168.1.160:8000/order/cart", {
+    fetch("http://10.168.2.97:8000/order/cart", {
       method: "PATCH",
       body: JSON.stringify({
         cart_item_id: e.target.id,
@@ -117,12 +119,12 @@ class ItemCart extends Component {
     })
       .then(res => res.json())
       .then(result => {
-        result.MESSAGE === "SUCCESS" ? this.getData() : console.log("실패!");
+        result.MESSAGE === "SUCCESS" ? this.getCartData() : console.log("실패!");
       });
   };
 
   subtractItem = e => {
-    fetch("http://10.168.1.160:8000/order/cart", {
+    fetch("http://10.168.2.97:8000/order/cart", {
       method: "PATCH",
       body: JSON.stringify({
         cart_item_id: e.target.id,
@@ -131,39 +133,80 @@ class ItemCart extends Component {
     })
       .then(res => res.json())
       .then(result => {
-        result.MESSAGE === "SUCCESS" ? this.getData() : console.log("실패!");
+        result.MESSAGE === "SUCCESS" ? this.getCartData() : console.log("실패!");
       });
   };
 
-  getCartData = async () => {
-    const response = await fetch(`data/cartdata.json`);
-    const data = await response.json();
-    this.setState({ cartData: data.items_in_cart });
+  updateCartSelection = () => {
+    this.state.cartData.forEach(item => {
+      !item.selected &&
+        fetch(`http://10.168.2.97:8000${CART_API}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            cart_item_id: item.id,
+            select: "False",
+          }),
+        })
+          .then(res => res.json())
+          .then(result => console.log(result));
+    });
+    this.state.cartData.forEach(item => {
+      item.selected &&
+        fetch(`http://10.168.2.97:8000${CART_API}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            cart_item_id: item.id,
+            select: "True",
+          }),
+        })
+          .then(res => res.json())
+          .then(result => console.log(result));
+    });
   };
 
-  getData = async () => {
-    // 2020.12.18 오후 3시 20분, 마켓컬리 백엔드와 프론트의 역사적인 만남이 이루어진 코드
-    // 역사적인 첫 API 주소: http://10.168.1.160:8000/order/cart
-    const response = await fetch(`http://10.168.1.160:8000/order/cart`);
-    const data = await response.json();
-    this.setState({ cartData: data.items_in_cart });
+  getCartData = async () => {
+    try {
+      const response = await fetchWithTimeout(`http://10.168.2.97:8000/order/cart`);
+      const data = await response.json();
+      this.setState({ cartData: data.items_in_cart });
+    } catch {
+      const response = await fetch(`data/cartdata.json`);
+      const data = await response.json();
+      let cartData = data.items_in_cart;
+      cartData = cartData.map(data => {
+        data.selected = true;
+        return data;
+      });
+
+      this.setState({ cartData: cartData });
+    }
   };
 
   componentDidMount() {
-    // getCartData()는 mockData사용하는 코드
     this.getCartData();
-    // 실제 서버 통신시 사용할 함수 아래에!
-    // this.getData();
+  }
+
+  componentDidUpdate(prevProps, _) {
+    window.scrollTo(0, 0);
   }
 
   clickOrder = () => {
-    /* 결제 페이지로 이동 및 최종 주문 정보 전달 */
     this.props.history.push("/Payment");
   };
 
   render() {
     const { cartData, packingType } = this.state;
-    const { formatPrice, discountedPrice } = this;
+    const {
+      discountedPrice,
+      clickOrder,
+      selectAll,
+      deleteSelected,
+      clickShowButton,
+      selectItem,
+      subtractItem,
+      addItem,
+      deleteItem,
+    } = this;
     const selectedAll = cartData.reduce((result, item) => (result = result && item.selected), true);
     const selectedItems = cartData.filter(item => item.selected);
     const totalPrice = Math.floor(
@@ -183,33 +226,28 @@ class ItemCart extends Component {
               <div className="top-select-box">
                 <i
                   className={`fa-check-circle ${selectedAll ? "fas purple" : "far"}`}
-                  onClick={this.selectAll}
+                  onClick={selectAll}
                 />
-                <button>전체선택</button>
-                <button onClick={this.deleteSelected}>선택삭제</button>
+                <button onClick={selectAll}>전체선택</button>
+                <button onClick={deleteSelected}>선택삭제</button>
               </div>
               <div className="cart">
                 <div className="items-in-cart">
                   {packingType.map((type, idx) => {
                     return (
                       <ul key={idx}>
-                        <CartTitleCard
-                          key={idx}
-                          type={type}
-                          clickShowButton={this.clickShowButton}
-                        />
+                        <CartTitleCard key={idx} type={type} clickShowButton={clickShowButton} />
                         {cartData.map(item => {
                           return (
                             <CartItemCard
                               key={item.id}
                               type={type}
                               item={item}
-                              selectItem={this.selectItem}
-                              subtractItem={this.subtractItem}
-                              addItem={this.addItem}
-                              deleteItem={this.deleteItem}
-                              discountedPrice={this.discountedPrice}
-                              formatPrice={formatPrice}
+                              selectItem={selectItem}
+                              subtractItem={subtractItem}
+                              addItem={addItem}
+                              deleteItem={deleteItem}
+                              discountedPrice={discountedPrice}
                             />
                           );
                         })}
@@ -221,10 +259,10 @@ class ItemCart extends Component {
               <div className="bottom-select-box">
                 <i
                   className={`fa-check-circle ${selectedAll ? "fas purple" : "far"}`}
-                  onClick={this.selectAll}
+                  onClick={selectAll}
                 />
-                <button>전체선택</button>
-                <button onClick={this.deleteSelected}>선택삭제</button>
+                <button onClick={selectAll}>전체선택</button>
+                <button onClick={deleteSelected}>선택삭제</button>
               </div>
             </div>
             <div className="cart-result">
@@ -241,41 +279,44 @@ class ItemCart extends Component {
                   <tbody>
                     <tr>
                       <th>상품금액</th>
-                      <td>{formatPrice(totalPrice)}원</td>
+                      <td>{totalPrice.toLocaleString()}원</td>
                     </tr>
                     <tr>
                       <th>상품할인금액</th>
-                      <td>-{formatPrice(totalPrice - discountedTotalPrice)}원</td>
+                      <td>-{(totalPrice - discountedTotalPrice).toLocaleString()}원</td>
                     </tr>
                     <tr>
                       <th>배송비</th>
-                      <td>{freeDelivery ? "0원" : `+${formatPrice(DELIVERY_FEE)}원`}</td>
+                      <td>{freeDelivery ? "0원" : `+${DELIVERY_FEE.toLocaleString()}원`}</td>
                     </tr>
                     <tr>
                       <td colSpan={2} className="free-deliver-guide">
                         {freeDelivery
                           ? "무료 배송"
-                          : `${formatPrice(
+                          : `${(
                               FREE_DELIVERY_THRESHOLD - discountedTotalPrice
-                            )}원 추가주문 시, 무료배송`}
+                            ).toLocaleString()}원 추가주문 시, 무료배송`}
                       </td>
                     </tr>
                     <tr className="final-price">
                       <th>결제예정금액</th>
                       <td>
-                        {formatPrice(discountedTotalPrice + (freeDelivery ? 0 : DELIVERY_FEE))}원
+                        {(
+                          discountedTotalPrice + (freeDelivery ? 0 : DELIVERY_FEE)
+                        ).toLocaleString()}
+                        원
                       </td>
                     </tr>
                     <tr>
                       <td colSpan={2} className="point-guide">
                         <span className="mileage-box">적립</span>구매 시
-                        {formatPrice(Math.floor(discountedTotalPrice * 0.005))}원 적립
+                        {Math.floor(discountedTotalPrice * 0.005).toLocaleString()}원 적립
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <button onClick={this.clickOrder}>주문하기</button>
+              <button onClick={clickOrder}>주문하기</button>
 
               <ul className="notice">
                 <li>· 쿠폰/적립금은 주문서에서 사용 가능합니다.</li>

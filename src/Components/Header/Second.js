@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
 
 export default class Second extends Component {
   render() {

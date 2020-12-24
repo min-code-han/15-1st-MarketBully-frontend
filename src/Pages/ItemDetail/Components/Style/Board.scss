@@ -1,4 +1,4 @@
-@import "../../../Styles/common.scss";
+@import "../../../../Styles/common.scss";
 
 .Board {
   margin-bottom: 100px;
@@ -28,9 +28,10 @@
       &.title {
         text-align: left;
         padding-left: 20px;
+        cursor: pointer;
 
         &:hover {
-          cursor: pointer;
+          text-decoration: underline;
         }
       }
 
@@ -59,14 +60,35 @@
       }
     }
   }
+
+  .textarea {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+    textarea {
+      width: 50%;
+      height: 200px;
+      padding: 10px;
+      resize: none;
+      outline: none;
+      font-family: "Helvetica Neue", sans-serif;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    &.hide {
+      display: none;
+    }
+  }
+
   .button-box {
-    position: relative;
+    display: flex;
+    justify-content: flex-end;
     height: 32px;
     margin: 30px 0 20px;
 
     button {
       display: block;
-      position: absolute;
       right: 0;
       width: 130px;
       height: 32px;
@@ -75,13 +97,28 @@
       color: white;
       font-weight: 600;
 
-      &:hover {
+      &.write {
+        &:hover {
+          background-color: white;
+          border: 1px solid $purple-text-color;
+          color: $purple-text-color;
+        }
+      }
+
+      &.cancel {
         border: 1px solid $purple-text-color;
         background-color: white;
         color: $purple-text-color;
       }
+      &.cancel {
+        margin-right: 10px;
+      }
+      &.hide {
+        display: none;
+      }
     }
   }
+
   .page-routing {
     display: flex;
     justify-content: center;
@@ -103,7 +140,11 @@
         width: 34px;
         height: 32px;
         border: none;
-        background-color: transparent;
+        background-color: white;
+
+        &.current-page {
+          background-color: $light-gray;
+        }
 
         &:hover {
           background-color: $light-gray;

@@ -9,6 +9,8 @@ import DetailInfo from "./Components/DetailInfo";
 import CustomerReview from "./Components/CustomerReview";
 import ItemInquire from "./Components/ItemInquire";
 import ItemDetailMenu from "./Components/ItemDetailMenu";
+import { ITEM_DETAIL_API, RELATED_PRODUCT_API, ITEM_DETAIL_MOCK } from "../../config";
+import { fetchWithTimeout } from "../../utils";
 import "./ItemDetail.scss";
 
 const MENU_COMPONENTS = {
@@ -18,7 +20,9 @@ const MENU_COMPONENTS = {
   4: CustomerReview,
   5: ItemInquire,
 };
+
 const MENU_NAME = ["ItemDescription", "ItemImage", "DetailInfo", "CustomerReview", "ItemInquire"];
+
 const DATA_ON_LOADING = {
   id: 1,
   name: "로딩 중",
@@ -35,57 +39,78 @@ const DATA_ON_LOADING = {
   expiration_date: "",
   content: "",
 };
-class ItemDetail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      itemData: DATA_ON_LOADING,
-    };
-  }
 
-  changePosition = id => {
+class ItemDetail extends Component {
+  state = {
+    itemData: DATA_ON_LOADING,
+    relatedProduct: [],
+  };
+
+  scrollToMenu = id => {
     scroller.scrollTo(MENU_NAME[id - 1], {
       duration: 500,
       smooth: true,
     });
   };
 
-  getItemDetailData = async () => {
-    const response = await fetch(`data/itemdetail.json`);
+  getMockData = async () => {
+    const response = await fetch(ITEM_DETAIL_MOCK);
     const result = await response.json();
     this.setState({ itemData: result.itemInfo });
   };
 
-  getData = async () => {
-    // 우리팀 두 번째 API + 프론트!
-    const response = await fetch(`http://10.168.2.67:8000/product/${this.props.match.params.id}`);
-    const result = await response.json();
-    this.setState({ itemData: result.product_detail });
+  getItemData = async () => {
+    try {
+      const id = this.props.match.params?.id;
+      const response = await fetch(`${ITEM_DETAIL_API}/${id}`);
+      const result = await response.json();
+      this.setState({ itemData: result.product_detail });
+      this.getRelatedProduct(result.product_detail.subcategory_id);
+    } catch {
+      this.getMockData();
+    }
+  };
+
+  getRelatedProduct = async id => {
+    try {
+      const response = await fetch(`${RELATED_PRODUCT_API}?subcategory=${id}`);
+      const data = await response.json();
+      this.setState({ relatedProduct: data.product_list });
+    } catch {
+      const response = await fetch("data/itemdata.json");
+      const data = await response.json();
+
+      this.setState({ relatedProduct: data.data });
+    }
   };
 
   componentDidMount() {
-    //this.getItemDetailData();
-    this.getData();
+    this.getItemData();
+  }
+
+  componentDidUpdate(prevProps, _) {
+    if (prevProps.match.params.id !== this.props.match.params.id) this.getItemData();
+    window.scrollTo(0, 0);
   }
 
   render() {
-    const { itemData } = this.state;
+    const { itemData, relatedProduct } = this.state;
     return (
-      <div className="ItemDetail">
+      <main className="ItemDetail">
         <div className="main-width">
           <InfoAndCartPut itemData={itemData} />
-          <RelatedProduct />
+          <RelatedProduct relatedProduct={relatedProduct} />
           {MENU_NAME.map((name, idx) => {
             const ComponentName = MENU_COMPONENTS[idx + 1];
             return (
               <div name={name} key={name}>
-                <ItemDetailMenu menuTabId={idx + 1} changePosition={this.changePosition} />
+                <ItemDetailMenu menuTabId={idx + 1} scrollToMenu={this.scrollToMenu} />
                 <ComponentName menuTabId={idx + 1} itemData={itemData} />
               </div>
             );
           })}
         </div>
-      </div>
+      </main>
     );
   }
 }

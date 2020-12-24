@@ -1,22 +1,15 @@
 import React, { Component } from "react";
+import { fetchWithTimeout } from "../../utils";
 import "./Payment.scss";
 
 const FREE_DELIVERY_THRESHOLD = 40000;
 const DELIVERY_FEE = 3000;
 const MILEAGE_PERCENTAGE = 0.005;
 class Payment extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      cartData: [],
-      payType: "",
-      agreeTerms: false,
-    };
-  }
-
-  formatPrice = price => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  state = {
+    cartData: [],
+    payType: "",
+    agreeTerms: false,
   };
 
   itemPrice = ({ price, discount_rate, quantity }) => {
@@ -40,25 +33,33 @@ class Payment extends Component {
     this.props.history.push("/Home");
   };
 
-  getMockData = async () => {
-    const response = await fetch("data/cartdata.json");
-    const data = await response.json();
-    const selectedItems = data.items_in_cart.filter(item => item.selected);
+  getData = async () => {
+    try {
+      const response = await fetchWithTimeout("http://10.168.2.97:8000/order/cart");
+      const data = await response.json();
+      const selectedItems = data.items_in_cart.filter(item => item.selected);
 
-    !selectedItems[0] && alert("빈 장바구니로 결제할 수 없습니다.");
+      !selectedItems[0] && alert("빈 장바구니로 결제할 수 없습니다.");
 
-    data.MESSAGE === "SUCCESS"
-      ? this.setState({ cartData: selectedItems })
-      : alert("장바구니 불러오기 실패!");
+      data.MESSAGE === "SUCCESS"
+        ? this.setState({ cartData: selectedItems })
+        : alert("장바구니 불러오기 실패!");
+    } catch {
+      const response = await fetch("/data/cartdata.json");
+      const data = await response.json();
+      const selectedItems = data.items_in_cart.filter(item => item.selected);
+
+      this.setState({ cartData: selectedItems });
+    }
   };
 
   componentDidMount() {
-    this.getMockData();
+    this.getData();
   }
 
   render() {
     const { cartData, payType, agreeTerms } = this.state;
-    const { formatPrice, priceEach, itemPrice, getPayType, toggleAgree, goPay } = this;
+    const { priceEach, itemPrice, getPayType, toggleAgree, goPay } = this;
     const totalPrice = Math.floor(
       cartData.reduce((acc, item) => acc + item.price * item.quantity, 0)
     );
@@ -93,12 +94,12 @@ class Payment extends Component {
                       </td>
                       <td className="item-info">
                         <span className="name">{item.name}</span>
-                        <span>{`${item.quantity}개 / 개 당 ${formatPrice(
-                          priceEach(item)
-                        )}원`}</span>
+                        <span>{`${item.quantity}개 / 개 당 ${priceEach(
+                          item
+                        ).toLocaleString()}원`}</span>
                       </td>
                       <td className="price">
-                        <span>{`${formatPrice(itemPrice(item))} 원`}</span>
+                        <span>{`${itemPrice(item).toLocaleString()} 원`}</span>
                       </td>
                     </tr>
                   );
@@ -225,38 +226,40 @@ class Payment extends Component {
                       <tbody>
                         <tr>
                           <th>상품금액</th>
-                          <td>{`${formatPrice(totalPrice)} 원`}</td>
+                          <td>{`${totalPrice.toLocaleString()} 원`}</td>
                         </tr>
                         <tr>
                           <th>상품할인금액</th>
-                          <td>{`- ${formatPrice(totalPrice - discountedTotalPrice)} 원`}</td>
+                          <td>{`- ${(totalPrice - discountedTotalPrice).toLocaleString()} 원`}</td>
                         </tr>
                         <tr>
                           <th>배송비</th>
-                          <td>{freeDelivery ? "0원" : `+${formatPrice(DELIVERY_FEE)}원`}</td>
+                          <td>{freeDelivery ? "0원" : `+${DELIVERY_FEE.toLocaleString()}원`}</td>
                         </tr>
                         <tr>
                           <td colSpan={2} className="free-deliver-guide">
                             {freeDelivery
                               ? "무료 배송"
-                              : `${formatPrice(
+                              : `${(
                                   FREE_DELIVERY_THRESHOLD - discountedTotalPrice
-                                )}원 추가주문 시, 무료배송`}
+                                ).toLocaleString()}원 추가주문 시, 무료배송`}
                           </td>
                         </tr>
                         <tr className="final-price">
                           <th>결제예정금액</th>
                           <td>
-                            {formatPrice(discountedTotalPrice + (freeDelivery ? 0 : DELIVERY_FEE))}
+                            {(
+                              discountedTotalPrice + (freeDelivery ? 0 : DELIVERY_FEE)
+                            ).toLocaleString()}
                             원
                           </td>
                         </tr>
                         <tr>
                           <td colSpan={2} className="point-guide">
                             <span className="mileage-box">적립</span>
-                            {`구매 시 ${formatPrice(
-                              Math.floor(discountedTotalPrice * MILEAGE_PERCENTAGE)
-                            )} 원 적립 (${MILEAGE_PERCENTAGE * 100}%)`}
+                            {`구매 시 ${Math.floor(
+                              discountedTotalPrice * MILEAGE_PERCENTAGE
+                            ).toLocaleString()} 원 적립 (${MILEAGE_PERCENTAGE * 100}%)`}
                           </td>
                         </tr>
                       </tbody>

@@ -5,11 +5,12 @@ import "./ItemCard.scss";
 class ItemCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      a: 1,
+    };
   }
 
   goToDetail = () => {
-    // this.props.history.push(`/ItemDetail`);
     this.props.history.push(`/ItemDetail/${this.props.id}`);
   };
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import axios from "axios";
+import { withRouter } from "react-router-dom";
+
 import NotLoginHeader from "./NotLoginHeader";
 import LoginHeader from "./LoginHeader";
 import NavBar from "./NavBar";

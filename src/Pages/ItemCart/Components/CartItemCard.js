@@ -10,7 +10,6 @@ class CartItemCard extends Component {
       subtractItem,
       deleteItem,
       discountedPrice,
-      formatPrice,
     } = this.props;
     return (
       type.show &&
@@ -35,15 +34,17 @@ class CartItemCard extends Component {
           <div className="price-box">
             <div className="price">
               {/* 할인 후 10원 이하 절삭 */}
-              {formatPrice(discountedPrice(item))}원
+              {discountedPrice(item).toLocaleString()}원
             </div>
-            <div className="price-without-sale">{formatPrice(+item.price * item.quantity)}원</div>
+            <div className="price-without-sale">
+              {(+item.price * item.quantity).toLocaleString()}원
+            </div>
           </div>
           <img
             onClick={deleteItem}
             id={item.id}
             className="delete"
-            src="images/cancel.svg"
+            src="/images/cancel.svg"
             alt="delete"
           />
         </li>

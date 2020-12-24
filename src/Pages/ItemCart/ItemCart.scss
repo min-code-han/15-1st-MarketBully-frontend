@@ -40,6 +40,7 @@
       }
       .cart {
         background-color: white;
+
         ul {
           display: flex;
           flex-direction: column;
@@ -51,24 +52,29 @@
             align-items: center;
             height: 128px;
             border-bottom: 1px solid $light-gray;
+
             &.frozen,
             &.cold,
             &.room {
               border-top: 1px solid black;
               border-bottom: none;
               height: 60px;
+
               div {
                 display: flex;
               }
+
               img {
                 width: 22px;
                 height: 22px;
                 margin: 0 10px 0 4px;
               }
+
               h2 {
                 padding-bottom: 3px;
                 font-size: 18px;
               }
+
               i {
                 color: black;
                 font-size: 18px;
@@ -85,6 +91,7 @@
               &.delete {
                 width: 14px;
                 height: 14px;
+
                 &:hover {
                   cursor: pointer;
                 }
@@ -242,6 +249,7 @@
           }
         }
       }
+
       button {
         height: 56px;
         border: none;

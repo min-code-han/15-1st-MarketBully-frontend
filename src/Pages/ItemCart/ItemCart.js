@@ -55,7 +55,7 @@ class ItemCart extends Component {
     const id = e.target.id;
     const className = e.target.className;
 
-    const response = await fetch(`http://192.168.43.34:8000${CART_API}`, {
+    const response = await fetch(`http://10.168.2.97:8000${CART_API}`, {
       method: "PATCH",
       headers: {
         Authorization: localStorage.getItem("token"),
@@ -80,7 +80,7 @@ class ItemCart extends Component {
   };
 
   deleteItem = e => {
-    fetch("http://192.168.43.34:8000/order/cart", {
+    fetch("http://10.168.2.97:8000/order/cart", {
       method: "DELETE",
       headers: {
         Authorization: localStorage.getItem("token"),
@@ -100,7 +100,7 @@ class ItemCart extends Component {
     const itemsToDelete = cartData.filter(item => item.selected);
     const idsToDelete = itemsToDelete.map(item => item.id);
     for (let idx in idsToDelete) {
-      const response = await fetch("http://192.168.43.34:8000/order/cart", {
+      const response = await fetch("http://10.168.2.97:8000/order/cart", {
         method: "DELETE",
         headers: {
           Authorization: localStorage.getItem("token"),
@@ -120,7 +120,7 @@ class ItemCart extends Component {
   };
 
   addItem = e => {
-    fetch("http://192.168.43.34:8000/order/cart", {
+    fetch("http://10.168.2.97:8000/order/cart", {
       method: "PATCH",
       headers: {
         Authorization: localStorage.getItem("token"),
@@ -137,7 +137,7 @@ class ItemCart extends Component {
   };
 
   subtractItem = e => {
-    fetch("http://192.168.43.34:8000/order/cart", {
+    fetch("http://10.168.2.97:8000/order/cart", {
       method: "PATCH",
       headers: {
         Authorization: localStorage.getItem("token"),
@@ -156,7 +156,7 @@ class ItemCart extends Component {
   updateCartSelection = () => {
     this.state.cartData.forEach(item => {
       !item.selected &&
-        fetch(`http://192.168.43.34:8000${CART_API}`, {
+        fetch(`http://10.168.2.97:8000${CART_API}`, {
           method: "PATCH",
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -171,7 +171,7 @@ class ItemCart extends Component {
     });
     this.state.cartData.forEach(item => {
       item.selected &&
-        fetch(`http://192.168.43.34:8000${CART_API}`, {
+        fetch(`http://10.168.2.97:8000${CART_API}`, {
           method: "PATCH",
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -188,7 +188,7 @@ class ItemCart extends Component {
 
   getCartData = async () => {
     try {
-      const response = await fetchWithTimeout(`http://192.168.43.34:8000/order/cart`, {
+      const response = await fetchWithTimeout(`http://10.168.2.97:8000/order/cart`, {
         method: "GET",
         headers: {
           Authorization: localStorage.getItem("token"),

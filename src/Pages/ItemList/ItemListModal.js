@@ -10,7 +10,7 @@ class ItemListModal extends Component {
   sendInfoToCart = () => {
     console.log(localStorage.getItem("token"));
     this.props.quantities !== 0 &&
-      fetch("http://192.168.43.34:8000/order/cart", {
+      fetch("http://10.168.2.97:8000/order/cart", {
         method: "POST",
         headers: {
           Authorization: localStorage.getItem("token"),

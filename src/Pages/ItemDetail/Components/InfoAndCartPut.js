@@ -26,7 +26,7 @@ class InfoAndCartPut extends Component {
       const { quantity } = this.state;
       const { itemData } = this.props;
       console.log("확인좀", itemData, quantity);
-      const response = await fetch(`http://192.168.43.34:8000/order/cart`, {
+      const response = await fetch(`http://10.168.2.97:8000/order/cart`, {
         method: "POST",
         headers: {
           Authorization: localStorage.getItem("token"),

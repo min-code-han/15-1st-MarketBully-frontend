@@ -12,5 +12,5 @@ export const INQUIRE_MOCK = "/data/inquire.json";
 export const REVIEW_BOARD_API = "/board/review/product"; // review/board/32?limit=7&offset=7
 export const INQUIRY_BOARD_API = "/board/question/product";
 export const CART_API = "/order/cart";
-export const ITEM_DETAIL_API = "http://192.168.43.34:8000/product";
-export const RELATED_PRODUCT_API = "http://192.168.43.34:8000/product";
+export const ITEM_DETAIL_API = "http://10.168.2.97:8000/product";
+export const RELATED_PRODUCT_API = "http://10.168.2.97:8000/product";

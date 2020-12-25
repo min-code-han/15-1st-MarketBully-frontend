@@ -24,7 +24,7 @@ class MDRecommand extends Component {
   };
 
   componentDidMount = () => {
-    fetch("http://192.168.43.34:8000/product/md-choice")
+    fetch("http://10.168.2.97:8000/product/md-choice")
       .then(res => res.json())
       .then(res => {
         if (res.message) {

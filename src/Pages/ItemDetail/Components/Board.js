@@ -102,7 +102,7 @@ class Board extends Component {
   openBoardContent = e => {
     /* 비밀 글은 보지 못하게 하려면 여기서 처리해야 함 */
     const { boardData } = this.state;
-    boardData.forEach(data => (data.show = data.id === +e.target.id ? !data.show : false));
+    boardData.forEach(data => (data.show = data.id === +e.target.id ? !data.show : true));
     this.setState({ boardData: boardData });
   };
 
@@ -123,17 +123,17 @@ class Board extends Component {
     const API = API_NAME[boardName];
     console.log(
       "주소 " +
-        `http://192.168.43.34:8000/board/review/product/${
+        `http://10.168.2.97:8000/board/review/product/${
           this.props.paramsid
         }?limit=${LIMIT_PER_PAGE}&offset=${page * LIMIT_PER_PAGE}`
     );
     try {
       fetch(
         boardName === "Review"
-          ? `http://192.168.43.34:8000/board/review/product/3?limit=${LIMIT_PER_PAGE}&offset=${
+          ? `http://10.168.2.97:8000/board/review/product/3?limit=${LIMIT_PER_PAGE}&offset=${
               page * LIMIT_PER_PAGE
             }`
-          : `http://192.168.43.34:8000/board/question/product/3?limit=${LIMIT_PER_PAGE}&offset=${
+          : `http://10.168.2.97:8000/board/question/product/3?limit=${LIMIT_PER_PAGE}&offset=${
               page * LIMIT_PER_PAGE
             }`
       )

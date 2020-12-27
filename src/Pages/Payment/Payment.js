@@ -35,7 +35,12 @@ class Payment extends Component {
 
   getData = async () => {
     try {
-      const response = await fetchWithTimeout("http://10.168.2.97:8000/order/cart");
+      const response = await fetchWithTimeout("http://10.168.2.97:8000/order/cart", {
+        method: "GET",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       const data = await response.json();
       const selectedItems = data.items_in_cart.filter(item => item.selected);
 

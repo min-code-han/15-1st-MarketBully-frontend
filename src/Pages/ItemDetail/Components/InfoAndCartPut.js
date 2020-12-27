@@ -23,13 +23,18 @@ class InfoAndCartPut extends Component {
 
   addToCart = async () => {
     try {
-      const { itemData, quantity } = this.state;
-      const response = await fetch(CART_API, {
+      const { quantity } = this.state;
+      const { itemData } = this.props;
+      console.log("확인좀", itemData, quantity);
+      const response = await fetch(`http://10.168.2.97:8000/order/cart`, {
         method: "POST",
-        body: {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
           product_id: itemData.id,
           quantity: quantity,
-        },
+        }),
       });
       const result = await response.json();
       alert("장바구니 추가 완료", result.MESSAGE);

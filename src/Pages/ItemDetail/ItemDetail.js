@@ -64,8 +64,10 @@ class ItemDetail extends Component {
       const id = this.props.match.params?.id;
       const response = await fetch(`${ITEM_DETAIL_API}/${id}`);
       const result = await response.json();
-      this.setState({ itemData: result.product_detail });
-      this.getRelatedProduct(result.product_detail.subcategory_id);
+      if (result.message === "SUCCESS") {
+        this.setState({ itemData: result.product_detail });
+        this.getRelatedProduct(result.product_detail.subcategory_id);
+      }
     } catch {
       this.getMockData();
     }
@@ -105,7 +107,11 @@ class ItemDetail extends Component {
             return (
               <div name={name} key={name}>
                 <ItemDetailMenu menuTabId={idx + 1} scrollToMenu={this.scrollToMenu} />
-                <ComponentName menuTabId={idx + 1} itemData={itemData} />
+                <ComponentName
+                  paramsid={this.props.match.params.id}
+                  menuTabId={idx + 1}
+                  itemData={itemData}
+                />
               </div>
             );
           })}

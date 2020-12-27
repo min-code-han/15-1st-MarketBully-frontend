@@ -48,6 +48,7 @@ class ItemCart extends Component {
           return item;
         });
     this.setState({ cartData: cartData });
+    this.updateCartSelection();
   };
 
   selectItem = async e => {
@@ -56,6 +57,9 @@ class ItemCart extends Component {
 
     const response = await fetch(`http://10.168.2.97:8000${CART_API}`, {
       method: "PATCH",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
       body: JSON.stringify({
         cart_item_id: id,
         select: className === "fa-check-circle fas purple" ? "False" : "True",
@@ -78,6 +82,9 @@ class ItemCart extends Component {
   deleteItem = e => {
     fetch("http://10.168.2.97:8000/order/cart", {
       method: "DELETE",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
       body: JSON.stringify({
         cart_item_id: e.target.id,
       }),
@@ -95,6 +102,9 @@ class ItemCart extends Component {
     for (let idx in idsToDelete) {
       const response = await fetch("http://10.168.2.97:8000/order/cart", {
         method: "DELETE",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
         body: JSON.stringify({
           cart_item_id: idsToDelete[idx],
         }),
@@ -112,6 +122,9 @@ class ItemCart extends Component {
   addItem = e => {
     fetch("http://10.168.2.97:8000/order/cart", {
       method: "PATCH",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
       body: JSON.stringify({
         cart_item_id: e.target.id,
         delta: "plus",
@@ -126,6 +139,9 @@ class ItemCart extends Component {
   subtractItem = e => {
     fetch("http://10.168.2.97:8000/order/cart", {
       method: "PATCH",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
       body: JSON.stringify({
         cart_item_id: e.target.id,
         delta: "minus",
@@ -142,6 +158,9 @@ class ItemCart extends Component {
       !item.selected &&
         fetch(`http://10.168.2.97:8000${CART_API}`, {
           method: "PATCH",
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
           body: JSON.stringify({
             cart_item_id: item.id,
             select: "False",
@@ -154,6 +173,9 @@ class ItemCart extends Component {
       item.selected &&
         fetch(`http://10.168.2.97:8000${CART_API}`, {
           method: "PATCH",
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
           body: JSON.stringify({
             cart_item_id: item.id,
             select: "True",
@@ -166,7 +188,12 @@ class ItemCart extends Component {
 
   getCartData = async () => {
     try {
-      const response = await fetchWithTimeout(`http://10.168.2.97:8000/order/cart`);
+      const response = await fetchWithTimeout(`http://10.168.2.97:8000/order/cart`, {
+        method: "GET",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       const data = await response.json();
       this.setState({ cartData: data.items_in_cart });
     } catch {
@@ -184,10 +211,6 @@ class ItemCart extends Component {
 
   componentDidMount() {
     this.getCartData();
-  }
-
-  componentDidUpdate(prevProps, _) {
-    window.scrollTo(0, 0);
   }
 
   clickOrder = () => {

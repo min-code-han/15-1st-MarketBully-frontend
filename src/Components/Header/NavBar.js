@@ -40,7 +40,7 @@ class NavBar extends Component {
   }
 
   componentDidMount = () => {
-    fetch("http://10.168.2.67:8000/product/category")
+    fetch("http://10.168.2.97:8000/product/category")
       .then(res => res.json())
       .then(res => {
         if (res.message) {

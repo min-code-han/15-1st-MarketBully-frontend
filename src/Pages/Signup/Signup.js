@@ -150,7 +150,7 @@ class Signup extends Component {
   signIn = () => {
     const { account, password, name, email, phoneNumber, adress, gender } = this.state;
 
-    fetch("http://10.168.2.91:8000/user/signup", {
+    fetch("http://10.168.2.97:8000/user/signup", {
       method: "POST",
       body: JSON.stringify({
         account: account,

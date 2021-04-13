@@ -9,21 +9,17 @@
 ## **시연영상**
 https://www.youtube.com/watch?v=iZHsbps5eIA&list=PLZTmS1zO_K1Zj4ZRa-eu3Ugt-DfGC7eXC&index=23&t=108s
 
+### 참여인원
+- 프론트엔드 : 4명
+- 백엔드 : 3명
+
 ### **Front-End 기술 스택**
 
 - HTML / CSS / JavaScript
 - React(CRA)
 - Sass
 
-### **Back-End 기술 스택**
 
-- Python
-- Django
-- CORS Header
-- Bcrypt
-- PyJWT
-- MySQL
-- AqueryTool :데이터베이스 모델링
 
 ### **협업 도구**
 
@@ -35,7 +31,7 @@ https://www.youtube.com/watch?v=iZHsbps5eIA&list=PLZTmS1zO_K1Zj4ZRa-eu3Ugt-DfGC7
 - 한민아 : [https://github.com/min-code-han](https://github.com/min-code-han)
 
 
-## **구현한 기능**
+## **내가 구현한 기능**
 
 ### **회원가입 & 로그인**
 
